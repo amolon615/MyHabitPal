@@ -11,6 +11,10 @@
 		AC33CCCA293F55C6004F1E90 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCC9293F55C6004F1E90 /* ContentView.swift */; };
 		AC33CCCC293F55C8004F1E90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC33CCCB293F55C8004F1E90 /* Assets.xcassets */; };
 		AC33CCCF293F55C8004F1E90 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC33CCCE293F55C8004F1E90 /* Preview Assets.xcassets */; };
+		AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */; };
+		AC33CCDB293F5B3B004F1E90 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDA293F5B3B004F1E90 /* DataController.swift */; };
+		AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */; };
+		AC33CCDF293F776A004F1E90 /* HabitDetailedView-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDE293F776A004F1E90 /* HabitDetailedView-View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		AC33CCC9293F55C6004F1E90 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AC33CCCB293F55C8004F1E90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC33CCCE293F55C8004F1E90 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AC33CCD8293F5B30004F1E90 /* DataController.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataController.xcdatamodel; sourceTree = "<group>"; };
+		AC33CCDA293F5B3B004F1E90 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddHabit-View.swift"; sourceTree = "<group>"; };
+		AC33CCDE293F776A004F1E90 /* HabitDetailedView-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitDetailedView-View.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,10 @@
 			children = (
 				AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
+				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
+				AC33CCDE293F776A004F1E90 /* HabitDetailedView-View.swift */,
+				AC33CCDA293F5B3B004F1E90 /* DataController.swift */,
+				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
 				AC33CCCB293F55C8004F1E90 /* Assets.xcassets */,
 				AC33CCCD293F55C8004F1E90 /* Preview Content */,
 			);
@@ -137,6 +149,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC33CCDF293F776A004F1E90 /* HabitDetailedView-View.swift in Sources */,
+				AC33CCDB293F5B3B004F1E90 /* DataController.swift in Sources */,
+				AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */,
+				AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */,
 				AC33CCCA293F55C6004F1E90 /* ContentView.swift in Sources */,
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
 			);
@@ -339,6 +355,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AC33CCD8293F5B30004F1E90 /* DataController.xcdatamodel */,
+			);
+			currentVersion = AC33CCD8293F5B30004F1E90 /* DataController.xcdatamodel */;
+			path = Habit.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AC33CCBC293F55C6004F1E90 /* Project object */;
 }
