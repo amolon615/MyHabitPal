@@ -20,10 +20,14 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            ZStack{
             List{
                 ForEach(habits, id:\.name){ habit in
-                    Text(habit.name ?? "Unknown")
+                    NavigationLink {
+                        HabitDetailedView_View(habit: habit)
+                    } label: {
+                        Text(habit.name ?? "Unknown")
+                    }
+
                 }
                 .onDelete(perform: deleteHabits)
             }
@@ -41,7 +45,6 @@ struct ContentView: View {
                 }
                 
             }
-        }
         }
         
         .sheet(isPresented: $addHabit) {

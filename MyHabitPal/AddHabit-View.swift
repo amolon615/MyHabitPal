@@ -10,82 +10,103 @@ import SwiftUI
 struct AddHabitView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
-    
+
     @State private var name = ""
     @State private var about = ""
+    
+    var addDisabled: Bool {
+        if name == "" {
+            return true
+        } else {
+            return false
+        }
+    }
  
-    @State private var trackedTime = 0
-    @State private var completedDays = 0
+
+    @State private var targetDays = 14.0
+    @State private var loggedDays = 0
     @State private var strike = 0
-    @State private var targetDays = 1
+    
+    @State private var logMinutes = false
+    @State private var loggedMinutes = 0
+    
+    @State private var infiniteHabit = false
     
     
-    let habitTypes = ["📚Study", "❤️Health", "🏅Sport" , "🧶Hobby"]
-    @State private var habitType = "❤️Health"
+    var actualDate = ""
     
     
     let completionTypes = ["⏰Track minutes", "🗓️Track days"]
-    @State private var completionType = "⏰Track days"
+    @State private var completionType = "🗓️Track days"
     
     
     
     var body: some View {
             NavigationView {
-                ZStack{
-                    VStack{
+                Form{
+                    Section{
                         TextField("Name of habit", text: $name)
                         TextField("Description", text: $about)
                         
-                        Picker("Select type of habit", selection: $habitType) {
-                            ForEach(habitTypes, id:\.self) {
-                                Text($0)
-                            }
-                        }.pickerStyle(.segmented)
-                        
-                        Picker("Select type of tracking", selection: $completionType) {
-                            ForEach(completionTypes, id:\.self) {
-                                Text($0)
-                            }
-                        }.pickerStyle(.segmented)
-                        
-                        if completionType == "⏰Track days" {
-                            VStack{
-                                Text("Select desired number of days")
-                                Stepper("Days \(targetDays)", value: $targetDays, in: 1...1000)
-                            }
-                        }
+                    } header: {
+                        Text("Give your desired habit a name.")
                     }
-                          
-                    VStack{
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            //disable addButton if no data
-                            //change color of button is disabled
-                            Button {
-                                add()
-                            } label: {
-                                Image(systemName: "plus")
-                                    .padding()
-                                    .background(.black.opacity(0.75))
-                                    .foregroundColor(.white)
-                                    .font(.title)
-                                    .clipShape(Circle())
-                                    .padding(.trailing)
-                            }
-                        }
+                    Section {
+                            Slider(value: $targetDays, in: 1...100, step: 1)
+                        Text("\(String(format: "%.0f", targetDays)) days selected")
+                            .multilineTextAlignment(.center)
+                            
+                           //add a tip, to put at least 14 days for habit forming
+                            Toggle("Log time?", isOn: $logMinutes)
+                        
+                    } header: {
+                        Text("Select target amount of days")
                     }
+                    //select an icon
+                    Section {
+                        
+                    }
+                    //select a color
+                    Section{
+                        
+                    }
+                    
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading, content: {
+                        Button("Cancel", role: .destructive){
+                            dismiss()
+                        }
+                    })
+                    ToolbarItem(placement: .bottomBar) {
+                        Button("Add habit"){
+                            add()
+                        }
+                        .frame(width: 100, height: 40)
+                        .foregroundColor(.white)
+                        .background(addDisabled ? .gray: .blue)
+                        .cornerRadius(10)
+                        .disabled(addDisabled)
+                    }
+   
                 }
         }
     }
     
     func add(){
         let newHabit = Habit(context: moc)
-        newHabit.id = UUID()
         
+        
+        let date = Date.now
+        
+        print(date)
+        
+        newHabit.id = UUID()
         newHabit.name = name
         newHabit.about = about
         newHabit.completionType = completionType
+        newHabit.loggedDays = Int32(loggedDays)
+        newHabit.actualDate = actualDate
         newHabit.strike = Int32(strike)
         
         try? moc.save()

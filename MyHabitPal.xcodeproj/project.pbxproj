@@ -14,7 +14,7 @@
 		AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */; };
 		AC33CCDB293F5B3B004F1E90 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDA293F5B3B004F1E90 /* DataController.swift */; };
 		AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */; };
-		AC33CCDF293F776A004F1E90 /* HabitDetailedView-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDE293F776A004F1E90 /* HabitDetailedView-View.swift */; };
+		AC33CCDF293F776A004F1E90 /* LogHabit-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,7 @@
 		AC33CCD8293F5B30004F1E90 /* DataController.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataController.xcdatamodel; sourceTree = "<group>"; };
 		AC33CCDA293F5B3B004F1E90 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddHabit-View.swift"; sourceTree = "<group>"; };
-		AC33CCDE293F776A004F1E90 /* HabitDetailedView-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HabitDetailedView-View.swift"; sourceTree = "<group>"; };
+		AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogHabit-View.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 				AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
 				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
-				AC33CCDE293F776A004F1E90 /* HabitDetailedView-View.swift */,
+				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
 				AC33CCDA293F5B3B004F1E90 /* DataController.swift */,
 				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
 				AC33CCCB293F55C8004F1E90 /* Assets.xcassets */,
@@ -149,7 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC33CCDF293F776A004F1E90 /* HabitDetailedView-View.swift in Sources */,
+				AC33CCDF293F776A004F1E90 /* LogHabit-View.swift in Sources */,
 				AC33CCDB293F5B3B004F1E90 /* DataController.swift in Sources */,
 				AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */,
 				AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */,
