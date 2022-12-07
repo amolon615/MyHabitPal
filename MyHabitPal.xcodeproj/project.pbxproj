@@ -15,6 +15,7 @@
 		AC33CCDB293F5B3B004F1E90 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDA293F5B3B004F1E90 /* DataController.swift */; };
 		AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */; };
 		AC33CCDF293F776A004F1E90 /* LogHabit-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */; };
+		AC33CCF12940015D004F1E90 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = AC33CCF02940015D004F1E90 /* SFSymbolsPicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC33CCF12940015D004F1E90 /* SFSymbolsPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +97,9 @@
 			dependencies = (
 			);
 			name = MyHabitPal;
+			packageProductDependencies = (
+				AC33CCF02940015D004F1E90 /* SFSymbolsPicker */,
+			);
 			productName = MyHabitPal;
 			productReference = AC33CCC4293F55C6004F1E90 /* MyHabitPal.app */;
 			productType = "com.apple.product-type.application";
@@ -123,6 +128,9 @@
 				Base,
 			);
 			mainGroup = AC33CCBB293F55C6004F1E90;
+			packageReferences = (
+				AC33CCEF2940015D004F1E90 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */,
+			);
 			productRefGroup = AC33CCC5293F55C6004F1E90 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -355,6 +363,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AC33CCEF2940015D004F1E90 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amolon615/SFSymbolsPickerForSwiftUI";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AC33CCF02940015D004F1E90 /* SFSymbolsPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC33CCEF2940015D004F1E90 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */;
+			productName = SFSymbolsPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */ = {

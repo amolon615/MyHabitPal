@@ -25,7 +25,10 @@ struct ContentView: View {
                     NavigationLink {
                         HabitDetailedView_View(habit: habit)
                     } label: {
-                        Text(habit.name ?? "Unknown")
+                        HStack{
+                            Image(systemName: habit.habitIcon ?? "star")
+                            Text(habit.name ?? "Unknown")
+                        }
                     }
 
                 }

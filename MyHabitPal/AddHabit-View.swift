@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SFSymbolsPicker
 
 struct AddHabitView: View {
     @Environment(\.managedObjectContext) var moc
@@ -22,13 +23,21 @@ struct AddHabitView: View {
         }
     }
  
+    @State private var habitIcon = ""
+    @State private var iconPicker = false
+    
+    @State private var habitColor = Color.red
 
     @State private var targetDays = 14.0
     @State private var loggedDays = 0
-    @State private var strike = 0
+    @State private var currentStreak = 0
+    @State private var maxStreak = 0
     
+    //timer block
     @State private var logMinutes = false
+    @State private var loggedHours = 0
     @State private var loggedMinutes = 0
+    @State private var loggedSeconds = 0
     
     @State private var infiniteHabit = false
     
@@ -50,6 +59,7 @@ struct AddHabitView: View {
                         
                     } header: {
                         Text("Give your desired habit a name.")
+                            .foregroundColor(.blue)
                     }
                     Section {
                             Slider(value: $targetDays, in: 1...100, step: 1)
@@ -64,10 +74,28 @@ struct AddHabitView: View {
                     }
                     //select an icon
                     Section {
+                        Button(action: {
+                                    withAnimation {
+                                        iconPicker.toggle()
+                                    }
+                                }, label: {
+                                    HStack {
+                                        Text("Select icon")
+                                        Spacer()
+                                        Image(systemName: habitIcon)
+                                    }
+                                })
+                                
+                                SFSymbolsPicker(isPresented: $iconPicker, icon: $habitIcon, category: .habit, axis: .vertical, haptic: true)
                         
+                    } header: {
+                        Text("Customise your experience")
                     }
                     //select a color
                     Section{
+                        ColorPicker("Set the color", selection: $habitColor)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
                         
                     }
                     
@@ -90,6 +118,7 @@ struct AddHabitView: View {
                     }
    
                 }
+               
         }
     }
     
@@ -107,7 +136,13 @@ struct AddHabitView: View {
         newHabit.completionType = completionType
         newHabit.loggedDays = Int32(loggedDays)
         newHabit.actualDate = actualDate
-        newHabit.strike = Int32(strike)
+        newHabit.currentStreak = Int32(currentStreak)
+        newHabit.habitIcon = habitIcon
+        newHabit.maxStreak = Int32(maxStreak)
+        newHabit.logMinutes = logMinutes
+        newHabit.loggedHours = Int32(loggedHours)
+        newHabit.loggedMinutes = Int32(loggedMinutes)
+        newHabit.loggedSeconds = Int32(loggedSeconds)
         
         try? moc.save()
         dismiss()
