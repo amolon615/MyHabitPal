@@ -26,7 +26,7 @@ struct AddHabitView: View {
     @State private var habitIcon = ""
     @State private var iconPicker = false
     
-    @State private var habitColor = Color.red
+    @State private var habitColor = Color.blue
 
     @State private var targetDays = 14.0
     @State private var loggedDays = 0
@@ -59,7 +59,7 @@ struct AddHabitView: View {
                         
                     } header: {
                         Text("Give your desired habit a name.")
-                            .foregroundColor(.blue)
+                           
                     }
                     Section {
                             Slider(value: $targetDays, in: 1...100, step: 1)
@@ -93,7 +93,7 @@ struct AddHabitView: View {
                     }
                     //select a color
                     Section{
-                        ColorPicker("Set the color", selection: $habitColor)
+                        ColorPicker("Select color", selection: $habitColor)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
                         
@@ -118,13 +118,12 @@ struct AddHabitView: View {
                     }
    
                 }
-               
         }
     }
     
     func add(){
         let newHabit = Habit(context: moc)
-        
+        let color = UIColor(habitColor)
         
         let date = Date.now
         
@@ -143,6 +142,7 @@ struct AddHabitView: View {
         newHabit.loggedHours = Int32(loggedHours)
         newHabit.loggedMinutes = Int32(loggedMinutes)
         newHabit.loggedSeconds = Int32(loggedSeconds)
+        newHabit.habitColor = color
         
         try? moc.save()
         dismiss()

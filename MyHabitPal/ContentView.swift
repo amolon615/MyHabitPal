@@ -25,9 +25,12 @@ struct ContentView: View {
                     NavigationLink {
                         HabitDetailedView_View(habit: habit)
                     } label: {
-                        HStack{
-                            Image(systemName: habit.habitIcon ?? "star")
-                            Text(habit.name ?? "Unknown")
+                        VStack{
+                            HStack{
+                                Image(systemName: habit.habitIcon ?? "star")
+                                Text(habit.name ?? "Unknown")
+                            }
+                                CompletionView_View(habit: habit)
                         }
                     }
 
@@ -35,6 +38,7 @@ struct ContentView: View {
                 .onDelete(perform: deleteHabits)
             }
             .navigationTitle("myHabitPal")
+            
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
@@ -43,7 +47,7 @@ struct ContentView: View {
                     Button {
                         addHabit = true
                     } label: {
-                        Image(systemName: "plus")
+                        Image(systemName: "plus.circle.fill")
                     }
                 }
                 

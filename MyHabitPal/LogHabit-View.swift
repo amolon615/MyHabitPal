@@ -85,19 +85,19 @@ struct HabitDetailedView_View: View {
                             Text("Start")
                         }
                         
-                        Button(action: stopTimer) {
-                            Text("Stop")
-                        }
-                        
-                        Button(action: resumeTimer) {
-                            Text("Resume")
-                        }
-                        Button("Save time"){
+                        Button {
+                            stopTimer()
                             habit.loggedMinutes = Int32(minutes)
                             habit.loggedSeconds = Int32(seconds)
                             habit.loggedHours = Int32(hours)
                             print("time was successfully saved")
                             try? moc.save()
+                        } label : {
+                            Text("Stop")
+                        }
+                        
+                        Button(action: resumeTimer) {
+                            Text("Resume")
                         }
                     }
                 }
@@ -149,8 +149,6 @@ struct HabitDetailedView_View: View {
         startTimer()
     }
     }
-
-
 
 
 
