@@ -26,7 +26,12 @@ struct AddHabitView: View {
     @State private var habitIcon = ""
     @State private var iconPicker = false
     
-    @State private var habitColor = Color.blue
+    @State private var habitColor = Color(red: 0.5, green: 0.5, blue: 0.5)
+    
+    @State var colorRed = 0.4
+    @State var colorGreen = 0.83
+    @State var colorBlue = 1.0
+    
 
     @State private var targetDays = 14.0
     @State private var loggedDays = 0
@@ -95,8 +100,9 @@ struct AddHabitView: View {
                     Section{
                         ColorPicker("Select color", selection: $habitColor)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-                        
+                    }
+                    .onChange(of: habitColor) {newValue in
+                        //
                     }
                     
                 }
@@ -123,7 +129,6 @@ struct AddHabitView: View {
     
     func add(){
         let newHabit = Habit(context: moc)
-        let color = UIColor(habitColor)
         
         let date = Date.now
         
@@ -142,7 +147,7 @@ struct AddHabitView: View {
         newHabit.loggedHours = Int32(loggedHours)
         newHabit.loggedMinutes = Int32(loggedMinutes)
         newHabit.loggedSeconds = Int32(loggedSeconds)
-        newHabit.habitColor = color
+
         
         try? moc.save()
         dismiss()

@@ -25,17 +25,25 @@ struct RoundedRectangleGrid: View {
     
     var body: some View {
         VStack{
-            HStack {
-                ForEach(0..<columns, id: \.self) { column in
-                    VStack {
-                        ForEach(0..<self.rows, id: \.self) { row in
-                            RoundedRectangle(cornerRadius: 3)
-                                .frame(width: self.size.width, height: self.size.height)
-                                .shadow(radius: 5)
-                                .foregroundColor(self.colorForRectangle(row: row, column: column))
+            VStack{
+                HStack {
+                    ForEach(0..<columns, id: \.self) { column in
+                        VStack {
+                            ForEach(0..<self.rows, id: \.self) { row in
+                                RoundedRectangle(cornerRadius: 3)
+                                    .frame(width: self.size.width, height: self.size.height)
+                                    .shadow(radius: 5)
+                                    .foregroundColor(self.colorForRectangle(row: row, column: column))
+                            }
                         }
                     }
                 }
+            }
+            Button("+"){
+                variable += 1
+            }
+            Button("-"){
+                variable -= 1
             }
         }
         }

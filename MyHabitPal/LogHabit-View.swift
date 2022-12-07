@@ -56,6 +56,7 @@ struct HabitDetailedView_View: View {
    
                     habit.loggedDays += 1
                     habit.name = habit.name
+                    //create new variable to store yesterdays date
                     habit.actualDate = logDate
                     
                     disableButton = true
