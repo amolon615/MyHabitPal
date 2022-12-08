@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import CoreData
 
 struct HabitDetailedView_View: View {
     
@@ -18,6 +19,12 @@ struct HabitDetailedView_View: View {
     @State private var minutes = 0
     @State private var seconds = 0
     @State private var timer: Timer?
+    
+    
+    @State private var startDisabled = false
+    @State private var pauseDisabled = true
+    @State private var resumeDisabled = true
+    
     
     
     @FetchRequest(sortDescriptors: [
@@ -46,88 +53,144 @@ struct HabitDetailedView_View: View {
     
     
     var body: some View {
-        NavigationView{
-            VStack {
-                    Text(habit.name ?? "unknown habit")
-                    Text("\(habit.loggedDays)")
-                    Text("\(minutes) \(seconds) logged today")
-                    Text(disableMessage)
-                Button("Log an activity today") {
-   
-                    habit.loggedDays += 1
-                    habit.name = habit.name
-                    //create new variable to store yesterdays date
-                    habit.actualDate = logDate
-                    
-                    disableButton = true
-                    
-                    
-//                    if habit.currentStreak == 0 {
-//                        habit.currentStreak += 1
-//                        habit.maxStreak = habit.currentStreak
-//                        print("Today's streak is \(habit.currentStreak)")
-//                    } else {
-//                        habit.currentStreak = 0
-//                        print("streak was destroyed")
-//                        print("Max streak was \(habit.maxStreak)")
-//                    }
-  
-                    try? moc.save()
-//                    dismiss()
-                    //disable button if today was completed
-                }
-                .disabled(disableButton)
-                if habit.logMinutes {
-                    VStack {
-                        Text("\(minutes):\(seconds)")
-                            .font(.largeTitle)
+        ZStack {
+            RadialGradient(stops: [
+                .init(color: Color(red: CGFloat(1.0 - habit.colorRed), green: CGFloat(1.0 - habit.colorGreen), blue: CGFloat(1.0 - habit.colorRed)), location: 0.3),
+                .init(color: Color(red: CGFloat(habit.colorRed + 0.2), green: CGFloat(habit.colorGreen + 0.2), blue: CGFloat(habit.colorBlue + 0.2)), location: 0.3),
+            ], center: .center, startRadius: 100, endRadius: 400)
+            .ignoresSafeArea()
+            
+ 
+                        VStack{
+                     
+                            Image(systemName: habit.habitIcon ?? "star")
+                                .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed)))
+                                .font(.system(size: 70))
+                                .padding()
+                            Text(habit.name ?? "unknown habit")
+
+                                HStack{
+                                    Text("Days logged")
+                                    Text("\(habit.loggedDays)")
+                                        
+                                }
+                                if habit.logMinutes == true {
+                                    Text("\(minutes) minutes & \(seconds) seconds logged today.")
+                                }
+                            
                         
-                        Button(action: startTimer) {
-                            Text("Start")
+                            VStack {
+                                   Button("Log an activity today") {
+                                       withAnimation(){
+                                           
+                                           habit.loggedDays += 1
+                                           habit.name = habit.name
+                                           //create new variable to store yesterdays date
+                                           habit.actualDate = logDate
+                                           
+                                           disableButton = true
+                                           try? moc.save()
+                                       }
+                                }
+                                   .frame(width: 200, height: 60)
+                                   .foregroundColor(.white)
+                                   .background(disableButton ? .gray: .blue)
+                                   .cornerRadius(10)
+                                   .disabled(disableButton)
+                                  
+                                
+                                //if user added timer tracking
+                                if habit.logMinutes {
+                                    VStack {
+                                        Text("\(minutes):\(seconds)")
+                                            .font(.largeTitle)
+                                        HStack{
+                                            Button {
+                                                startTimer()
+                                                startDisabled = true  //disabling start button
+                                                pauseDisabled = false   //enabling pause button
+                                                resumeDisabled = true  //disabling resume button
+                                                
+                                            } label: {  Text("Start")
+                                            }
+                                            .disabled(startDisabled)
+                                            .frame(width: 70, height: 70)
+                                            .foregroundColor(.white)
+                                            .background(startDisabled ? .gray: .blue)
+                                            .cornerRadius(10)
+                                            
+                                            Button {
+                                                stopTimer()
+                                                
+                                                startDisabled = true
+                                                pauseDisabled = true
+                                                resumeDisabled = false
+                                                
+                                                habit.loggedMinutes = Int32(minutes)
+                                                habit.loggedSeconds = Int32(seconds)
+                                                
+                                                try? moc.save()
+                                                
+                                                print("time was successfully saved")
+                                            } label : {
+                                                Text("Pause")
+                                            }
+                                            .disabled(pauseDisabled)
+                                            .frame(width: 70, height: 70)
+                                            .foregroundColor(.white)
+                                            .background(pauseDisabled ? .gray: .blue)
+                                            .cornerRadius(10)
+                                            
+                                            Button {
+                                                resumeTimer()
+                                                
+                                                startDisabled = true
+                                                pauseDisabled = false
+                                                resumeDisabled = true
+                                                
+                                            }label:{   Text("Resume")
+                                            }
+                                            .frame(width: 70, height: 70)
+                                            .foregroundColor(.white)
+                                            .background(resumeDisabled ? .gray: .blue)
+                                            .cornerRadius(10)
+                                            .disabled(resumeDisabled)
+                                           
+                                        }
+                                    }
+                                }
+                            }
                         }
-                        
-                        Button {
-                            stopTimer()
-                            habit.loggedMinutes = Int32(minutes)
-                            habit.loggedSeconds = Int32(seconds)
-                            habit.loggedHours = Int32(hours)
-                            print("time was successfully saved")
-                            try? moc.save()
-                        } label : {
-                            Text("Stop")
-                        }
-                        
-                        Button(action: resumeTimer) {
-                            Text("Resume")
-                        }
+                        .padding()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding(.vertical, 20)
+                        .background(.thinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .ignoresSafeArea()
+                        .onAppear {
+                    minutes = Int(habit.loggedMinutes)
+                    seconds = Int(habit.loggedSeconds)
+                    
+    //disabling button after logging day
+                    if logDate == habit.actualDate! {
+                        disableButton = true
+                        disableMessage = "You've already logged your habit today! Come back tomorrow!"
+                        print("Log button was disabled")
+                        print("Today's date is \(logDate)")
+                        print("Yesterday's date was \(habit.actualDate!)")
+
+                    } else {
+                        disableButton = false
+                        disableMessage = ""
+                        print("Log button was enabled")
+                        print("Today's date is \(logDate)")
+                        print("Yesterday's date was \(habit.actualDate!)")
                     }
                 }
-                
-            }
-            .onAppear {
-                minutes = Int(habit.loggedMinutes)
-                seconds = Int(habit.loggedSeconds)
-                
-                
-                if logDate == habit.actualDate! {
-                    disableButton = true
-                    disableMessage = "You've already logged your habit today! Come back tomorrow!"
-                    print("Log button was disabled")
-                    print("Today's date is \(logDate)")
-                    print("Yesterday's date was \(habit.actualDate!)")
-
-                } else {
-                    disableButton = false
-                    disableMessage = ""
-                    print("Log button was enabled")
-                    print("Today's date is \(logDate)")
-                    print("Yesterday's date was \(habit.actualDate!)")
-                }
-            }
-           
-            }
+               
+        }
+        
             
-            .navigationTitle(habit.name ?? "unknown")
         }
     
     func startTimer() {
@@ -149,7 +212,7 @@ struct HabitDetailedView_View: View {
     func resumeTimer() {
         startTimer()
     }
-    }
+}
 
 
 

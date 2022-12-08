@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SFSymbolsPicker
+import CoreData
 
 struct AddHabitView: View {
     @Environment(\.managedObjectContext) var moc
@@ -26,11 +27,14 @@ struct AddHabitView: View {
     @State private var habitIcon = ""
     @State private var iconPicker = false
     
-    @State private var habitColor = Color(red: 0.5, green: 0.5, blue: 0.5)
+
     
-    @State var colorRed = 0.4
-    @State var colorGreen = 0.83
-    @State var colorBlue = 1.0
+    @State private var myColor = Color(.sRGB, red:0.4, green: 0.3, blue: 0.4)
+    
+    @State var cgcolorRed: CGFloat = 0.0
+    @State var cgcolorGreen: CGFloat  = 0.0
+    @State var cgcolorBlue: CGFloat = 0.0
+    
     
 
     @State private var targetDays = 14.0
@@ -88,23 +92,18 @@ struct AddHabitView: View {
                                         Text("Select icon")
                                         Spacer()
                                         Image(systemName: habitIcon)
+                                           
                                     }
                                 })
+                   
                                 
                                 SFSymbolsPicker(isPresented: $iconPicker, icon: $habitIcon, category: .habit, axis: .vertical, haptic: true)
+                        ColorPicker("Select color", selection: $myColor)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                         
                     } header: {
                         Text("Customise your experience")
-                    }
-                    //select a color
-                    Section{
-                        ColorPicker("Select color", selection: $habitColor)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                    .onChange(of: habitColor) {newValue in
-                        //
-                    }
-                    
+                    }               
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading, content: {
@@ -132,6 +131,7 @@ struct AddHabitView: View {
         
         let date = Date.now
         
+        let pickedColor = UIColor(myColor)
         print(date)
         
         newHabit.id = UUID()
@@ -147,6 +147,11 @@ struct AddHabitView: View {
         newHabit.loggedHours = Int32(loggedHours)
         newHabit.loggedMinutes = Int32(loggedMinutes)
         newHabit.loggedSeconds = Int32(loggedSeconds)
+        
+        newHabit.colorRed = Float(pickedColor.components.red)
+        newHabit.colorBlue = Float(pickedColor.components.blue)
+        newHabit.colorGreen = Float(pickedColor.components.green)
+        newHabit.colorAlpha = Float(pickedColor.components.alpha)
 
         
         try? moc.save()

@@ -36,9 +36,12 @@ struct CompletionView_View: View {
     
     func colorForRectangle(row: Int, column: Int) -> Color {
         
+        let rectColor = Color (.sRGB, red:CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue))
+        
+        
         let index = (column * rows) + row
         if index <= habit.loggedDays {
-            return .blue
+            return rectColor
         } else {
             return .gray
         }

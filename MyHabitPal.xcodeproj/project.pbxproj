@@ -18,8 +18,8 @@
 		AC33CCF12940015D004F1E90 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = AC33CCF02940015D004F1E90 /* SFSymbolsPicker */; };
 		AC33CCF52940DBEB004F1E90 /* Completions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCF42940DBEB004F1E90 /* Completions.swift */; };
 		AC33CCF72940EDEF004F1E90 /* CompletionView-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */; };
-		AC33CD1329414BD8004F1E90 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1229414BD8004F1E90 /* Animation.swift */; };
 		AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1429424326004F1E90 /* Settings-View.swift */; };
+		AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,8 +34,8 @@
 		AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogHabit-View.swift"; sourceTree = "<group>"; };
 		AC33CCF42940DBEB004F1E90 /* Completions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completions.swift; sourceTree = "<group>"; };
 		AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletionView-View.swift"; sourceTree = "<group>"; };
-		AC33CD1229414BD8004F1E90 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		AC33CD1429424326004F1E90 /* Settings-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings-View.swift"; sourceTree = "<group>"; };
+		AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker_saver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,11 +71,10 @@
 			children = (
 				AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
-				AC33CD1429424326004F1E90 /* Settings-View.swift */,
-				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
-				AC33CD1229414BD8004F1E90 /* Animation.swift */,
-				AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */,
 				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
+				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
+				AC33CD1B29429426004F1E90 /* Utility */,
+				AC33CD1429424326004F1E90 /* Settings-View.swift */,
 				AC33CCDA293F5B3B004F1E90 /* DataController.swift */,
 				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
 				AC33CCCB293F55C8004F1E90 /* Assets.xcassets */,
@@ -91,6 +90,15 @@
 				AC33CCCE293F55C8004F1E90 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AC33CD1B29429426004F1E90 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */,
+				AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,8 +185,8 @@
 				AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */,
 				AC33CCF52940DBEB004F1E90 /* Completions.swift in Sources */,
 				AC33CCCA293F55C6004F1E90 /* ContentView.swift in Sources */,
-				AC33CD1329414BD8004F1E90 /* Animation.swift in Sources */,
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
+				AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 
 
@@ -15,17 +16,11 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.name)
     ]) var habits: FetchedResults<Habit>
-    
  
-    
-    
-    
     @State private var addHabit = false
     @State private var showSettings = false
-    
+
     var body: some View {
-        ZStack{
-            VStack{
                 NavigationView{
                     List{
                         ForEach(habits, id:\.name){ habit in
@@ -35,7 +30,10 @@ struct ContentView: View {
                                 VStack{
                                     HStack{
                                         Image(systemName: habit.habitIcon ?? "star")
+                                            .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue)))
+                                            
                                         Text(habit.name ?? "Unknown")
+                                        Spacer()
                                     }
                                         CompletionView_View(habit: habit)
                                 }
@@ -48,45 +46,29 @@ struct ContentView: View {
                     
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            EditButton()
-                        }
-                        ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
                                 showSettings = true
                             } label: {
                                 Image(systemName: "gear")
                             }
                         }
-                        
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                               addHabit = true
+                            } label: {
+                                Image(systemName: "plus.circle")
+                            }
+                        }
                     }
-                    
-                    
                 }
-                Spacer()
-                HStack{
-                    Spacer()
-                    Button("Add habit"){
-                        addHabit = true
-                    }
-                    .frame(width: 300, height: 45)
-                    .foregroundColor(.white)
-                    .background(.blue)
-                    .cornerRadius(10)
-                    Spacer()
-                }
-                
-            }
-        }
-        
-
-        
-        
+  
         .sheet(isPresented: $addHabit) {
             AddHabitView()
         }
         .sheet(isPresented: $showSettings) {
             Settings_View()
         }
+       
         
     }
     
