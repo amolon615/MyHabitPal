@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
     
@@ -14,49 +16,78 @@ struct ContentView: View {
         SortDescriptor(\.name)
     ]) var habits: FetchedResults<Habit>
     
+ 
+    
     
     
     @State private var addHabit = false
+    @State private var showSettings = false
     
     var body: some View {
-        NavigationView{
-            List{
-                ForEach(habits, id:\.name){ habit in
-                    NavigationLink {
-                        HabitDetailedView_View(habit: habit)
-                    } label: {
-                        VStack{
-                            HStack{
-                                Image(systemName: habit.habitIcon ?? "star")
-                                Text(habit.name ?? "Unknown")
+        ZStack{
+            VStack{
+                NavigationView{
+                    List{
+                        ForEach(habits, id:\.name){ habit in
+                            NavigationLink {
+                                HabitDetailedView_View(habit: habit)
+                            } label: {
+                                VStack{
+                                    HStack{
+                                        Image(systemName: habit.habitIcon ?? "star")
+                                        Text(habit.name ?? "Unknown")
+                                    }
+                                        CompletionView_View(habit: habit)
+                                }
                             }
-                                CompletionView_View(habit: habit)
-                        }
-                    }
 
-                }
-                .onDelete(perform: deleteHabits)
-            }
-            .navigationTitle("myHabitPal")
-            
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    EditButton()
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        addHabit = true
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
+                        }
+                        .onDelete(perform: deleteHabits)
                     }
+                    .navigationTitle("myHabitPal")
+                    
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            EditButton()
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                showSettings = true
+                            } label: {
+                                Image(systemName: "gear")
+                            }
+                        }
+                        
+                    }
+                    
+                    
+                }
+                Spacer()
+                HStack{
+                    Spacer()
+                    Button("Add habit"){
+                        addHabit = true
+                    }
+                    .frame(width: 300, height: 45)
+                    .foregroundColor(.white)
+                    .background(.blue)
+                    .cornerRadius(10)
+                    Spacer()
                 }
                 
             }
         }
         
+
+        
+        
         .sheet(isPresented: $addHabit) {
             AddHabitView()
         }
+        .sheet(isPresented: $showSettings) {
+            Settings_View()
+        }
+        
     }
     
     func deleteHabits(at offsets: IndexSet) {

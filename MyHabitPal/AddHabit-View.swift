@@ -113,10 +113,10 @@ struct AddHabitView: View {
                         }
                     })
                     ToolbarItem(placement: .bottomBar) {
-                        Button("Add habit"){
+                        Button("Start habit"){
                             add()
                         }
-                        .frame(width: 100, height: 40)
+                        .frame(width: 300, height: 45)
                         .foregroundColor(.white)
                         .background(addDisabled ? .gray: .blue)
                         .cornerRadius(10)
