@@ -24,7 +24,7 @@ struct AddHabitView: View {
         }
     }
  
-    @State private var habitIcon = ""
+    @State private var habitIcon = "star"
     @State private var iconPicker = false
     
 
@@ -65,22 +65,23 @@ struct AddHabitView: View {
                     Section{
                         TextField("Name of habit", text: $name)
                         TextField("Description", text: $about)
+                        Toggle("Log time?", isOn: $logMinutes)
                         
                     } header: {
                         Text("Give your desired habit a name.")
                            
                     }
-                    Section {
-                            Slider(value: $targetDays, in: 1...100, step: 1)
-                        Text("\(String(format: "%.0f", targetDays)) days selected")
-                            .multilineTextAlignment(.center)
-                            
-                           //add a tip, to put at least 14 days for habit forming
-                            Toggle("Log time?", isOn: $logMinutes)
-                        
-                    } header: {
-                        Text("Select target amount of days")
-                    }
+//                    Section {
+//                            Slider(value: $targetDays, in: 1...100, step: 1)
+//                        Text("\(String(format: "%.0f", targetDays)) days selected")
+//                            .multilineTextAlignment(.center)
+//
+//                           //add a tip, to put at least 14 days for habit forming
+//
+//
+//                    } header: {
+//                        Text("Select target amount of days")
+//                    }
                     //select an icon
                     Section {
                         Button(action: {
@@ -90,8 +91,9 @@ struct AddHabitView: View {
                                 }, label: {
                                     HStack {
                                         Text("Select icon")
+                                            .foregroundColor(.black)
                                         Spacer()
-                                        Image(systemName: habitIcon)
+                                        Image(systemName: habitIcon )
                                            
                                     }
                                 })
@@ -107,7 +109,7 @@ struct AddHabitView: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading, content: {
-                        Button("Cancel", role: .destructive){
+                        Button("Cancel", role: .cancel){
                             dismiss()
                         }
                     })

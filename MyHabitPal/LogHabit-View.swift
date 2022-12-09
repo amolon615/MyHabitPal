@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 import CoreData
+import ConfettiSwiftUI
 
 struct HabitDetailedView_View: View {
     
@@ -25,6 +26,11 @@ struct HabitDetailedView_View: View {
     @State private var pauseDisabled = true
     @State private var resumeDisabled = true
     
+    @State private var gradIn = false
+    @State private var gradOut = false
+    
+    
+    @State private var confetti: Int = 0
     
     
     @FetchRequest(sortDescriptors: [
@@ -36,6 +42,7 @@ struct HabitDetailedView_View: View {
 
     @State var disableButton = true
     @State var disableMessage = ""
+    
     
     
     
@@ -55,9 +62,15 @@ struct HabitDetailedView_View: View {
     var body: some View {
         ZStack {
             RadialGradient(stops: [
-                .init(color: Color(red: CGFloat(1.0 - habit.colorRed), green: CGFloat(1.0 - habit.colorGreen), blue: CGFloat(1.0 - habit.colorRed)), location: 0.3),
-                .init(color: Color(red: CGFloat(habit.colorRed + 0.2), green: CGFloat(habit.colorGreen + 0.2), blue: CGFloat(habit.colorBlue + 0.2)), location: 0.3),
-            ], center: .center, startRadius: 100, endRadius: 400)
+                .init(color: Color(red: CGFloat(gradIn ? (1.0 - habit.colorRed) : (habit.colorRed)), green: CGFloat(gradIn ? (1.0 - habit.colorGreen): habit.colorGreen), blue: CGFloat(gradIn ? (1.0 - habit.colorBlue): habit.colorBlue)), location: 0.3),
+                .init(color: Color(red: CGFloat(gradOut ? (habit.colorRed + 0.2) : habit.colorRed), green: CGFloat(gradOut ? (habit.colorGreen + 0.2) : habit.colorGreen), blue: CGFloat(gradOut ? (habit.colorBlue + 0.2) : habit.colorBlue)), location: 0.3),
+            ], center: .center, startRadius: 250, endRadius: 400)
+            .onAppear {
+                withAnimation(Animation.linear(duration: 5.0).repeatForever()) {
+                    gradIn.toggle()
+                    gradOut.toggle()
+                }
+            }
             .ignoresSafeArea()
             
  
@@ -75,7 +88,10 @@ struct HabitDetailedView_View: View {
                                         
                                 }
                                 if habit.logMinutes == true {
-                                    Text("\(minutes) minutes & \(seconds) seconds logged today.")
+                                    HStack{
+                                        Text("\(minutes) minutes logged today.")
+                                        Text("\(seconds) logged today.")
+                                    }
                                 }
                             
                         
@@ -90,6 +106,8 @@ struct HabitDetailedView_View: View {
                                            
                                            disableButton = true
                                            try? moc.save()
+                                           
+                                           confetti += 1
                                        }
                                 }
                                    .frame(width: 200, height: 60)
@@ -190,7 +208,7 @@ struct HabitDetailedView_View: View {
                
         }
         
-            
+        .confettiCannon(counter: $confetti)
         }
     
     func startTimer() {

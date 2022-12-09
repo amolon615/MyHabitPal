@@ -60,16 +60,14 @@ struct ContentView: View {
                             }
                         }
                     }
+                    .sheet(isPresented: $addHabit) {
+                        AddHabitView()
+                    }
+                    .sheet(isPresented: $showSettings) {
+                        Settings_View()
+                    }
                 }
-  
-        .sheet(isPresented: $addHabit) {
-            AddHabitView()
-        }
-        .sheet(isPresented: $showSettings) {
-            Settings_View()
-        }
-       
-        
+         
     }
     
     func deleteHabits(at offsets: IndexSet) {
