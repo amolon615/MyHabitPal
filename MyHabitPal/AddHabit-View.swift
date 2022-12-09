@@ -48,85 +48,131 @@ struct AddHabitView: View {
     @State private var loggedMinutes = 0
     @State private var loggedSeconds = 0
     
-    @State private var infiniteHabit = false
     
     
     var actualDate = ""
     
     
-    let completionTypes = ["⏰Track minutes", "🗓️Track days"]
-    @State private var completionType = "🗓️Track days"
+    func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
+        self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
+    }
     
-    
+    @State private var progress: CGFloat = 0
+       let gradient1 = Gradient(colors: [.purple, .yellow])
+       let gradient2 = Gradient(colors: [.blue, .purple])
     
     var body: some View {
-            NavigationView {
-                Form{
-                    Section{
-                        TextField("Name of habit", text: $name)
-                        TextField("Description", text: $about)
-                        Toggle("Log time?", isOn: $logMinutes)
-                        
-                    } header: {
-                        Text("Give your desired habit a name.")
-                           
+        ZStack{
+            Rectangle()
+                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
+                .ignoresSafeArea()
+                .onAppear {
+                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
+                        self.progress = 1.0
                     }
-//                    Section {
-//                            Slider(value: $targetDays, in: 1...100, step: 1)
-//                        Text("\(String(format: "%.0f", targetDays)) days selected")
-//                            .multilineTextAlignment(.center)
-//
-//                           //add a tip, to put at least 14 days for habit forming
-//
-//
-//                    } header: {
-//                        Text("Select target amount of days")
-//                    }
-                    //select an icon
-                    Section {
-                        Button(action: {
-                                    withAnimation {
-                                        iconPicker.toggle()
-                                    }
-                                }, label: {
-                                    HStack {
-                                        Text("Select icon")
-                                        Spacer()
-                                        Image(systemName: habitIcon )
-                                           
-                                    }
-                                })
-                   
-                                
-                                SFSymbolsPicker(isPresented: $iconPicker, icon: $habitIcon, category: .habit, axis: .vertical, haptic: true)
+                }
+            VStack (spacing: 0) {//column
+                VStack (spacing: 0){ //first section
+                    ZStack(alignment: .leading){
+                            RoundedRectangle(cornerRadius: 10)
+                            .fill(.white)
+                            .frame(width: 350, height: 40)
+                            .shadow(radius: 10)
+                            .padding()
+                        TextField("Enter your habit's name", text: $name)
+                            .padding()
+                            .padding(.leading)
+                            .foregroundColor(.black)
+                    }
+                    ZStack(alignment: .leading){
+                            RoundedRectangle(cornerRadius: 10)
+                            .fill(.white)
+                            .frame(width: 350, height: 40)
+                            .shadow(radius: 10)
+                            .padding()
+                        TextField("Describe it", text: $about)
+                            .padding()
+                            .padding(.leading)
+                    }
+                    ZStack(alignment: .leading){
+                        RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .frame(width: 350, height: 40)
+                        .shadow(radius: 10)
+                        .padding()
+                        Toggle("Log time?", isOn: $logMinutes)
+                            .padding(30)
+                            .foregroundColor(.secondary)
+                            
+                    }
+                }
+                VStack (spacing: 0){
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .frame(width: 350, height: 40)
+                        .shadow(radius: 10)
+                        .padding()
+                        
+                        withAnimation(.easeInOut(duration: 2)) {
+                            Button{
+                                iconPicker.toggle()
+                            }label:{
+                                HStack{
+                                   
+                                    Text("Choose icon")
+                                        .foregroundColor(.black)
+                                    Spacer()
+                                    Image(systemName: "\(habitIcon)")
+                                        .padding(.leading)
+                                        .foregroundColor(myColor)
+                                    
+                                }
+                                .padding(30)
+                            }
+                        }
+                    }
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .frame(width: 350, height: 40)
+                        .shadow(radius: 10)
+                        .padding()
                         ColorPicker("Select color", selection: $myColor)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        
-                    } header: {
-                        Text("Customise your experience")
-                    }               
-                }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading, content: {
-                        Button("Cancel", role: .cancel){
-                            dismiss()
-                        }
-                    })
-                    ToolbarItem(placement: .bottomBar) {
-                        Button("Start habit"){
-                            add()
-                        }
-                        .frame(width: 300, height: 45)
-                        .foregroundColor(.white)
-                        .background(addDisabled ? .gray: .blue)
-                        .cornerRadius(10)
-                        .disabled(addDisabled)
+                            .padding(30)
                     }
-   
                 }
-                .navigationTitle("Add new habit")
-                .navigationBarTitleDisplayMode(.inline)
+                .sheet(isPresented: $iconPicker) {
+                    SFSymbolsPicker(isPresented: $iconPicker, icon: $habitIcon, category: .habit, axis: .vertical, haptic: true)
+                }
+            }
+            VStack{
+                Spacer()
+                HStack{
+                    Spacer()
+                    withAnimation(.easeInOut(duration: 2)) {
+                        Button {
+                            add()
+                    } label: {
+                        Image(systemName: "arrowtriangle.right.fill")
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .frame(width:50, height: 50)
+                    .background(.blue)
+                    .background(.black.opacity(0.75))
+                    .clipShape(Capsule())
+                    .shadow(radius: 10)
+                    .opacity(0.8)
+                    .padding(.trailing)
+                    }
+                    
+                }
+            }
+           
         }
+        
     }
     
     func add(){
@@ -140,7 +186,6 @@ struct AddHabitView: View {
         newHabit.id = UUID()
         newHabit.name = name
         newHabit.about = about
-        newHabit.completionType = completionType
         newHabit.loggedDays = Int32(loggedDays)
         newHabit.actualDate = actualDate
         newHabit.currentStreak = Int32(currentStreak)

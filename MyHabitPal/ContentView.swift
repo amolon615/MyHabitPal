@@ -19,6 +19,7 @@ struct ContentView: View {
  
     @State private var addHabit = false
     @State private var showSettings = false
+    @State private var showLogHabit = false
     
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
         self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
@@ -38,55 +39,111 @@ struct ContentView: View {
                         self.progress = 1.0
                     }
                 }
-        NavigationView{
-            List{
-                ForEach(habits, id:\.name){ habit in
-                    NavigationLink {
-                        HabitDetailedView_View(habit: habit)
-                    } label: {
-                        VStack{
-                            HStack{
-                                Image(systemName: habit.habitIcon ?? "star")
-                                    .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue)))
-                                
-                                Text(habit.name ?? "Unknown")
-                                Spacer()
-                            }
-                            CompletionView_View(habit: habit)
+            VStack{
+              
+                List{
+                    ForEach(habits, id:\.name){ habit in
+                                VStack{
+                                    HStack{
+                                        Spacer()
+                                        Image(systemName: habit.habitIcon ?? "star")
+                                            .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue)))
+                                            .font(.system(size: 40))
+                                        
+                                        Text(habit.name ?? "Unknown")
+                                        Spacer()
+                                    }
+                                    CompletionView_View(habit: habit)
+                                }
+
+                        .sheet(isPresented: $showLogHabit) {
+                            HabitDetailedView_View(habit: habit)
                         }
+                        .sheet(isPresented: $addHabit) {
+                            AddHabitView()
+                        }
+                        .sheet(isPresented: $showSettings) {
+                            Settings_View()
+                        }
+                        .onTapGesture {
+                            showLogHabit = true
+                        }
+                        .listRowSeparator(.hidden)
                     }
-                    
+                    .onDelete(perform: deleteHabits)
                 }
-                .onDelete(perform: deleteHabits)
-            }
-            .navigationTitle("myHabitPal")
-            
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
+//                .background {
+//                    Rectangle()
+//                        .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
+//                        .ignoresSafeArea()
+//                        .onAppear {
+//                            withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
+//                                self.progress = 1.0
+//                            }
+//                        }
+//                }
+                .scrollContentBackground(.hidden)
+                Spacer()
+                HStack{
+                    withAnimation(.easeInOut(duration: 2)) {
+                        Button {
                         showSettings = true
                     } label: {
                         Image(systemName: "gear")
+                            .foregroundColor(.white)
+                            .font(.system(size: 30))
+                            
                     }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
+                    .padding()
+                    .frame(width:50, height: 50)
+                    .background(.blue)
+                    .background(.black.opacity(0.75))
+                    .clipShape(Capsule())
+                    .shadow(radius: 10)
+                    .opacity(0.8)
+                    .padding(.leading)
+                    }
+                    Spacer()
+                    withAnimation(.easeInOut(duration: 2)) {
+                        Button {
                         addHabit = true
                     } label: {
-                        Image(systemName: "plus.circle")
+                        Image(systemName: "plus")
+                            .foregroundColor(.white)
+                    }
+                    .padding()
+                    .frame(width:50, height: 50)
+                    .background(.blue)
+                    .background(.black.opacity(0.75))
+                    .clipShape(Capsule())
+                    .shadow(radius: 10)
+                    .opacity(0.8)
+                    .padding(.trailing)
                     }
                 }
             }
-            .sheet(isPresented: $addHabit) {
-                AddHabitView()
-            }
-            .sheet(isPresented: $showSettings) {
-                Settings_View()
-            }
-        }
-    }
-         
-    }
+            
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    Button {
+//                        showSettings = true
+//                    } label: {
+//                        Image(systemName: "gear")
+//                    }
+//                }
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button {
+//                        addHabit = true
+//                    } label: {
+//                        Image(systemName: "plus.circle")
+//                    }
+//                }
+//            }
+            
+            Spacer()
+                    .background(Color.clear)
+        }//ZStack
+    }//body
     
     func deleteHabits(at offsets: IndexSet) {
         for offset in offsets {

@@ -10,7 +10,7 @@ import SwiftUI
 struct CompletionView_View: View {
     @Environment(\.managedObjectContext) var moc
     
-    let columns = 15
+    let columns = 19
     let rows = 7
     let size = CGSize(width: 10, height: 10)
     

@@ -183,7 +183,7 @@ struct HabitDetailedView_View: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.vertical, 20)
                         .background(.thinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                         .ignoresSafeArea()
                         .onAppear {
                     minutes = Int(habit.loggedMinutes)
