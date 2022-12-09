@@ -20,6 +20,7 @@
 		AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1429424326004F1E90 /* Settings-View.swift */; };
 		AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */; };
 		AC33CD202942B47B004F1E90 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AC33CD1F2942B47B004F1E90 /* ConfettiSwiftUI */; };
+		AC33CD2229437FFD004F1E90 /* Workplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD2129437FFD004F1E90 /* Workplace.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletionView-View.swift"; sourceTree = "<group>"; };
 		AC33CD1429424326004F1E90 /* Settings-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings-View.swift"; sourceTree = "<group>"; };
 		AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker_saver.swift; sourceTree = "<group>"; };
+		AC33CD2129437FFD004F1E90 /* Workplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workplace.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
 				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
+				AC33CD2129437FFD004F1E90 /* Workplace.swift */,
 				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
 				AC33CD1429424326004F1E90 /* Settings-View.swift */,
 				AC33CD1B29429426004F1E90 /* Utility */,
@@ -184,6 +187,7 @@
 				AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */,
 				AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */,
 				AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */,
+				AC33CD2229437FFD004F1E90 /* Workplace.swift in Sources */,
 				AC33CCCA293F55C6004F1E90 /* ContentView.swift in Sources */,
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
 				AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */,

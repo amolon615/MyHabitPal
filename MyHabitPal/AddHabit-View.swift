@@ -91,7 +91,6 @@ struct AddHabitView: View {
                                 }, label: {
                                     HStack {
                                         Text("Select icon")
-                                            .foregroundColor(.black)
                                         Spacer()
                                         Image(systemName: habitIcon )
                                            
@@ -125,6 +124,8 @@ struct AddHabitView: View {
                     }
    
                 }
+                .navigationTitle("Add new habit")
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
     
