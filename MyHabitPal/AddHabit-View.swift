@@ -38,6 +38,7 @@ struct AddHabitView: View {
     
 
     @State private var targetDays = 14.0
+    
     @State private var loggedDays = 0
     @State private var currentStreak = 0
     @State private var maxStreak = 0
@@ -48,6 +49,7 @@ struct AddHabitView: View {
     @State private var loggedMinutes = 0
     @State private var loggedSeconds = 0
     
+
     
     
     var actualDate = ""
@@ -96,6 +98,25 @@ struct AddHabitView: View {
                         TextField("Describe it", text: $about)
                             .padding()
                             .padding(.leading)
+                    }
+        
+                    ZStack(alignment: .leading){
+                            RoundedRectangle(cornerRadius: 10)
+                            .fill(.white)
+                            .frame(width: 350, height: 120)
+                            .shadow(radius: 10)
+                            .padding()
+                        VStack{
+                            Text(String(format: "%g", targetDays) )
+                                .padding()
+                            Slider(value: $targetDays, in: 1...60)
+                                .frame(width: 320)
+                                .padding()
+                                .padding(.leading)
+                            
+                                
+                        }
+                       
                     }
                     ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
