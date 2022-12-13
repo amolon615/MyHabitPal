@@ -29,6 +29,8 @@ struct Settings_View: View {
        let gradient1 = Gradient(colors: [.purple, .yellow])
        let gradient2 = Gradient(colors: [.blue, .purple])
     
+    @State private var offset: CGFloat = 0
+    
     var body: some View {
         ZStack{
             Rectangle()
@@ -56,6 +58,19 @@ struct Settings_View: View {
                 Spacer()
                 Text("Settings")
                     .font(.title)
+                Image("bot_settings")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100)
+                    .padding()
+                    .offset(x: 0, y: offset)
+                    .animation(.interpolatingSpring(stiffness: 100, damping: 10))
+                    .shadow(color: .gray, radius: 10, x: 0, y: 5)
+                    .onAppear() {
+                        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                            self.offset = self.offset == 0 ? 5 : 0
+                        }
+                    }
                 VStack(spacing: 30){//main vstack
                     //section 1
                     VStack(spacing: 10) {
@@ -198,7 +213,7 @@ struct Settings_View: View {
                 VStack{
                     Text("Version 1.0")
                         .foregroundColor(.secondary)
-                    Text("myHabitPal (c)")
+                    Text("Achievator (c)")
                         .foregroundColor(.secondary)
                 }
                     .font(.caption)

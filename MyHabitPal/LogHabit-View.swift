@@ -43,6 +43,7 @@ struct HabitDetailedView_View: View {
     @State var disableMessage = ""
     
     
+    @State private var showingSuccess = false
     
     var logDate =  Date.now.formatted(date: .long, time: .omitted)
      
@@ -54,6 +55,8 @@ struct HabitDetailedView_View: View {
     @State private var progress: CGFloat = 0
        let gradient1 = Gradient(colors: [.purple, .yellow])
        let gradient2 = Gradient(colors: [.blue, .purple])
+    
+    @State private var offset: CGFloat = 0
     
     var body: some View {
         ZStack {
@@ -67,7 +70,19 @@ struct HabitDetailedView_View: View {
                     }
                 }
                         VStack{
-                     
+                            Image("bot_log")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40)
+                                .padding()
+                                .offset(x: 0, y: offset)
+                                .animation(.interpolatingSpring(stiffness: 100, damping: 10))
+                                .shadow(color: .gray, radius: 10, x: 0, y: 5)
+                                .onAppear() {
+                                    Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                                        self.offset = self.offset == 0 ? 5 : 0
+                                    }
+                                }
                             ZStack {
                                 // 2
                                 ZStack {
@@ -88,8 +103,6 @@ struct HabitDetailedView_View: View {
                                         .rotationEffect(.degrees(-90))
                                         .animation(.easeOut, value: completionProgress)
                                         // 1
-                                    Text("\(habit.loggedDays)")
-                                        .font(.title)
                                     
                                 }
                                 // 3
@@ -119,33 +132,38 @@ struct HabitDetailedView_View: View {
                             
                         
                             VStack {
-                                   Button{
-                                       withAnimation(){
-                                           loggedDays = Int(habit.loggedDays)
-                                           loggedDays += 1
-                                           habit.loggedDays = Int32(loggedDays)
-                                           
-                                           completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
-                                           
-                                           habit.completionProgress = completionProgress
-                                           
-                                           try? moc.save()
-                                           print("\(habit.loggedDays) logged days saved")
-                                           print("\(habit.completionProgress) progress value set")
-                                           confetti += 1
-                                       }
-                                       if habit.actualDate! == Date.now.formatted(date: .long, time: .omitted) {
-  
-                                           habit.disabledButton = true
-                                           
-                                           try? moc.save()
-                                           
-                                           disableMessage = "You've already logged your habit today! Come back tomorrow!"
-                                           print("Log button was disabled")
-                                           print("Today's date is \(logDate)")
-                                           print("Yesterday's date was \(habit.actualDate!)")
-
-                                       }
+                                Button{
+                                    withAnimation(){
+                                        loggedDays = Int(habit.loggedDays)
+                                        loggedDays += 1
+                                        habit.loggedDays = Int32(loggedDays)
+                                        
+                                        completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
+                                        
+                                        habit.completionProgress = completionProgress
+                                        
+                                        try? moc.save()
+                                        print("\(habit.loggedDays) logged days saved")
+                                        print("\(habit.completionProgress) progress value set")
+                                        confetti += 1
+                                    }
+                                    if habit.actualDate! == Date.now.formatted(date: .long, time: .omitted) {
+                                        
+                                        habit.disabledButton = true
+                                        
+                                        try? moc.save()
+                                        
+                                        disableMessage = "You've already logged your habit today! Come back tomorrow!"
+                                        print("Log button was disabled")
+                                        print("Today's date is \(logDate)")
+                                        print("Yesterday's date was \(habit.actualDate!)")
+                                        
+                                    }
+                                    
+                                    if loggedDays == Int(habit.targetDays) {
+                                        showingSuccess.toggle()
+                                    }
+                                        
                                    } label: {
                                        Text(habit.disabledButton ? "Come back tomorrow" : "Log day")
                                    }
@@ -217,8 +235,11 @@ struct HabitDetailedView_View: View {
                                            
                                         }
                                     }
+                                 
                                 }
+                                   
                             }
+                           
                         }
                         .padding()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -234,9 +255,17 @@ struct HabitDetailedView_View: View {
                             
                  
                 }
+            .sheet(isPresented: $showingSuccess) {
+                VStack{
+                    Text("Congratulations!")
+                        .onAppear {
+                            confetti += 1
+                        }
+                    }
+                .confettiCannon(counter: $confetti)
+                }
                
         }
-        
         .confettiCannon(counter: $confetti)
         }
     

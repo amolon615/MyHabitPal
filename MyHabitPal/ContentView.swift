@@ -21,6 +21,7 @@ struct ContentView: View {
     @State private var showSettings = false
     @State private var showLogHabit = false
     
+    
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
         self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
     }
@@ -29,6 +30,8 @@ struct ContentView: View {
        let gradient1 = Gradient(colors: [.purple, .yellow])
        let gradient2 = Gradient(colors: [.blue, .purple])
 
+    @State private var offset: CGFloat = 0
+    
     @State private var isPresentingHabit: Habit? = nil
     
     var body: some View {
@@ -47,12 +50,36 @@ struct ContentView: View {
                             }
                         if habits.count == 0 {
                             VStack{
-                                Button {
-                                    addHabit = true
-                                } label: {
-                                    Text("To start tracking your habits create one!")
-                                        .foregroundColor(.white)
-                                }
+                                Image("bot_main")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 130)
+                                    .padding()
+                                    .offset(x: 0, y: offset)
+                                    .animation(.interpolatingSpring(stiffness: 100, damping: 10))
+                                    .shadow(color: .gray, radius: 10, x: 0, y: 5)
+                                    .onAppear() {
+                                        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                                            self.offset = self.offset == 0 ? 5 : 0
+                                        }
+                                    }
+                        
+                                    ZStack{
+                                        Rectangle()
+                                            .frame(width: 330, height: 50)
+                                            .background(.white)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(10)
+                                            .opacity(0.5)
+                                        Text("To start tracking your habits create one!")
+                                            .opacity(0.5)
+                                            .foregroundColor(.black)
+                                            .onTapGesture {
+                                                addHabit.toggle()
+                                            }
+                                    }
+                                     
+                                
 
                               
                                     
