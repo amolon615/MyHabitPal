@@ -49,10 +49,11 @@ struct AddHabitView: View {
     @State private var loggedMinutes = 0
     @State private var loggedSeconds = 0
     
+    @State var completionProgress: Double = 0
 
     
     
-    var actualDate = ""
+    var actualDate = Date.now.formatted(date: .long, time: .omitted)
     
     
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
@@ -74,99 +75,83 @@ struct AddHabitView: View {
                     }
                 }
             VStack (spacing: 0) {//column
-                Text("Create new habit")
-                    .padding(10)
-               
                 VStack (spacing: 0){ //first section
                     ZStack(alignment: .leading){
-                            RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 10)
                             .fill(.white)
-                            .frame(width: 350, height: 40)
-                            .shadow(radius: 10)
-                            .padding()
-                        TextField("Enter your habit's name", text: $name)
-                            .padding()
-                            .padding(.leading)
-                            .foregroundColor(.black)
-                    }
-                    ZStack(alignment: .leading){
-                            RoundedRectangle(cornerRadius: 10)
-                            .fill(.white)
-                            .frame(width: 350, height: 40)
-                            .shadow(radius: 10)
-                            .padding()
-                        TextField("Describe it", text: $about)
-                            .padding()
-                            .padding(.leading)
-                    }
-        
-                    ZStack(alignment: .leading){
-                            RoundedRectangle(cornerRadius: 10)
-                            .fill(.white)
-                            .frame(width: 350, height: 120)
+                            .frame(width: 350, height: 100)
                             .shadow(radius: 10)
                             .padding()
                         VStack{
-                            Text(String(format: "%g", targetDays) )
-                                .padding()
-                            Slider(value: $targetDays, in: 1...60)
-                                .frame(width: 320)
+                            TextField("Enter your habit's name", text: $name)
                                 .padding()
                                 .padding(.leading)
-                            
-                                
+                                .foregroundColor(.black)
+                                .frame(width: 350, height: 40)
+                                .disableAutocorrection(true)
+                            TextField("Describe it", text: $about)
+                                .padding()
+                                .padding(.leading)
+                                .frame(width: 350, height: 40)
+                                .disableAutocorrection(true)
                         }
-                       
+                        
                     }
                     ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .frame(width: 350, height: 40)
-                        .shadow(radius: 10)
-                        .padding()
-                        Toggle("Log time?", isOn: $logMinutes)
-                            .padding(30)
-                            .foregroundColor(.secondary)
-                            
+                            .fill(.white)
+                            .frame(width: 350, height: 190)
+                            .shadow(radius: 10)
+                            .padding()
+                        VStack{
+                            HStack{
+                                Text(String(format: "%g", targetDays))
+                                Text("days selected")
+                                
+                            }
+                            Slider(value: $targetDays, in: 1...365, step: 1)
+                                .frame(width: 320)
+                                .padding()
+                                .padding(.leading)
+                            Toggle("Log time?", isOn: $logMinutes)
+                                .padding()
+                                .frame(width: 320)
+                        }
                     }
-                }
-                VStack (spacing: 0){
+                    
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .frame(width: 350, height: 40)
-                        .shadow(radius: 10)
-                        .padding()
+                            .fill(.white)
+                            .frame(width: 350, height: 100)
+                            .shadow(radius: 10)
+                            .padding()
                         
-                        withAnimation(.easeInOut(duration: 2)) {
-                            Button{
-                                iconPicker.toggle()
-                            }label:{
+                        VStack (spacing: 0){
                                 HStack{
-                                   
                                     Text("Choose icon")
                                         .foregroundColor(.black)
                                     Spacer()
                                     Image(systemName: "\(habitIcon)")
                                         .padding(.leading)
                                         .foregroundColor(myColor)
-                                    
-                                }
-                                .padding(30)
-                            }
+                                    }
+                            .frame(width: 310, height: 20)
+                            .padding()
+                            .padding(.leading)
+                            .onTapGesture(perform: {
+                                    iconPicker.toggle()
+                                })
+                            
+                            ColorPicker("Select color", selection: $myColor)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .frame(width: 310, height: 20)
+                                .padding()
+                                .padding(.leading)
+                          
                         }
                     }
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
-                        .frame(width: 350, height: 40)
-                        .shadow(radius: 10)
-                        .padding()
-                        ColorPicker("Select color", selection: $myColor)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .padding(30)
-                    }
                 }
+                
                 .sheet(isPresented: $iconPicker) {
                     SFSymbolsPicker(isPresented: $iconPicker, icon: $habitIcon, category: .habit, axis: .vertical, haptic: true)
                 }
@@ -174,22 +159,25 @@ struct AddHabitView: View {
             VStack{
                 Spacer()
                 HStack{
-                    Spacer()
                     withAnimation(.easeInOut(duration: 2)) {
                         Button {
                             add()
                     } label: {
-                        Image(systemName: "arrowtriangle.right.fill")
-                            .foregroundColor(.white)
+                        HStack{
+                            Text("Save habit & start tracking")
+                                .foregroundColor(.white)
+                            Image(systemName: "hand.tap")
+                                .foregroundColor(.white)
+                        }
                     }
                     .padding()
-                    .frame(width:50, height: 50)
+                    .frame(width:320, height: 50)
                     .background(.blue)
                     .background(.black.opacity(0.75))
                     .clipShape(Capsule())
                     .shadow(radius: 10)
                     .opacity(0.8)
-                    .padding(.trailing)
+                    .padding()
                     }
                     
                 }
@@ -219,6 +207,9 @@ struct AddHabitView: View {
         newHabit.loggedHours = Int32(loggedHours)
         newHabit.loggedMinutes = Int32(loggedMinutes)
         newHabit.loggedSeconds = Int32(loggedSeconds)
+        newHabit.targetDays = Float(targetDays)
+        newHabit.completionProgress = completionProgress
+        newHabit.disabledButton = false
         
         newHabit.colorRed = Float(pickedColor.components.red)
         newHabit.colorBlue = Float(pickedColor.components.blue)

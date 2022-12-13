@@ -40,9 +40,7 @@ struct HabitDetailedView_View: View {
     //passing selected habit to navigation view
     @State var habit: Habit
 
-    @State var disableButton = true
     @State var disableMessage = ""
-    
     
     
     
@@ -66,21 +64,46 @@ struct HabitDetailedView_View: View {
  
                         VStack{
                      
-                            Image(systemName: habit.habitIcon ?? "star")
-                                .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed)))
-                                .font(.system(size: 70))
-                                .padding()
-                            Text(habit.name ?? "unknown habit")
+                            ZStack {
+                                // 2
+                                ZStack {
+                                    Circle()
+                                        .stroke(
+                                            Color.gray.opacity(0.5),
+                                            lineWidth: 30
+                                        )
+                                    Circle()
+                                        .trim(from: 0, to: habit.completionProgress)
+                                        .stroke(
+                                           (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
+                                            style: StrokeStyle(
+                                                lineWidth: 30,
+                                                lineCap: .round
+                                            )
+                                        )
+                                        .rotationEffect(.degrees(-90))
+                                        // 1
+                                        .animation(.easeOut, value: habit.completionProgress)
+                                    Text("\(habit.loggedDays)")
+                                }
+                                // 3
+                                .frame(width: 200, height: 200)
+                            }
+                            .padding()
+                            
 
                                 HStack{
+                                    Text(habit.name ?? "unknown habit")
+                                    Text("Target days:")
+                                    Text(String(format: "%g", habit.targetDays))
                                     Text("Days logged")
                                     Text("\(habit.loggedDays)")
                                         
                                 }
                                 if habit.logMinutes == true {
-                                    HStack{
-                                        Text("\(minutes) minutes logged today.")
-                                        Text("\(seconds) logged today.")
+                                    VStack{
+                                        Text("\(minutes) minutes logged.")
+                                        Text("\(seconds) seconds logged.")
                                     }
                                 }
                             
@@ -90,21 +113,33 @@ struct HabitDetailedView_View: View {
                                        withAnimation(){
                                            
                                            habit.loggedDays += 1
-                                           habit.name = habit.name
-                                           //create new variable to store yesterdays date
-                                           habit.actualDate = logDate
+                                           habit.completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
                                            
-                                           disableButton = true
+                                           try? moc.save()
+                                           print("\(habit.loggedDays) logged days saved")
+                                           print("\(habit.completionProgress) progress value set")
+                                           confetti += 1
+                                       }
+                                       if habit.actualDate! == Date.now.formatted(date: .long, time: .omitted) {
+  
+                                           habit.disabledButton = true
+                                           
                                            try? moc.save()
                                            
-                                           confetti += 1
+                                           disableMessage = "You've already logged your habit today! Come back tomorrow!"
+                                           print("Log button was disabled")
+                                           print("Today's date is \(logDate)")
+                                           print("Yesterday's date was \(habit.actualDate!)")
+
                                        }
                                 }
                                    .frame(width: 200, height: 60)
                                    .foregroundColor(.white)
-                                   .background(disableButton ? .gray: .blue)
+                                   .disabled(habit.disabledButton)
+                                   .background(habit.disabledButton ? .gray: .blue)
                                    .cornerRadius(10)
-                                   .disabled(disableButton)
+                                 
+                                   
                                   
                                 
                                 //if user added timer tracking
@@ -180,20 +215,8 @@ struct HabitDetailedView_View: View {
                     seconds = Int(habit.loggedSeconds)
                     
     //disabling button after logging day
-                    if logDate == habit.actualDate! {
-                        disableButton = true
-                        disableMessage = "You've already logged your habit today! Come back tomorrow!"
-                        print("Log button was disabled")
-                        print("Today's date is \(logDate)")
-                        print("Yesterday's date was \(habit.actualDate!)")
-
-                    } else {
-                        disableButton = false
-                        disableMessage = ""
-                        print("Log button was enabled")
-                        print("Today's date is \(logDate)")
-                        print("Yesterday's date was \(habit.actualDate!)")
-                    }
+                            
+                 
                 }
                
         }

@@ -7,11 +7,17 @@
 
 import SwiftUI
 import SafariServices
+import CoreData
 
 struct Settings_View: View {
     @State private var chooseTheme = false
     @State private var showPrivacy: Bool = false
     @State private var showTOS: Bool = false
+    
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.name)
+    ]) var habits: FetchedResults<Habit>
     
     @State private var showGradientSettings = false
     
@@ -173,6 +179,27 @@ struct Settings_View: View {
                                         Image(systemName: "star")
                                             .padding(.leading)
                                         Text("Rate Habitify")
+                                        Spacer()
+                                    }.foregroundColor(.black)
+                                }
+                                
+                            }   .padding()
+                                .frame(width: 350,height: 40)
+                                .background(.white)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                           
+                        }
+                        ZStack(alignment: .leading) {
+                            withAnimation(.easeInOut(duration: 2)) {
+                                Button{
+                                    habits.removeAll
+                                    try? moc.save()
+                                }label:{
+                                    HStack{
+                                        Image(systemName: "xmark.bin")
+                                            .padding(.leading)
+                                        Text("Reset habits")
                                         Spacer()
                                     }.foregroundColor(.black)
                                 }
