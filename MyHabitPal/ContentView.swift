@@ -46,13 +46,16 @@ struct ContentView: View {
                                 }
                             }
                         if habits.count == 0 {
-                            HStack{
+                            VStack{
                                 Button {
                                     addHabit = true
                                 } label: {
                                     Text("To start tracking your habits create one!")
                                         .foregroundColor(.white)
                                 }
+
+                              
+                                    
                             }
                            
 
@@ -65,15 +68,17 @@ struct ContentView: View {
                                             NavigationLink(destination: {
                                                 HabitDetailedView_View(habit: habit)
                                             }, label: {
-                                                Image(systemName: habit.habitIcon ?? "star")
-                                                    .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue)))
-                                                    .font(.system(size: 40))
-                                                    .padding(.leading)
-                                                Text(habit.name ?? "Unknown")
-                                                Spacer()
-                                                ProgressView(habit: habit)
-                                                    .frame(width: 70, height: 70)
-                                                    .padding()
+                                                HStack{
+                                                    Image(systemName: habit.habitIcon ?? "star")
+                                                        .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue)))
+                                                        .font(.system(size: 40))
+                                                        .padding(.leading)
+                                                    Text(habit.name ?? "Unknown")
+                                                    Spacer()
+                                                    ProgressView(habit: habit)
+                                                        .frame(width: 70, height: 70)
+                                                        .padding()
+                                                }
                                                 
                                             })
                                             
@@ -94,6 +99,7 @@ struct ContentView: View {
                             
                             
                         }
+                        .opacity(0.7)
                     }//if
                     }
                 }

@@ -198,7 +198,7 @@ struct Settings_View: View {
                 VStack{
                     Text("Version 1.0")
                         .foregroundColor(.secondary)
-                    Text("Habitify (c)")
+                    Text("myHabitPal (c)")
                         .foregroundColor(.secondary)
                 }
                     .font(.caption)
