@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Foundation
 import CoreData
 import ConfettiSwiftUI
 
@@ -14,6 +13,7 @@ struct HabitDetailedView_View: View {
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
+    
     
     //timer variables
     @State private var hours = 0
@@ -32,10 +32,10 @@ struct HabitDetailedView_View: View {
     
     @State private var confetti: Int = 0
     
-    
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.name)
-    ]) var habits: FetchedResults<Habit>
+    @State private var completionProgress = 0.0
+    @State private var disableButton = false
+    @State private var loggedDays = 0
+
     
     //passing selected habit to navigation view
     @State var habit: Habit
@@ -47,21 +47,25 @@ struct HabitDetailedView_View: View {
     var logDate =  Date.now.formatted(date: .long, time: .omitted)
      
     
+    func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
+        self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
+    }
+    
+    @State private var progress: CGFloat = 0
+       let gradient1 = Gradient(colors: [.purple, .yellow])
+       let gradient2 = Gradient(colors: [.blue, .purple])
+    
     var body: some View {
         ZStack {
-            RadialGradient(stops: [
-                .init(color: Color(red: CGFloat(gradIn ? (1.0 - habit.colorRed) : (habit.colorRed)), green: CGFloat(gradIn ? (1.0 - habit.colorGreen): habit.colorGreen), blue: CGFloat(gradIn ? (1.0 - habit.colorBlue): habit.colorBlue)), location: 0.3),
-                .init(color: Color(red: CGFloat(gradOut ? (habit.colorRed + 0.2) : habit.colorRed), green: CGFloat(gradOut ? (habit.colorGreen + 0.2) : habit.colorGreen), blue: CGFloat(gradOut ? (habit.colorBlue + 0.2) : habit.colorBlue)), location: 0.3),
-            ], center: .center, startRadius: 250, endRadius: 400)
-            .onAppear {
-                withAnimation(Animation.linear(duration: 5.0).repeatForever()) {
-                    gradIn.toggle()
-                    gradOut.toggle()
+            Rectangle()
+                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
+                .ignoresSafeArea()
+                .onAppear {
+                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
+                        self.progress = 2.0
+                        completionProgress = habit.completionProgress
+                    }
                 }
-            }
-            .ignoresSafeArea()
-            
- 
                         VStack{
                      
                             ZStack {
@@ -73,7 +77,7 @@ struct HabitDetailedView_View: View {
                                             lineWidth: 30
                                         )
                                     Circle()
-                                        .trim(from: 0, to: habit.completionProgress)
+                                        .trim(from: 0, to: completionProgress)
                                         .stroke(
                                            (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
                                             style: StrokeStyle(
@@ -82,9 +86,11 @@ struct HabitDetailedView_View: View {
                                             )
                                         )
                                         .rotationEffect(.degrees(-90))
+                                        .animation(.easeOut, value: completionProgress)
                                         // 1
-                                        .animation(.easeOut, value: habit.completionProgress)
                                     Text("\(habit.loggedDays)")
+                                        .font(.title)
+                                    
                                 }
                                 // 3
                                 .frame(width: 200, height: 200)
@@ -92,12 +98,16 @@ struct HabitDetailedView_View: View {
                             .padding()
                             
 
-                                HStack{
-                                    Text(habit.name ?? "unknown habit")
-                                    Text("Target days:")
-                                    Text(String(format: "%g", habit.targetDays))
-                                    Text("Days logged")
-                                    Text("\(habit.loggedDays)")
+                                VStack{
+                                    HStack{
+                                        Text("Target days:")
+                                        Text(String(format: "%g", habit.targetDays))
+                                    }
+                                    HStack{
+                                        Text("Days logged:")
+                                        Text("\(habit.loggedDays)")
+                                    }
+
                                         
                                 }
                                 if habit.logMinutes == true {
@@ -109,11 +119,15 @@ struct HabitDetailedView_View: View {
                             
                         
                             VStack {
-                                   Button("Log an activity today") {
+                                   Button{
                                        withAnimation(){
+                                           loggedDays = Int(habit.loggedDays)
+                                           loggedDays += 1
+                                           habit.loggedDays = Int32(loggedDays)
                                            
-                                           habit.loggedDays += 1
-                                           habit.completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
+                                           completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
+                                           
+                                           habit.completionProgress = completionProgress
                                            
                                            try? moc.save()
                                            print("\(habit.loggedDays) logged days saved")
@@ -132,7 +146,9 @@ struct HabitDetailedView_View: View {
                                            print("Yesterday's date was \(habit.actualDate!)")
 
                                        }
-                                }
+                                   } label: {
+                                       Text(habit.disabledButton ? "Come back tomorrow" : "Log day")
+                                   }
                                    .frame(width: 200, height: 60)
                                    .foregroundColor(.white)
                                    .disabled(habit.disabledButton)
