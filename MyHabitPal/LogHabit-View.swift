@@ -46,18 +46,8 @@ struct HabitDetailedView_View: View {
     
     
     
-    var logDate: String {
-        let date = Date.now
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let dateString = dateFormatter.string(from: date)
-        return dateString
-    }
-      
-    
- 
-    
-    
+    var logDate =  Date.now.formatted(date: .long, time: .omitted)
+     
     
     var body: some View {
         ZStack {

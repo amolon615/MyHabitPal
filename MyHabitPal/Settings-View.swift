@@ -13,6 +13,8 @@ struct Settings_View: View {
     @State private var showPrivacy: Bool = false
     @State private var showTOS: Bool = false
     
+    @State private var showGradientSettings = false
+    
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
         self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
     }
@@ -38,6 +40,12 @@ struct Settings_View: View {
                 .sheet(isPresented: $showTOS){
                 SFSafariViewWrapper(url: URL(string:"https://apple.com")!)
                 }
+            
+                .sheet(isPresented: $showGradientSettings) {
+                    //
+                }
+            
+            
             VStack(spacing: 20){
                 Spacer()
                 Text("Settings")
@@ -76,7 +84,7 @@ struct Settings_View: View {
                                     HStack{
                                         Image(systemName: "arrow.clockwise")
                                             .padding(.leading)
-                                        Text("Re-launch onboarding")
+                                        Text("Set-up gradients")
                                         Spacer()
                                     }.foregroundColor(.black)
                                 }

@@ -1,15 +1,15 @@
 //
-//  AddHabit.swift
+//  Add.swift
 //  MyHabitPal
 //
-//  Created by Artem on 06/12/2022.
+//  Created by Artem on 09/12/2022.
 //
 
 import SwiftUI
 import SFSymbolsPicker
 import CoreData
 
-struct AddHabitView: View {
+struct Add: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
 
@@ -48,49 +48,33 @@ struct AddHabitView: View {
     @State private var loggedMinutes = 0
     @State private var loggedSeconds = 0
     
+    @State private var infiniteHabit = false
     
     
     var actualDate = ""
     
     
-    func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
-        self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
-    }
-    
-    @State private var progress: CGFloat = 0
-       let gradient1 = Gradient(colors: [.purple, .yellow])
-       let gradient2 = Gradient(colors: [.blue, .purple])
+    let completionTypes = ["⏰Track minutes", "🗓️Track days"]
+    @State private var completionType = "🗓️Track days"
     
     var body: some View {
         ZStack{
-            Rectangle()
-                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                .ignoresSafeArea()
-                .onAppear {
-                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                        self.progress = 1.0
-                    }
-                }
-            VStack (spacing: 0) {//column
-                Text("Create new habit")
-                    .padding(10)
-               
+            VStack {//column
                 VStack (spacing: 0){ //first section
                     ZStack(alignment: .leading){
                             RoundedRectangle(cornerRadius: 10)
                             .fill(.white)
-                            .frame(width: 350, height: 40)
+                            .frame(width: .infinity, height: 40)
                             .shadow(radius: 10)
                             .padding()
-                        TextField("Enter your habit's name", text: $name)
+                        TextField("Type habit's name", text: $name)
                             .padding()
                             .padding(.leading)
-                            .foregroundColor(.black)
                     }
                     ZStack(alignment: .leading){
                             RoundedRectangle(cornerRadius: 10)
                             .fill(.white)
-                            .frame(width: 350, height: 40)
+                            .frame(width: .infinity, height: 40)
                             .shadow(radius: 10)
                             .padding()
                         TextField("Describe it", text: $about)
@@ -100,7 +84,7 @@ struct AddHabitView: View {
                     ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
-                        .frame(width: 350, height: 40)
+                        .frame(width: .infinity, height: 40)
                         .shadow(radius: 10)
                         .padding()
                         Toggle("Log time?", isOn: $logMinutes)
@@ -109,73 +93,31 @@ struct AddHabitView: View {
                             
                     }
                 }
-                VStack (spacing: 0){
-                    ZStack{
+                VStack (spacing: 10){
+                    ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
-                        .frame(width: 350, height: 40)
+                        .frame(width: .infinity, height: 40)
                         .shadow(radius: 10)
                         .padding()
-                        
-                        withAnimation(.easeInOut(duration: 2)) {
-                            Button{
-                                iconPicker.toggle()
-                            }label:{
-                                HStack{
-                                   
-                                    Text("Choose icon")
-                                        .foregroundColor(.black)
-                                    Spacer()
-                                    Image(systemName: "\(habitIcon)")
-                                        .padding(.leading)
-                                        .foregroundColor(myColor)
-                                    
-                                }
-                                .padding(30)
-                            }
-                        }
+                      
                     }
-                    ZStack{
+                    ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
                         .fill(.white)
-                        .frame(width: 350, height: 40)
+                        .frame(width: .infinity, height: 40)
                         .shadow(radius: 10)
                         .padding()
                         ColorPicker("Select color", selection: $myColor)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .padding(30)
                     }
                 }
-                .sheet(isPresented: $iconPicker) {
-                    SFSymbolsPicker(isPresented: $iconPicker, icon: $habitIcon, category: .habit, axis: .vertical, haptic: true)
-                }
+                
             }
-            VStack{
-                Spacer()
-                HStack{
-                    Spacer()
-                    withAnimation(.easeInOut(duration: 2)) {
-                        Button {
-                            add()
-                    } label: {
-                        Image(systemName: "arrowtriangle.right.fill")
-                            .foregroundColor(.white)
-                    }
-                    .padding()
-                    .frame(width:50, height: 50)
-                    .background(.blue)
-                    .background(.black.opacity(0.75))
-                    .clipShape(Capsule())
-                    .shadow(radius: 10)
-                    .opacity(0.8)
-                    .padding(.trailing)
-                    }
-                    
-                }
-            }
-           
         }
-        
+        .sheet(isPresented: $iconPicker) {
+            SFSymbolsPicker(isPresented: $iconPicker, icon: $habitIcon, category: .habit, axis: .vertical, haptic: true)
+        }
     }
     
     func add(){
@@ -210,8 +152,8 @@ struct AddHabitView: View {
     }
 }
 
-struct AddHabit_Previews: PreviewProvider {
+struct Add_Previews: PreviewProvider {
     static var previews: some View {
-        AddHabitView()
+        Add()
     }
 }

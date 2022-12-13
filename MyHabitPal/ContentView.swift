@@ -45,10 +45,10 @@ struct ContentView: View {
                     ForEach(habits, id:\.name){ habit in
                                 VStack{
                                     HStack{
-                                        Spacer()
                                         Image(systemName: habit.habitIcon ?? "star")
                                             .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue)))
                                             .font(.system(size: 40))
+                                            .padding(.leading)
                                         
                                         Text(habit.name ?? "Unknown")
                                         Spacer()
@@ -141,7 +141,7 @@ struct ContentView: View {
 //            }
             
             Spacer()
-                    .background(Color.clear)
+            .background(Color.clear)
         }//ZStack
     }//body
     
