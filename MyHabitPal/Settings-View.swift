@@ -190,27 +190,6 @@ struct Settings_View: View {
                                 .shadow(radius: 5)
                            
                         }
-                        ZStack(alignment: .leading) {
-                            withAnimation(.easeInOut(duration: 2)) {
-                                Button{
-                                    habits.removeAll
-                                    try? moc.save()
-                                }label:{
-                                    HStack{
-                                        Image(systemName: "xmark.bin")
-                                            .padding(.leading)
-                                        Text("Reset habits")
-                                        Spacer()
-                                    }.foregroundColor(.black)
-                                }
-                                
-                            }   .padding()
-                                .frame(width: 350,height: 40)
-                                .background(.white)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                           
-                        }
                         Spacer()
                        
                             
