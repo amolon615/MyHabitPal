@@ -76,13 +76,13 @@ struct HabitDetailedView_View: View {
                                 .frame(width: 40)
                                 .padding()
                                 .offset(x: 0, y: offset)
-                                .animation(.interpolatingSpring(stiffness: 100, damping: 10))
-                                .shadow(color: .gray, radius: 10, x: 0, y: 5)
                                 .onAppear() {
-                                    Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-                                        self.offset = self.offset == 0 ? 5 : 0
-                                    }
+                            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                                withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
+                                    self.offset = self.offset == 0 ? 5 : 0
                                 }
+                            }
+                        }
                             ZStack {
                                 // 2
                                 ZStack {

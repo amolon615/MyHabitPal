@@ -12,6 +12,7 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.colorScheme) var colorScheme
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.name)
@@ -55,25 +56,26 @@ struct ContentView: View {
                                     .scaledToFit()
                                     .frame(width: 130)
                                     .padding()
-                                    .offset(x: 0, y: offset)
-                                    .animation(.interpolatingSpring(stiffness: 100, damping: 10))
                                     .shadow(color: .gray, radius: 10, x: 0, y: 5)
+                                    .offset(x: 0, y: offset)
                                     .onAppear() {
-                                        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-                                            self.offset = self.offset == 0 ? 5 : 0
-                                        }
+                                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                                    withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
+                                        self.offset = self.offset == 0 ? 5 : 0
                                     }
+                                }
+                            }
                         
                                     ZStack{
                                         Rectangle()
                                             .frame(width: 330, height: 50)
-                                            .background(.white)
+                                            .background(colorScheme == .dark ? .gray : .white)
                                             .foregroundColor(.white)
                                             .cornerRadius(10)
-                                            .opacity(0.5)
+                                            .opacity(0.7)
                                         Text("To start tracking your habits create one!")
                                             .opacity(0.5)
-                                            .foregroundColor(.black)
+                                            .foregroundColor(colorScheme == .dark ? .black : .black)
                                             .onTapGesture {
                                                 addHabit.toggle()
                                             }
@@ -139,7 +141,7 @@ struct ContentView: View {
                         Button {
                         showSettings = true
                     } label: {
-                        Image(systemName: "gear")
+                        Image(systemName: "gearshape")
                             .foregroundColor(.white)
                             .font(.system(size: 30))
                             

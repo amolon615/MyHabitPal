@@ -11,14 +11,16 @@ struct animations_test: View {
     @State private var offset: CGFloat = 0
 
       var body: some View {
-          Image("bot_main")
-              .offset(x: 0, y: offset)
-              .animation(.interpolatingSpring(stiffness: 100, damping: 10))
-              .onAppear() {
-                  Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+
+              Image("bot_main")
+                  .offset(x: 0, y: offset)
+                  .onAppear() {
+              Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                  withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
                       self.offset = self.offset == 0 ? 5 : 0
                   }
               }
+          }
       }
 }
 

@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct MyHabitPalApp: App {
     @StateObject private var dataController = DataController()
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some Scene {
         WindowGroup {

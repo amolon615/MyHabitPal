@@ -10,6 +10,8 @@ import SFSymbolsPicker
 import CoreData
 
 struct AddHabitView: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
 
@@ -83,21 +85,22 @@ struct AddHabitView: View {
                     .frame(width: 40)
                     .padding()
                     .offset(x: 0, y: offset)
-                    .animation(.interpolatingSpring(stiffness: 100, damping: 10))
-                    .shadow(color: .gray, radius: 10, x: 0, y: 5)
                     .onAppear() {
-                        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-                            self.offset = self.offset == 0 ? 5 : 0
-                        }
+                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                    withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
+                        self.offset = self.offset == 0 ? 5 : 0
                     }
+                }
+            }
                 VStack (spacing: 0){ //first section
                   
                     ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(.white)
+                            .fill(colorScheme == .dark ? .gray : .white)
                             .frame(width: 350, height: 100)
                             .shadow(radius: 10)
                             .padding()
+                            .opacity(0.7)
                         VStack{
                             TextField("Enter your habit's name", text: $name)
                                 .padding()
@@ -115,10 +118,11 @@ struct AddHabitView: View {
                     }
                     ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(.white)
+                            .fill(colorScheme == .dark ? .gray : .white)
                             .frame(width: 350, height: 190)
                             .shadow(radius: 10)
                             .padding()
+                            .opacity(0.7)
                         VStack{
                             HStack{
                                 Text(String(format: "%g", targetDays))
@@ -137,15 +141,16 @@ struct AddHabitView: View {
                     
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(.white)
+                            .fill(colorScheme == .dark ? .gray : .white)
                             .frame(width: 350, height: 100)
                             .shadow(radius: 10)
                             .padding()
+                            .opacity(0.7)
                         
                         VStack (spacing: 0){
                                 HStack{
                                     Text("Choose icon")
-                                        .foregroundColor(.black)
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
                                     Spacer()
                                     Image(systemName: "\(habitIcon)")
                                         .padding(.leading)
@@ -186,11 +191,10 @@ struct AddHabitView: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    .padding()
+                        
                     .frame(width:320, height: 50)
                     .background(.blue)
-                    .background(.black.opacity(0.75))
-                    .clipShape(Capsule())
+                    .cornerRadius(10)
                     .shadow(radius: 10)
                     .opacity(0.8)
                     .padding()
