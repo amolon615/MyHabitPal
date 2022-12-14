@@ -140,6 +140,7 @@ struct ContentView: View {
                     withAnimation(.easeInOut(duration: 2)) {
                         Button {
                         showSettings = true
+                        HapticManager.instance.impact(style: .light)
                     } label: {
                         Image(systemName: "gearshape")
                             .foregroundColor(.white)
@@ -159,6 +160,7 @@ struct ContentView: View {
                     withAnimation(.easeInOut(duration: 2)) {
                         Button {
                         addHabit = true
+                            HapticManager.instance.impact(style: .light)
                     } label: {
                         Image(systemName: "plus")
                             .foregroundColor(.white)
@@ -190,6 +192,7 @@ struct ContentView: View {
         for offset in offsets {
             let habit = habits[offset]
             moc.delete(habit)
+            HapticManager.instance.impact(style: .light)
         }
         
         try? moc.save()

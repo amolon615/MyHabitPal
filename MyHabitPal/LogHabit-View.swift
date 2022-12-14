@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 import ConfettiSwiftUI
 
+
 struct HabitDetailedView_View: View {
     
     @Environment(\.managedObjectContext) var moc
@@ -146,6 +147,7 @@ struct HabitDetailedView_View: View {
                                         print("\(habit.loggedDays) logged days saved")
                                         print("\(habit.completionProgress) progress value set")
                                         confetti += 1
+                                        HapticManager.instance.notification(type: .success)
                                     }
                                     if habit.actualDate! == Date.now.formatted(date: .long, time: .omitted) {
                                         

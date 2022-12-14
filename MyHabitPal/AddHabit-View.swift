@@ -9,6 +9,20 @@ import SwiftUI
 import SFSymbolsPicker
 import CoreData
 
+class HapticManager {
+    static let instance = HapticManager() // Singleton
+    
+    func notification(type: UINotificationFeedbackGenerator.FeedbackType) {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(type)
+    }
+    
+    func impact(style: UIImpactFeedbackGenerator.FeedbackStyle) {
+        let generator = UIImpactFeedbackGenerator(style: style)
+        generator.impactOccurred()
+    }
+}
+
 struct AddHabitView: View {
     @Environment(\.colorScheme) var colorScheme
     
@@ -42,8 +56,6 @@ struct AddHabitView: View {
     @State private var targetDays = 14.0
     
     @State private var loggedDays = 0
-    @State private var currentStreak = 0
-    @State private var maxStreak = 0
     
     //timer block
     @State private var logMinutes = false
@@ -183,6 +195,7 @@ struct AddHabitView: View {
                     withAnimation(.easeInOut(duration: 2)) {
                         Button {
                             add()
+                            HapticManager.instance.notification(type: .success)
                     } label: {
                         HStack{
                             Text("Save habit & start tracking")
@@ -220,9 +233,7 @@ struct AddHabitView: View {
         newHabit.about = about
         newHabit.loggedDays = Int32(loggedDays)
         newHabit.actualDate = actualDate
-        newHabit.currentStreak = Int32(currentStreak)
         newHabit.habitIcon = habitIcon
-        newHabit.maxStreak = Int32(maxStreak)
         newHabit.logMinutes = logMinutes
         newHabit.loggedHours = Int32(loggedHours)
         newHabit.loggedMinutes = Int32(loggedMinutes)
