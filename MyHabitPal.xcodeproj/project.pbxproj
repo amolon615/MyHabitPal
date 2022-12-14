@@ -16,10 +16,13 @@
 		AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */; };
 		AC33CCDF293F776A004F1E90 /* LogHabit-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */; };
 		AC33CCF12940015D004F1E90 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = AC33CCF02940015D004F1E90 /* SFSymbolsPicker */; };
-		AC33CCF52940DBEB004F1E90 /* Completions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCF42940DBEB004F1E90 /* Completions.swift */; };
 		AC33CCF72940EDEF004F1E90 /* CompletionView-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */; };
 		AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1429424326004F1E90 /* Settings-View.swift */; };
 		AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */; };
+		AC33CD202942B47B004F1E90 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AC33CD1F2942B47B004F1E90 /* ConfettiSwiftUI */; };
+		AC33CD2229437FFD004F1E90 /* Workplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD2129437FFD004F1E90 /* Workplace.swift */; };
+		ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADF6D829489B8D00522D05 /* ProgressView.swift */; };
+		ACADF6FB294932C600522D05 /* animations_test.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADF6FA294932C600522D05 /* animations_test.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,10 +35,12 @@
 		AC33CCDA293F5B3B004F1E90 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddHabit-View.swift"; sourceTree = "<group>"; };
 		AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogHabit-View.swift"; sourceTree = "<group>"; };
-		AC33CCF42940DBEB004F1E90 /* Completions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completions.swift; sourceTree = "<group>"; };
 		AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletionView-View.swift"; sourceTree = "<group>"; };
 		AC33CD1429424326004F1E90 /* Settings-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings-View.swift"; sourceTree = "<group>"; };
 		AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker_saver.swift; sourceTree = "<group>"; };
+		AC33CD2129437FFD004F1E90 /* Workplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workplace.swift; sourceTree = "<group>"; };
+		ACADF6D829489B8D00522D05 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		ACADF6FA294932C600522D05 /* animations_test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = animations_test.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC33CD202942B47B004F1E90 /* ConfettiSwiftUI in Frameworks */,
 				AC33CCF12940015D004F1E90 /* SFSymbolsPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,14 +77,16 @@
 			children = (
 				AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
-				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
+				ACADF6FA294932C600522D05 /* animations_test.swift */,
 				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
+				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
+				ACADF6D829489B8D00522D05 /* ProgressView.swift */,
 				AC33CD1B29429426004F1E90 /* Utility */,
+				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
 				AC33CD1429424326004F1E90 /* Settings-View.swift */,
 				AC33CCDA293F5B3B004F1E90 /* DataController.swift */,
-				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
+				AC33CD2129437FFD004F1E90 /* Workplace.swift */,
 				AC33CCCB293F55C8004F1E90 /* Assets.xcassets */,
-				AC33CCF42940DBEB004F1E90 /* Completions.swift */,
 				AC33CCCD293F55C8004F1E90 /* Preview Content */,
 			);
 			path = MyHabitPal;
@@ -119,6 +127,7 @@
 			name = MyHabitPal;
 			packageProductDependencies = (
 				AC33CCF02940015D004F1E90 /* SFSymbolsPicker */,
+				AC33CD1F2942B47B004F1E90 /* ConfettiSwiftUI */,
 			);
 			productName = MyHabitPal;
 			productReference = AC33CCC4293F55C6004F1E90 /* MyHabitPal.app */;
@@ -150,6 +159,7 @@
 			mainGroup = AC33CCBB293F55C6004F1E90;
 			packageReferences = (
 				AC33CCEF2940015D004F1E90 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */,
+				AC33CD1E2942B47B004F1E90 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = AC33CCC5293F55C6004F1E90 /* Products */;
 			projectDirPath = "";
@@ -183,10 +193,12 @@
 				AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */,
 				AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */,
 				AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */,
-				AC33CCF52940DBEB004F1E90 /* Completions.swift in Sources */,
+				ACADF6FB294932C600522D05 /* animations_test.swift in Sources */,
+				AC33CD2229437FFD004F1E90 /* Workplace.swift in Sources */,
 				AC33CCCA293F55C6004F1E90 /* ContentView.swift in Sources */,
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
 				AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */,
+				ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,8 +333,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -350,8 +361,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -397,6 +407,14 @@
 				kind = branch;
 			};
 		};
+		AC33CD1E2942B47B004F1E90 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -404,6 +422,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AC33CCEF2940015D004F1E90 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */;
 			productName = SFSymbolsPicker;
+		};
+		AC33CD1F2942B47B004F1E90 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC33CD1E2942B47B004F1E90 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 

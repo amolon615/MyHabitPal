@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
-import Foundation
 import CoreData
+import ConfettiSwiftUI
+
 
 struct HabitDetailedView_View: View {
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
+    
     
     //timer variables
     @State private var hours = 0
@@ -25,78 +27,155 @@ struct HabitDetailedView_View: View {
     @State private var pauseDisabled = true
     @State private var resumeDisabled = true
     
+    @State private var gradIn = false
+    @State private var gradOut = false
     
     
-    @FetchRequest(sortDescriptors: [
-        SortDescriptor(\.name)
-    ]) var habits: FetchedResults<Habit>
+    @State private var confetti: Int = 0
+    
+    @State private var completionProgress = 0.0
+    @State private var disableButton = false
+    @State private var loggedDays = 0
+
     
     //passing selected habit to navigation view
     @State var habit: Habit
 
-    @State var disableButton = true
     @State var disableMessage = ""
     
     
+    @State private var showingSuccess = false
     
-    var logDate: String {
-        let date = Date.now
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let dateString = dateFormatter.string(from: date)
-        return dateString
+    var logDate =  Date.now.formatted(date: .long, time: .omitted)
+     
+    
+    func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
+        self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
     }
-      
     
- 
+    @State private var progress: CGFloat = 0
+       let gradient1 = Gradient(colors: [.purple, .yellow])
+       let gradient2 = Gradient(colors: [.blue, .purple])
     
-    
+    @State private var offset: CGFloat = 0
     
     var body: some View {
         ZStack {
-            RadialGradient(stops: [
-                .init(color: Color(red: CGFloat(1.0 - habit.colorRed), green: CGFloat(1.0 - habit.colorGreen), blue: CGFloat(1.0 - habit.colorRed)), location: 0.3),
-                .init(color: Color(red: CGFloat(habit.colorRed + 0.2), green: CGFloat(habit.colorGreen + 0.2), blue: CGFloat(habit.colorBlue + 0.2)), location: 0.3),
-            ], center: .center, startRadius: 100, endRadius: 400)
-            .ignoresSafeArea()
-            
- 
+            Rectangle()
+                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
+                .ignoresSafeArea()
+                .onAppear {
+                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
+                        self.progress = 2.0
+                        completionProgress = habit.completionProgress
+                    }
+                }
                         VStack{
-                     
-                            Image(systemName: habit.habitIcon ?? "star")
-                                .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed)))
-                                .font(.system(size: 70))
+                            Image("bot_log")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40)
                                 .padding()
-                            Text(habit.name ?? "unknown habit")
+                                .offset(x: 0, y: offset)
+                                .onAppear() {
+                            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                                withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
+                                    self.offset = self.offset == 0 ? 5 : 0
+                                }
+                            }
+                        }
+                            ZStack {
+                                // 2
+                                ZStack {
+                                    Circle()
+                                        .stroke(
+                                            Color.gray.opacity(0.5),
+                                            lineWidth: 30
+                                        )
+                                    Circle()
+                                        .trim(from: 0, to: completionProgress)
+                                        .stroke(
+                                           (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
+                                            style: StrokeStyle(
+                                                lineWidth: 30,
+                                                lineCap: .round
+                                            )
+                                        )
+                                        .rotationEffect(.degrees(-90))
+                                        .animation(.easeOut, value: completionProgress)
+                                        // 1
+                                    
+                                }
+                                // 3
+                                .frame(width: 200, height: 200)
+                            }
+                            .padding()
+                            
 
-                                HStack{
-                                    Text("Days logged")
-                                    Text("\(habit.loggedDays)")
+                                VStack{
+                                    HStack{
+                                        Text("Target days:")
+                                        Text(String(format: "%g", habit.targetDays))
+                                    }
+                                    HStack{
+                                        Text("Days logged:")
+                                        Text("\(habit.loggedDays)")
+                                    }
+
                                         
                                 }
                                 if habit.logMinutes == true {
-                                    Text("\(minutes) minutes & \(seconds) seconds logged today.")
+                                    VStack{
+                                        Text("\(minutes) minutes logged.")
+                                        Text("\(seconds) seconds logged.")
+                                    }
                                 }
                             
                         
                             VStack {
-                                   Button("Log an activity today") {
-                                       withAnimation(){
-                                           
-                                           habit.loggedDays += 1
-                                           habit.name = habit.name
-                                           //create new variable to store yesterdays date
-                                           habit.actualDate = logDate
-                                           
-                                           disableButton = true
-                                           try? moc.save()
-                                       }
-                                }
+                                Button{
+                                    withAnimation(){
+                                        loggedDays = Int(habit.loggedDays)
+                                        loggedDays += 1
+                                        habit.loggedDays = Int32(loggedDays)
+                                        
+                                        completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
+                                        
+                                        habit.completionProgress = completionProgress
+                                        
+                                        try? moc.save()
+                                        print("\(habit.loggedDays) logged days saved")
+                                        print("\(habit.completionProgress) progress value set")
+                                        confetti += 1
+                                        HapticManager.instance.notification(type: .success)
+                                    }
+                                    if habit.actualDate! == Date.now.formatted(date: .long, time: .omitted) {
+                                        
+                                        habit.disabledButton = true
+                                        
+                                        try? moc.save()
+                                        
+                                        disableMessage = "You've already logged your habit today! Come back tomorrow!"
+                                        print("Log button was disabled")
+                                        print("Today's date is \(logDate)")
+                                        print("Yesterday's date was \(habit.actualDate!)")
+                                        
+                                    }
+                                    
+                                    if loggedDays == Int(habit.targetDays) {
+                                        showingSuccess.toggle()
+                                    }
+                                        
+                                   } label: {
+                                       Text(habit.disabledButton ? "Come back tomorrow" : "Log day")
+                                   }
                                    .frame(width: 200, height: 60)
                                    .foregroundColor(.white)
-                                   .background(disableButton ? .gray: .blue)
+                                   .disabled(habit.disabledButton)
+                                   .background(habit.disabledButton ? .gray: .blue)
                                    .cornerRadius(10)
-                                   .disabled(disableButton)
+                                 
+                                   
                                   
                                 
                                 //if user added timer tracking
@@ -158,39 +237,38 @@ struct HabitDetailedView_View: View {
                                            
                                         }
                                     }
+                                 
                                 }
+                                   
                             }
+                           
                         }
                         .padding()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.vertical, 20)
                         .background(.thinMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                         .ignoresSafeArea()
                         .onAppear {
                     minutes = Int(habit.loggedMinutes)
                     seconds = Int(habit.loggedSeconds)
                     
     //disabling button after logging day
-                    if logDate == habit.actualDate! {
-                        disableButton = true
-                        disableMessage = "You've already logged your habit today! Come back tomorrow!"
-                        print("Log button was disabled")
-                        print("Today's date is \(logDate)")
-                        print("Yesterday's date was \(habit.actualDate!)")
-
-                    } else {
-                        disableButton = false
-                        disableMessage = ""
-                        print("Log button was enabled")
-                        print("Today's date is \(logDate)")
-                        print("Yesterday's date was \(habit.actualDate!)")
+                            
+                 
+                }
+            .sheet(isPresented: $showingSuccess) {
+                VStack{
+                    Text("Congratulations!")
+                        .onAppear {
+                            confetti += 1
+                        }
                     }
+                .confettiCannon(counter: $confetti)
                 }
                
         }
-        
-            
+        .confettiCannon(counter: $confetti)
         }
     
     func startTimer() {
