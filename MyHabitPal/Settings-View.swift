@@ -7,11 +7,17 @@
 
 import SwiftUI
 import SafariServices
+import CoreData
 
 struct Settings_View: View {
     @State private var chooseTheme = false
     @State private var showPrivacy: Bool = false
     @State private var showTOS: Bool = false
+    
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.name)
+    ]) var habits: FetchedResults<Habit>
     
     @State private var showGradientSettings = false
     
@@ -22,6 +28,8 @@ struct Settings_View: View {
     @State private var progress: CGFloat = 0
        let gradient1 = Gradient(colors: [.purple, .yellow])
        let gradient2 = Gradient(colors: [.blue, .purple])
+    
+    @State private var offset: CGFloat = 0
     
     var body: some View {
         ZStack{
@@ -50,6 +58,20 @@ struct Settings_View: View {
                 Spacer()
                 Text("Settings")
                     .font(.title)
+                    .foregroundColor(.white)
+                Image("bot_settings")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100)
+                    .padding()
+                    .offset(x: 0, y: offset)
+                    .onAppear() {
+                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                    withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
+                        self.offset = self.offset == 0 ? 5 : 0
+                    }
+                }
+            }
                 VStack(spacing: 30){//main vstack
                     //section 1
                     VStack(spacing: 10) {
@@ -192,7 +214,7 @@ struct Settings_View: View {
                 VStack{
                     Text("Version 1.0")
                         .foregroundColor(.secondary)
-                    Text("Habitify (c)")
+                    Text("Achievator (c)")
                         .foregroundColor(.secondary)
                 }
                     .font(.caption)
