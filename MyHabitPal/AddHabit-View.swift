@@ -9,6 +9,8 @@ import SwiftUI
 import SFSymbolsPicker
 import CoreData
 
+
+
 class HapticManager {
     static let instance = HapticManager() // Singleton
     
@@ -26,7 +28,7 @@ class HapticManager {
 struct AddHabitView: View {
     @Environment(\.colorScheme) var colorScheme
     
-    @Environment(\.managedObjectContext) var moc
+   @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
 
     @State private var name = ""
@@ -65,6 +67,10 @@ struct AddHabitView: View {
     
     @State var completionProgress: Double = 0
 
+    @State private var selectedHour = 1
+    @State private var selectedMinute = 1
+    @State private var selectedDay = 1
+    @State private var remind = false
     
     
     var actualDate = Date.now.formatted(date: .long, time: .omitted)
@@ -109,7 +115,7 @@ struct AddHabitView: View {
                     ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
                             .fill(colorScheme == .dark ? .gray : .white)
-                            .frame(width: 350, height: 100)
+                            .frame(width: 350, height: 50)
                             .shadow(radius: 10)
                             .padding()
                             .opacity(0.7)
@@ -120,18 +126,13 @@ struct AddHabitView: View {
                                 .foregroundColor(.black)
                                 .frame(width: 350, height: 40)
                                 .disableAutocorrection(true)
-                            TextField("Describe it", text: $about)
-                                .padding()
-                                .padding(.leading)
-                                .frame(width: 350, height: 40)
-                                .disableAutocorrection(true)
                         }
                         
                     }
                     ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
                             .fill(colorScheme == .dark ? .gray : .white)
-                            .frame(width: 350, height: 190)
+                            .frame(width: 350, height: remind ? 350 : 190)
                             .shadow(radius: 10)
                             .padding()
                             .opacity(0.7)
@@ -148,6 +149,9 @@ struct AddHabitView: View {
                             Toggle("Log time?", isOn: $logMinutes)
                                 .padding()
                                 .frame(width: 320)
+//                            Toggle("Remind with notifications", isOn: $remind)
+//                                .padding()
+//                                .frame(width: 320)
                         }
                     }
                     
