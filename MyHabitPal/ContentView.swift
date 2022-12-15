@@ -129,7 +129,7 @@ struct ContentView: View {
                             
                         }
                         .opacity(0.7)
-                    }//if
+                    }
                     }
                 }
 

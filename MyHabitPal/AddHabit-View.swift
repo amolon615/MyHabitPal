@@ -30,6 +30,7 @@ struct AddHabitView: View {
     
    @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
+    
 
     @State private var name = ""
     @State private var about = ""

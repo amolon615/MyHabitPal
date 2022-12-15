@@ -23,6 +23,7 @@ extension Logged {
     @NSManaged public var cdminutes: Int32
     @NSManaged public var date: String?
     @NSManaged public var habit: Habit?
+    @NSManaged public var id: UUID?
     
     public var wrappedName: String {
         name ?? "unknown"
@@ -30,6 +31,10 @@ extension Logged {
 
     public var wrappedDate: String {
         date ?? "unknown"
+    }
+    
+    public var wrappedId: UUID {
+        id ?? UUID()
     }
 }
 
