@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Charts
 
 
 
@@ -105,7 +106,8 @@ struct ContentView: View {
                                                     Text(habit.name ?? "Unknown")
                                                     Spacer()
                                                     ProgressView(habit: habit)
-                                                        .frame(width: 70, height: 70)
+                                                        .frame(width: 70, height: 60)
+                                                  
                                                         .padding()
                                                 }
                                                 
@@ -129,7 +131,7 @@ struct ContentView: View {
                             
                         }
                         .opacity(0.7)
-                    }//if
+                    }
                     }
                 }
 

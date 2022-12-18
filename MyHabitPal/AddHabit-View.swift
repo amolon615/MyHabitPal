@@ -30,6 +30,7 @@ struct AddHabitView: View {
     
    @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
+    
 
     @State private var name = ""
     @State private var about = ""
@@ -73,7 +74,7 @@ struct AddHabitView: View {
     @State private var remind = false
     
     
-    var actualDate = Date.now.formatted(date: .long, time: .omitted)
+    var actualDate = Date.now.formatted(date: .numeric, time: .omitted)
     
     
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
@@ -227,14 +228,10 @@ struct AddHabitView: View {
     func add(){
         let newHabit = Habit(context: moc)
         
-        let date = Date.now
-        
         let pickedColor = UIColor(myColor)
-        print(date)
         
         newHabit.id = UUID()
         newHabit.name = name
-        newHabit.about = about
         newHabit.loggedDays = Int32(loggedDays)
         newHabit.actualDate = actualDate
         newHabit.habitIcon = habitIcon
@@ -250,6 +247,7 @@ struct AddHabitView: View {
         newHabit.colorBlue = Float(pickedColor.components.blue)
         newHabit.colorGreen = Float(pickedColor.components.green)
         newHabit.colorAlpha = Float(pickedColor.components.alpha)
+        newHabit.totalLoggedTime = 0
 
         
         try? moc.save()
