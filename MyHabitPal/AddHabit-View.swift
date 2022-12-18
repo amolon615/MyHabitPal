@@ -46,6 +46,8 @@ struct AddHabitView: View {
     @State private var habitIcon = "star"
     @State private var iconPicker = false
     
+    @State private var showColorPicker = false
+    
 
     
     @State private var myColor = Color(.sRGB, red:0.4, green: 0.3, blue: 0.4)
@@ -67,7 +69,10 @@ struct AddHabitView: View {
     @State private var loggedMinutes = 0
     @State private var loggedSeconds = 0
     
-    @State var completionProgress: Double = 0
+    @State private var completionProgress: Double = 0
+    @State private var completionMinutesProgress: Double = 0.0
+    @State private var completionHoursProgress: Double = 0.0
+    @State private var completionSecondsProgress: Double = 0.0
 
     @State private var selectedHour = 1
     @State private var selectedMinute = 1
@@ -112,6 +117,9 @@ struct AddHabitView: View {
                     }
                 }
             }
+                    .onTapGesture {
+                        showColorPicker = true
+                    }
                 VStack (spacing: 0){ //first section
                   
                     ZStack(alignment: .leading){
@@ -151,16 +159,13 @@ struct AddHabitView: View {
                             Toggle("Log time?", isOn: $logMinutes)
                                 .padding()
                                 .frame(width: 320)
-//                            Toggle("Remind with notifications", isOn: $remind)
-//                                .padding()
-//                                .frame(width: 320)
                         }
                     }
                     
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
                             .fill(colorScheme == .dark ? .gray : .white)
-                            .frame(width: 350, height: 100)
+                            .frame(width: 350, height: 130)
                             .shadow(radius: 10)
                             .padding()
                             .opacity(0.7)
@@ -180,19 +185,130 @@ struct AddHabitView: View {
                             .onTapGesture(perform: {
                                     iconPicker.toggle()
                                 })
-                            
-                            ColorPicker("Select color", selection: $myColor)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .frame(width: 310, height: 20)
-                                .padding()
-                                .padding(.leading)
-                          
+                            HStack{
+                                Text("Choose color")
+                                    .padding(.leading)
+                                    .padding()
+                                Spacer()
+                                Circle()
+                                    .fill(myColor)
+                                    .frame(width: 20)
+                                    .padding()
+                                    .onTapGesture {
+                                        showColorPicker.toggle()
+                                        
+                                    }
+                                    
+                                
+                                    
+                            }
+                            .padding()
                         }
                     }
                 }
                 
                 .sheet(isPresented: $iconPicker) {
                     SFSymbolsPicker(isPresented: $iconPicker, icon: $habitIcon, category: .habit, axis: .vertical, haptic: true)
+                        .presentationDetents([.medium, .fraction(0.6)])
+                        .padding()
+                }
+                .sheet(isPresented: $showColorPicker) {
+                    VStack (spacing: 0){
+                        HStack{
+                            Rectangle()
+                                  .fill(Color.red)
+                                  .frame(width:50)
+                                  .clipShape(Circle())
+                                  .onTapGesture {
+                                      myColor = Color(.sRGB, red:1, green: 0, blue: 0)
+                                      dismiss()
+                                  }
+                                      
+                            Rectangle()
+                                 .fill(Color(.sRGB, red:0, green: 0, blue: 1))
+                                  .frame(width: 50)
+                                  .background(Color(.sRGB, red:0, green: 0, blue: 1))
+                                  .clipShape(Circle())
+                                  .onTapGesture {
+                                      myColor = Color(.sRGB, red:0, green: 0, blue: 1)
+                                      dismiss()
+                                  }
+                            Rectangle()
+                                   .fill(Color(.sRGB, red:0, green: 1, blue: 0))
+                                   .frame(width: 50)
+                                   .clipShape(Circle())
+                                   .onTapGesture {
+                                       myColor = Color(.sRGB, red:0, green: 1, blue: 0)
+                                       dismiss()
+                                   }
+                            
+                         
+                            Rectangle()
+                                  .fill(Color(.sRGB, red:0, green: 1, blue: 0))
+                                  .frame(width: 50)
+                                  .clipShape(Circle())
+                                  .onTapGesture {
+                                      myColor = Color(.sRGB, red:0, green: 1, blue: 0)
+                                      dismiss()
+                                  }
+                            Rectangle()
+                                 .fill(Color(.sRGB, red:0, green: 1, blue: 1))
+                                  .frame(width: 50)
+                                  .clipShape(Circle())
+                                  .onTapGesture {
+                                      myColor = Color(.sRGB, red:0, green: 1, blue: 1)
+                                      dismiss()
+                                  }
+                        }
+                        .padding()
+                        HStack{
+                            Rectangle()
+                                  .fill(Color(.sRGB, red:255, green: 0, blue: 128))
+                                  .frame(width:50)
+                                  .clipShape(Circle())
+                                  .onTapGesture {
+                                      myColor = Color(.sRGB, red:255, green: 0, blue: 128)
+                                      dismiss()
+                                  }
+                                      
+                            Rectangle()
+                                 .fill(Color(.sRGB, red:255, green: 128, blue: 0))
+                                  .frame(width: 50)
+                                  .clipShape(Circle())
+                                  .onTapGesture {
+                                      myColor = Color(.sRGB, red:255, green: 128, blue: 0)
+                                      dismiss()
+                                  }
+                            Rectangle()
+                                   .fill(Color(.sRGB, red:0, green: 1, blue: 0))
+                                   .frame(width: 50)
+                                   .clipShape(Circle())
+                                   .onTapGesture {
+                                       myColor = Color(.sRGB, red:0, green: 1, blue: 0)
+                                       dismiss()
+                                   }
+                            
+                         
+                            Rectangle()
+                                .fill(Color(.sRGB, red: 1, green: 0.2, blue: 0))
+                                  .frame(width: 50)
+                                  .clipShape(Circle())
+                                  .onTapGesture {
+                                      myColor = Color(.sRGB, red:0, green: 1, blue: 0)
+                                      dismiss()
+                                  }
+                            Rectangle()
+                                 .fill(Color(.sRGB, red:0, green: 1, blue: 1))
+                                  .frame(width: 50)
+                                  .clipShape(Circle())
+                                  .onTapGesture {
+                                      myColor = Color(.sRGB, red:0, green: 1, blue: 1)
+                                      dismiss()
+                                  }
+                        }
+                        .padding()
+                    }
+                    .presentationDetents([.medium, .fraction(0.3)])
                 }
             }
             VStack{
@@ -248,6 +364,10 @@ struct AddHabitView: View {
         newHabit.colorBlue = Float(pickedColor.components.blue)
         newHabit.colorGreen = Float(pickedColor.components.green)
         newHabit.colorAlpha = Float(pickedColor.components.alpha)
+        
+        newHabit.completionSecondsProgress = completionSecondsProgress
+        newHabit.completionMinutesProgress = completionMinutesProgress
+        newHabit.completionHoursProgress = completionHoursProgress
         
         newHabit.totalLoggedTime = 0
         
