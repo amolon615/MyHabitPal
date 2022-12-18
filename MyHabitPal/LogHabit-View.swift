@@ -245,11 +245,12 @@ struct HabitDetailedView_View: View {
                                     
                                 }
                                 Chart(habit.loggedArray.sorted {$0.date! < $1.date!} ){
-                                    AreaMark(
+                                    BarMark(
                                         x: .value("Date", $0.date!),
                                         y: .value("Minutes", $0.minutes)
                                     )
-                                    .interpolationMethod(.catmullRom)
+                                    .foregroundStyle(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed)).gradient)
+//                                    .interpolationMethod(.catmullRom)
                                 }
                
                                 .frame(height: 250)
@@ -335,6 +336,7 @@ struct HabitDetailedView_View: View {
                 self.minutes += 1
                 self.seconds = 0
             }
+            
         }
     }
     
