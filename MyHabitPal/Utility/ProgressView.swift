@@ -27,14 +27,14 @@ struct ProgressView: View {
                          Circle()
                              .stroke(
                                  Color.gray.opacity(0.5),
-                                 lineWidth: 15
+                                 lineWidth: 5
                              )
                          Circle()
                              .trim(from: 0, to: habit.completionProgress)
                              .stroke(
                                 (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
                                  style: StrokeStyle(
-                                     lineWidth: 15,
+                                     lineWidth: 5,
                                      lineCap: .round
                                  )
                              )

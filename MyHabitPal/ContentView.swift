@@ -37,19 +37,9 @@ struct ContentView: View {
     @State private var isPresentingHabit: Habit? = nil
     
     var body: some View {
-        ZStack{
-
-            
                 NavigationView{
                     ZStack {
-                        Rectangle()
-                            .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                            .ignoresSafeArea()
-                            .onAppear {
-                                withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                                    self.progress = 2.0
-                                }
-                            }
+    
                         if habits.count == 0 {
                             VStack{
                                 Image("bot_main")
@@ -101,12 +91,12 @@ struct ContentView: View {
                                                 HStack{
                                                     Image(systemName: habit.habitIcon ?? "star")
                                                         .foregroundColor(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue)))
-                                                        .font(.system(size: 40))
+                                                        .font(.system(size: 20))
                                                         .padding(.leading)
                                                     Text(habit.name ?? "Unknown")
                                                     Spacer()
                                                     ProgressView(habit: habit)
-                                                        .frame(width: 70, height: 60)
+                                                        .frame(width: 40, height: 30)
                                                   
                                                         .padding()
                                                 }
@@ -117,7 +107,7 @@ struct ContentView: View {
                                     }
                                     
                                     
-                                    .listRowSeparator(.hidden)
+//                                    .listRowSeparator(.hidden)
                                 }
                                 
                                 
@@ -133,61 +123,33 @@ struct ContentView: View {
                         .opacity(0.7)
                     }
                     }
+                    .toolbar {
+                        ToolbarItem{
+                            Button {
+                                addHabit = true
+                                HapticManager.instance.impact(style: .light)
+                            } label: {
+                                Label("Add", systemImage: "plus")
+                            }
+                        }
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button {
+                                showSettings = true
+                                HapticManager.instance.impact(style: .light)
+                            } label: {
+                                Label("Settings", systemImage: "gear")
+                            }
+                        }
+                    }
                 }
 
-           
-            VStack{
-                Spacer()
-                HStack{
-                    withAnimation(.easeInOut(duration: 2)) {
-                        Button {
-                        showSettings = true
-                        HapticManager.instance.impact(style: .light)
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .foregroundColor(.white)
-                            .font(.system(size: 30))
-                            
-                    }
-                    .padding()
-                    .frame(width:50, height: 50)
-                    .background(.blue)
-                    .background(.black.opacity(0.75))
-                    .clipShape(Capsule())
-                    .shadow(radius: 10)
-                    .opacity(0.8)
-                    .padding(.leading)
-                    }
-                    Spacer()
-                    withAnimation(.easeInOut(duration: 2)) {
-                        Button {
-                        addHabit = true
-                            HapticManager.instance.impact(style: .light)
-                    } label: {
-                        Image(systemName: "plus")
-                            .foregroundColor(.white)
-                    }
-                    .padding()
-                    .frame(width:50, height: 50)
-                    .background(.blue)
-                    .background(.black.opacity(0.75))
-                    .clipShape(Capsule())
-                    .shadow(radius: 10)
-                    .opacity(0.8)
-                    .padding(.trailing)
-                    }
-                }
-            }
-            
+         
                 .sheet(isPresented: $addHabit) {
                     AddHabitView()
                 }
                 .sheet(isPresented: $showSettings) {
                     Settings_View()
                 }
-             
-            
-        }
     }
     
     func deleteHabits(at offsets: IndexSet) {

@@ -101,7 +101,7 @@ struct AddHabitView: View {
                 Image("bot_add")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 40)
+                    .frame(width: 20)
                     .padding()
                     .offset(x: 0, y: offset)
                     .onAppear() {

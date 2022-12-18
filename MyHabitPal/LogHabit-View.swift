@@ -67,125 +67,103 @@ struct HabitDetailedView_View: View {
     
     var body: some View {
         ZStack {
-            
-            Rectangle()
-                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                .ignoresSafeArea()
-                .onAppear {
-                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                        self.progress = 2.0
-                        completionProgress = habit.completionProgress
-                    }
-                }
             ScrollView{
                 VStack{
-                    ZStack {
-                        // 2
-                        ZStack {
-                            Circle()
-                                .stroke(
-                                    Color.gray.opacity(0.5),
-                                    lineWidth: 30
-                                )
-                            Circle()
-                                .trim(from: 0, to: completionProgress)
-                                .stroke(
-                                    (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
-                                    style: StrokeStyle(
-                                        lineWidth: 30,
-                                        lineCap: .round
-                                    )
-                                )
-                                .rotationEffect(.degrees(-90))
-                                .animation(.easeOut, value: completionProgress)
-                            // 1
-                            
-                        }
-                        // 3
-                        .frame(width: 100, height: 100)
-                    }
-                    .padding()
-                    
-                    
                     VStack{
-                        
-                        
-                        //                    HStack{
-                        //                        Text("Target days:")
-                        //                        Text(String(format: "%g", habit.targetDays))
-                        //
-                        //                    }
-                        //
-                        //                    HStack{
-                        //                        Text("Days logged:")
-                        //                        Text("\(habit.loggedDays)")
-                        //                    }
-                        
-                        
-                        
-                        
-                        
-                        
+                        ZStack {//progress circle
+                            ZStack {
+                                Circle()
+                                    .stroke(
+                                        Color.gray.opacity(0.5),
+                                        lineWidth: 10
+                                    )
+                                Circle()
+                                    .trim(from: 10, to: completionProgress)
+                                    .stroke(
+                                        (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
+                                        style: StrokeStyle(
+                                            lineWidth: 5,
+                                            lineCap: .round
+                                        )
+                                    )
+                                    .rotationEffect(.degrees(-90))
+                                    .animation(.easeOut, value: completionProgress)
+                                
+                            }
+                            .frame(width: 100, height: 100)
+                        }//progress circle ends
+                        .padding()
+                        Spacer()
+                        VStack{
+                                                HStack{
+                                                    Text("Target days:")
+                                                    Text(String(format: "%g", habit.targetDays))
+                            
+                                                }
+                            
+                                                HStack{
+                                                    Text("Days logged:")
+                                                    Text("\(habit.loggedDays)")
+                                                }
+                            Spacer()
+                            Button { //log day button
+                                withAnimation(){
+                                    loggedDays = Int(habit.loggedDays)
+                                    loggedDays += 1
+                                    habit.loggedDays = Int32(loggedDays)
+                                    completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
+                                    habit.completionProgress = completionProgress
+                                    
+                                    try? moc.save()
+                                    print("\(habit.loggedDays) logged days saved")
+                                    print("\(habit.completionProgress) progress value set")
+                                    
+                                    confetti += 1
+                                    HapticManager.instance.notification(type: .success)
+                                }
+                                if habit.actualDate! == Date.now.formatted(date: .numeric, time: .omitted) {
+                                    
+                                    habit.disabledButton = true
+                                    
+                                    try? moc.save()
+                                    
+                                    print("Log button was disabled")
+                                    print("Today's date is \(logDate)")
+                                    print("Yesterday's date was \(habit.actualDate!)")
+                                    
+                                }
+                                if loggedDays == Int(habit.targetDays) { //target amount of days achieved
+                                    showingSuccess.toggle()
+                                }
+                            } label: {
+                                Text(habit.disabledButton ? "Come back tomorrow" : "Log day")
+                            }
+                            .frame(width: 180, height: 50)
+                            .foregroundColor(.white)
+                            .disabled(habit.disabledButton)
+                            .background(habit.disabledButton ? .black.opacity(0.7): .blue.opacity(0.7))
+                            .cornerRadius(10)
+                                
+                        }
                     }
-
-                    
+                    .frame(width: 350, height: 350)
+                    .padding(20)
+                    .background(.white)
+                    .cornerRadius(10)
                     
                     VStack {
-                        HStack{
-                            Text("\(minutes):\(seconds)")
-                                .font(.largeTitle)
-                        }
-                        Button{
-                            withAnimation(){
-                                loggedDays = Int(habit.loggedDays)
-                                loggedDays += 1
-                                habit.loggedDays = Int32(loggedDays)
-                                
-                                completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
-                                
-                                habit.completionProgress = completionProgress
-                                
-                                
-                                
-                                
-                                
-                                try? moc.save()
-                                print("\(habit.loggedDays) logged days saved")
-                                print("\(habit.completionProgress) progress value set")
-                                confetti += 1
-                                HapticManager.instance.notification(type: .success)
-                            }
-                            if habit.actualDate! == Date.now.formatted(date: .numeric, time: .omitted) {
-                                
-                                habit.disabledButton = true
-                                
-                                try? moc.save()
-                                
-                                print("Log button was disabled")
-                                print("Today's date is \(logDate)")
-                                print("Yesterday's date was \(habit.actualDate!)")
-                                
-                            }
-                            
-                            if loggedDays == Int(habit.targetDays) {
-                                showingSuccess.toggle()
-                            }
-                            
-                        } label: {
-                            Text(habit.disabledButton ? "Come back tomorrow" : "Log day")
-                        }
-                        .frame(width: 180, height: 50)
-                        .foregroundColor(.white)
-                        .disabled(habit.disabledButton)
-                        .background(habit.disabledButton ? .gray: .blue)
-                        .cornerRadius(10)
-                        
-                        
-                        
-                        
                         //if user added timer tracking
                         if habit.logMinutes {
                             VStack {
+                                HStack{
+                                    Text("\(minutes):\(seconds)")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.white)
+                                        .frame(width: 150, height: 50)
+                                        .background(.black.opacity(0.7))
+                                        .clipShape(Capsule())
+                                        
+                                }
                                 HStack{
                                     Button {
                                         startTimer()
@@ -200,7 +178,7 @@ struct HabitDetailedView_View: View {
                                     .frame(width: 50, height: 50)
                                     .foregroundColor(.white)
                                     .background(startDisabled ? .gray: .blue)
-                                    .cornerRadius(10)
+                                    .clipShape(Circle())
                                     
                                     Button {
                                         stopTimer()
@@ -223,7 +201,7 @@ struct HabitDetailedView_View: View {
                                     .frame(width: 50, height: 50)
                                     .foregroundColor(.white)
                                     .background(pauseDisabled ? .gray: .blue)
-                                    .cornerRadius(10)
+                                    .clipShape(Circle())
                                     
                                     Button {
                                         resumeTimer()
@@ -238,7 +216,7 @@ struct HabitDetailedView_View: View {
                                     .frame(width: 50, height: 50)
                                     .foregroundColor(.white)
                                     .background(resumeDisabled ? .gray: .blue)
-                                    .cornerRadius(10)
+                                    .clipShape(Circle())
                                     .disabled(resumeDisabled)
                                  
                                     
@@ -263,7 +241,7 @@ struct HabitDetailedView_View: View {
                                         }
                                     }
                                 }
-                                .scrollContentBackground(.hidden)
+//                                .scrollContentBackground(.hidden)
                 
                                 .frame(height: 250 )
                                 .cornerRadius(10)
