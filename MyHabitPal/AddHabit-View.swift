@@ -53,6 +53,7 @@ struct AddHabitView: View {
     @State var cgcolorRed: CGFloat = 0.0
     @State var cgcolorGreen: CGFloat  = 0.0
     @State var cgcolorBlue: CGFloat = 0.0
+    @State var cgcolorAlpha: CGFloat = 0.0
     
     
 
@@ -247,7 +248,9 @@ struct AddHabitView: View {
         newHabit.colorBlue = Float(pickedColor.components.blue)
         newHabit.colorGreen = Float(pickedColor.components.green)
         newHabit.colorAlpha = Float(pickedColor.components.alpha)
+        
         newHabit.totalLoggedTime = 0
+        
 
         
         try? moc.save()

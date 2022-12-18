@@ -29,6 +29,9 @@ struct HabitDetailedView_View: View {
     @State private var timer: Timer?
     
     
+    @State private var pauseState = true
+    
+    
     @State private var startDisabled = false
     @State private var pauseDisabled = true
     @State private var resumeDisabled = true
@@ -36,10 +39,15 @@ struct HabitDetailedView_View: View {
     @State private var gradIn = false
     @State private var gradOut = false
     
-    
-//    @State private var confetti: Int = 0
+
     
     @State private var completionProgress = 0.0
+    @State private var completionMinutesProgress = 0.0
+    @State private var completionHoursProgress = 0.0
+    @State private var completionSecondsProgress = 0.0
+    
+    
+    
     @State private var disableButton = false
     @State private var loggedDays = 0
 
@@ -77,205 +85,172 @@ struct HabitDetailedView_View: View {
                         completionProgress = habit.completionProgress
                     }
                 }
-            ScrollView{
-                VStack{
-                    ZStack {
-                        // 2
-                        ZStack {
-                            Circle()
-                                .stroke(
-                                    Color.gray.opacity(0.5),
-                                    lineWidth: 30
-                                )
-                            Circle()
-                                .trim(from: 0, to: completionProgress)
-                                .stroke(
-                                    (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
-                                    style: StrokeStyle(
-                                        lineWidth: 30,
-                                        lineCap: .round
-                                    )
-                                )
-                                .rotationEffect(.degrees(-90))
-                                .animation(.easeOut, value: completionProgress)
-                            // 1
-                            
-                        }
-                        // 3
-                        .frame(width: 100, height: 100)
-                    }
-                    .padding()
-                    
-                    
-                    VStack{
-                        
-                        
-                        //                    HStack{
-                        //                        Text("Target days:")
-                        //                        Text(String(format: "%g", habit.targetDays))
-                        //
-                        //                    }
-                        //
-                        //                    HStack{
-                        //                        Text("Days logged:")
-                        //                        Text("\(habit.loggedDays)")
-                        //                    }
-                        
-                        
-                        
-                        
-                        
-                        
-                    }
-
-                    
-                    
-                    VStack {
-                        HStack{
-                            Text("\(minutes):\(seconds)")
-                                .font(.largeTitle)
-                        }
-                        Button{
-                            withAnimation(){
-                                loggedDays = Int(habit.loggedDays)
-                                loggedDays += 1
-                                habit.loggedDays = Int32(loggedDays)
-                                
-                                completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
-                                
-                                habit.completionProgress = completionProgress
-                                
-                                
-                                
-                                
-                                
-                                try? moc.save()
-                                print("\(habit.loggedDays) logged days saved")
-                                print("\(habit.completionProgress) progress value set")
-                                confetti += 1
-                                HapticManager.instance.notification(type: .success)
-                            }
-                            if habit.actualDate! == Date.now.formatted(date: .numeric, time: .omitted) {
-                                
-                                habit.disabledButton = true
-                                
-                                try? moc.save()
-                                
-                                print("Log button was disabled")
-                                print("Today's date is \(logDate)")
-                                print("Yesterday's date was \(habit.actualDate!)")
-                                
-                            }
-                            
-                            if loggedDays == Int(habit.targetDays) {
-                                showingSuccess.toggle()
-                            }
-                            
-                        } label: {
-                            Text(habit.disabledButton ? "Come back tomorrow" : "Log day")
-                        }
-                        .frame(width: 180, height: 50)
-                        .foregroundColor(.white)
-                        .disabled(habit.disabledButton)
-                        .background(habit.disabledButton ? .gray: .blue)
-                        .cornerRadius(10)
-                        
-                        
-                        
-                        
-                        //if user added timer tracking
-                        if habit.logMinutes {
-                            VStack {
-                                HStack{
-                                    Button {
-                                        startTimer()
-                                        startDisabled = true  //disabling start button
-                                        pauseDisabled = false   //enabling pause button
-                                        resumeDisabled = true  //disabling resume button
+            ScrollView {
+                            VStack{
+                                ZStack {
+                                    // 2
+                                    ZStack {
+                                        Circle()
+                                            .stroke(
+                                                Color.white.opacity(0.5),
+                                                lineWidth: 15
+                                            )
+                                        Circle()
+                                            .trim(from: 0, to: completionProgress)
+                                            .stroke(
+                                                (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
+                                                style: StrokeStyle(
+                                                    lineWidth: 15,
+                                                    lineCap: .round
+                                                )
+                                            )
+                                            .rotationEffect(.degrees(-90))
+                                            .animation(.easeOut, value: completionProgress)
+                                        // 1
                                         
-                                    } label: {
-                                        Image(systemName: "play")
                                     }
-                                    .disabled(startDisabled)
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(.white)
-                                    .background(startDisabled ? .gray: .blue)
-                                    .cornerRadius(10)
+                                    // 3
+                                    .frame(width: 100, height: 100)
+                                }
+                                .padding()
+            
+                                VStack{
+                                    HStack{
+                                        Text("Target days:")
+                                        Text(String(format: "%g", habit.targetDays))
+                                        }
+                                    .padding()
+                                     HStack{
+                                        Text("Days logged:")
+                                        Text("\(habit.loggedDays)")
+                                         }
+                                     .padding()
                                     
-                                    Button {
-                                        stopTimer()
+                                }
+                                .frame(width: 200)
+                                .background(.white.opacity(0.6))
+                                .cornerRadius(10)
+                                Button{
+                                    withAnimation(){
+                                        loggedDays = Int(habit.loggedDays)
+                                        loggedDays += 1
+                                        habit.loggedDays = Int32(loggedDays)
                                         
-                                        startDisabled = true
-                                        pauseDisabled = true
-                                        resumeDisabled = false
+                                        completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
                                         
-                                        habit.loggedMinutes = Int32(minutes)
-                                        habit.loggedSeconds = Int32(seconds)
+                                        habit.completionProgress = completionProgress
+                                        try? moc.save()
+                                        print("\(habit.loggedDays) logged days saved")
+                                        print("\(habit.completionProgress) progress value set")
+                                        confetti += 1
+                                        HapticManager.instance.notification(type: .success)
+                                    }
+                                    if habit.actualDate! == Date.now.formatted(date: .numeric, time: .omitted) {
+                                        
+                                        habit.disabledButton = true
                                         
                                         try? moc.save()
                                         
-                                        print("\(habit.loggedMinutes) was saved")
-                                        print("today's date is \(habit.actualDate!)")
-                                    } label : {
-                                        Image(systemName: "pause.circle")
+                                        print("Log button was disabled")
+                                        print("Today's date is \(logDate)")
+                                        print("Yesterday's date was \(habit.actualDate!)")
+                                        
                                     }
-                                    .disabled(pauseDisabled)
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(.white)
-                                    .background(pauseDisabled ? .gray: .blue)
-                                    .cornerRadius(10)
                                     
+                                    if loggedDays == Int(habit.targetDays) {
+                                        showingSuccess.toggle()
+                                    }
+                                    
+                                } label: {
+                                    HStack{
+                                        Image(systemName: habit.disabledButton ? "checkmark.circle" : "xmark.circle")
+                                        Text(habit.disabledButton ? "Logged" : "Log day")
+                                    }
+                                }
+                                .frame(width: 200, height: 50)
+                                .foregroundColor(.white)
+                                .disabled(habit.disabledButton)
+                                .background(habit.disabledButton ? .gray.opacity(0.7): .blue)
+                                .cornerRadius(10)
+                               
+                        }
+                            .frame(width: 350, height: 350)
+                        .background(.thinMaterial.opacity(0.7))
+                        .cornerRadius(10)
+                        .shadow(radius: 5)
+                
+                    VStack { //logging time block
+                        if habit.logMinutes {
+                            VStack {
+                                HStack{
+                                    Text("\(hours) : \(minutes) : \(seconds)")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.black)
+                                }
+                                .frame(width: 200, height: 50)
+                                .background(.white.opacity(0.7))
+                                .cornerRadius(10)
+                                HStack{ //timer controls
                                     Button {
-                                        resumeTimer()
+                                        if pauseState == true {
+                                            startTimer()
+                                            pauseState = false
+                                        } else {
+                                            stopTimer()
+                                            pauseState = true
+                                            habit.loggedMinutes = Int32(minutes)
+                                            habit.loggedSeconds = Int32(seconds)
+                                            habit.loggedHours = Int32(hours)
+                                            
+                                            try? moc.save()
+                                            
+                                            print("\(habit.loggedMinutes) was saved")
+                                            print("today's date is \(habit.actualDate!)")
+                                        }
                                         
-                                        startDisabled = true
-                                        pauseDisabled = false
-                                        resumeDisabled = true
-                                        
-                                    }label:{
-                                        Image(systemName: "playpause")
+                                    } label: {
+                                        HStack{
+                                            Image(systemName: pauseState ? "play" : "pause.circle")
+                                            Text(pauseState ? "Start timer" : "Pause timer")
+                                        }
                                     }
-                                    .frame(width: 50, height: 50)
+                                    .disabled(startDisabled)
+                                    .frame(width: 200, height: 50)
                                     .foregroundColor(.white)
-                                    .background(resumeDisabled ? .gray: .blue)
+                                    .background(.blue.opacity(0.7))
                                     .cornerRadius(10)
-                                    .disabled(resumeDisabled)
-                                 
-                                    
-                                    
                                 }
                                 Chart(habit.loggedArray.sorted {$0.date! < $1.date!} ){
-                                    BarMark(
+                                    AreaMark(
                                         x: .value("Date", $0.date!),
                                         y: .value("Minutes", $0.minutes)
                                     )
                                     .foregroundStyle(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed)).gradient)
-//                                    .interpolationMethod(.catmullRom)
+                                    .interpolationMethod(.catmullRom)
                                 }
                
-                                .frame(height: 250)
+                                .frame(height: habit.loggedArray.isEmpty ? 0 : 250)
                              
-                                List{
-                                    ForEach(habit.loggedArray.sorted {$0.date! > $1.date! }){logged in
-                                        HStack{
-                                            Text(logged.date ?? "default date")
-                                            Text("\(logged.minutes) minutes logged")
+                                    List{
+                                        ForEach(habit.loggedArray.sorted {$0.date! > $1.date! }){logged in
+                                            HStack{
+                                                Text(logged.date ?? "default date")
+                                                Text("\(logged.minutes) minutes logged")
+                                            }
                                         }
                                     }
-                                }
+                                
                                 .scrollContentBackground(.hidden)
-                
-                                .frame(height: 250 )
+                                .frame(width: 350, height: habit.loggedArray.isEmpty ? 0 : 250)
+                                .opacity(0.7)
                                 .cornerRadius(10)
                             
                                 
                             }
                         }
                     }
-                }
-                
                 .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: 350, maxHeight: habit.logMinutes ? .infinity : 0)
                 .padding(.vertical, 20)
                 .background(.thinMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -283,9 +258,6 @@ struct HabitDetailedView_View: View {
                 .onAppear {
                     minutes = Int(habit.loggedMinutes)
                     seconds = Int(habit.loggedSeconds)
-                    
-                    //disabling button after logging day
-                    
                 }
             }
             .sheet(isPresented: $showingSuccess) {
@@ -331,10 +303,16 @@ struct HabitDetailedView_View: View {
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             self.seconds += 1
+            completionMinutesProgress = (1 / (Double(60)) * Double(seconds))
             
             if self.seconds == 60 {
                 self.minutes += 1
                 self.seconds = 0
+                
+                if self.minutes == 60 {
+                    self.hours += 1
+                    self.minutes = 0
+                }
             }
             
         }
