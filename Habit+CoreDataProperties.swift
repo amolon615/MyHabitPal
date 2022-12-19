@@ -22,6 +22,9 @@ extension Habit {
     @NSManaged public var colorGreen: Float
     @NSManaged public var colorRed: Float
     @NSManaged public var completionProgress: Double
+    @NSManaged public var completionHoursProgress: Double
+    @NSManaged public var completionMinutesProgress: Double
+    @NSManaged public var completionSecondsProgress: Double
     @NSManaged public var disabledButton: Bool
     @NSManaged public var habitIcon: String?
     @NSManaged public var id: UUID?

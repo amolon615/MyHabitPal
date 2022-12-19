@@ -15,6 +15,7 @@ struct Settings_View: View {
     @State private var showTOS: Bool = false
     
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.colorScheme) var colorScheme
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.name)
     ]) var habits: FetchedResults<Habit>
@@ -74,53 +75,50 @@ struct Settings_View: View {
             }
                 VStack(spacing: 30){//main vstack
                     //section 1
-                    VStack(spacing: 10) {
-                        
-                        ZStack(alignment: .leading) {
-                            withAnimation(.easeInOut(duration: 2)) {
-                                Button{
-                                //
-                                }label:{
-                                    HStack{
-                                        Image(systemName: "paintpalette")
-                                            .padding(.leading)
-                                            .foregroundColor(.black)
-                                        Text("Choose theme")
-                                            .foregroundColor(.black)
-                                        Spacer()
-                                    }
-                                }
-                                
-                            }   .padding()
-                                .frame(width: 350,height: 40)
-                                .background(.white)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                           
-                        }
-                        ZStack(alignment: .leading) {
-                            withAnimation(.easeInOut(duration: 2)) {
-                                Button{
-                                //
-                                }label:{
-                                    HStack{
-                                        Image(systemName: "arrow.clockwise")
-                                            .padding(.leading)
-                                        Text("Set-up gradients")
-                                        Spacer()
-                                    }.foregroundColor(.black)
-                                }
-                                
-                            }   .padding()
-                                .frame(width: 350,height: 40)
-                                .background(.white)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                           
-                        }
-                        
-                      
-                    }
+//                    VStack(spacing: 10) {
+//
+//                        ZStack(alignment: .leading) {
+//                            withAnimation(.easeInOut(duration: 2)) {
+//                                Button{
+//                                //
+//                                }label:{
+//                                    HStack{
+//                                        Image(systemName: "paintpalette")
+//                                            .padding(.leading)
+//                                            .foregroundColor(.black)
+//                                        Text("Choose theme")
+//                                            .foregroundColor(.black)
+//                                        Spacer()
+//                                    }
+//                                }
+//
+//                            }   .padding()
+//                                .frame(width: 350,height: 40)
+//                                .background(.white)
+//                                .cornerRadius(10)
+//                                .shadow(radius: 5)
+//
+//                        }
+//                        ZStack(alignment: .leading) {
+//                            withAnimation(.easeInOut(duration: 2)) {
+//                                Button{
+//                                //
+//                                }label:{
+//                                    HStack{
+//                                        Image(systemName: "arrow.clockwise")
+//                                            .padding(.leading)
+//                                        Text("Set-up gradients")
+//                                        Spacer()
+//                                    }.foregroundColor(.black)
+//                                }
+//
+//                            }   .padding()
+//                                .frame(width: 350,height: 40)
+//                                .background(.white)
+//                                .cornerRadius(10)
+//                                .shadow(radius: 5)
+//                        }
+//                    }
                     VStack{
                         ZStack(alignment: .leading) {
                             withAnimation(.easeInOut(duration: 2)) {
@@ -129,15 +127,17 @@ struct Settings_View: View {
                                 }label:{
                                     HStack{
                                         Image(systemName: "newspaper")
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
                                             .padding(.leading)
                                         Text("Privacy Policy")
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
                                         Spacer()
                                     }.foregroundColor(.black)
                                 }
                                 
                             }   .padding()
                                 .frame(width: 350,height: 40)
-                                .background(.white)
+                                .background(colorScheme == .dark ? .gray.opacity(0.7) : .white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                            
@@ -150,14 +150,16 @@ struct Settings_View: View {
                                     HStack{
                                         Image(systemName: "ruler")
                                             .padding(.leading)
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
                                         Text("Terms of Use")
                                         Spacer()
-                                    }.foregroundColor(.black)
+                                    }
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
                                 }
                                 
                             }   .padding()
                                 .frame(width: 350,height: 40)
-                                .background(.white)
+                                .background(colorScheme == .dark ? .gray.opacity(0.7) : .white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                            
@@ -173,15 +175,17 @@ struct Settings_View: View {
                                 }label:{
                                     HStack{
                                         Image(systemName: "questionmark.bubble")
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
                                             .padding(.leading)
                                         Text("Leave Feadback")
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
                                         Spacer()
                                     }.foregroundColor(.black)
                                 }
                                 
                             }   .padding()
                                 .frame(width: 350,height: 40)
-                                .background(.white)
+                                .background(colorScheme == .dark ? .gray.opacity(0.7) : .white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                            
@@ -193,15 +197,17 @@ struct Settings_View: View {
                                 }label:{
                                     HStack{
                                         Image(systemName: "star")
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
                                             .padding(.leading)
                                         Text("Rate Habitify")
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
                                         Spacer()
                                     }.foregroundColor(.black)
                                 }
                                 
                             }   .padding()
                                 .frame(width: 350,height: 40)
-                                .background(.white)
+                                .background(colorScheme == .dark ? .gray.opacity(0.5) : .white)
                                 .cornerRadius(10)
                                 .shadow(radius: 5)
                            
@@ -213,9 +219,9 @@ struct Settings_View: View {
                 }
                 VStack{
                     Text("Version 1.0")
-                        .foregroundColor(.secondary)
-                    Text("Achievator (c)")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.white)
+                    Text("myHabitPal (c)")
+                        .foregroundColor(.white)
                 }
                     .font(.caption)
             }
