@@ -87,13 +87,20 @@ struct ContentView: View {
                             }
                         } else {
                         VStack{
-                            HStack{
+                            ZStack{  HStack{
+                                Text("Today's ")
+                                Spacer()
                                 Text(Date.now.formatted(.dateTime.day().month().year()))
                                     .padding()
-                                    .foregroundColor(.white)
-                                Spacer()
-                               
+                                    .foregroundColor(.black)}
                             }
+                            .padding()
+                               .frame(width: 350,height: 40)
+                               .background(colorScheme == .dark ? .gray.opacity(0.7) : .white)
+                               .cornerRadius(10)
+                               .shadow(radius: 5)
+                            
+                            
                             
                                 
                             List{
@@ -157,7 +164,7 @@ struct ContentView: View {
                             
                         }
                     }
-                    .navigationTitle(habits.isEmpty ? "" : "Habits")
+//                    .navigationTitle(habits.isEmpty ? "" : "Habits")
                 }
 
             .sheet(isPresented: $addHabit) {

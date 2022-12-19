@@ -29,7 +29,7 @@ class HapticManager {
 struct AddHabitView: View {
     @Environment(\.colorScheme) var colorScheme
     
-   @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
     let textLimit = 12
@@ -155,7 +155,7 @@ struct AddHabitView: View {
                                 Text("days selected")
                                 
                             }
-                            Slider(value: $targetDays, in: 1...365, step: 1)
+                            Slider(value: $targetDays, in: 1...60, step: 1)
                                 .frame(width: 320)
                                 .padding()
                                 .padding(.leading)

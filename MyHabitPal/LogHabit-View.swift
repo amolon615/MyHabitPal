@@ -265,7 +265,7 @@ struct HabitDetailedView_View: View {
                                             Text(habit.disabledButton ? "Logged" : "Log day")
                                         }
                                     }
-                                    .frame(width: 120, height: 50)
+                                    .frame(width: 130, height: 50)
                                     .foregroundColor(.white)
                                     .disabled(habit.disabledButton)
                                     .background(habit.disabledButton ? .gray.opacity(0.7): .blue)
@@ -299,7 +299,7 @@ struct HabitDetailedView_View: View {
                                         }
                                     }
                                     .disabled(startDisabled)
-                                    .frame(width: 120, height: 50)
+                                    .frame(width: 130, height: 50)
                                     .foregroundColor(.white)
                                     .background(.blue.opacity(0.7))
                                     .cornerRadius(10)
