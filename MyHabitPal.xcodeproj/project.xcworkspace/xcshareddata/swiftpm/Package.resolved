@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "confettiswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/simibac/ConfettiSwiftUI.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "2a5797c5ada9aaca77338e7df1b1913cea909994"
+      }
+    },
+    {
+      "identity" : "sfsymbolspickerforswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/amolon615/SFSymbolsPickerForSwiftUI",
+      "state" : {
+        "branch" : "master",
+        "revision" : "72d6b84e89d63e8566f569c1b308b029bf42483b"
+      }
+    }
+  ],
+  "version" : 2
+}
