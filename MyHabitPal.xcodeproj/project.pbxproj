@@ -26,8 +26,20 @@
 		AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */; };
 		AC33CD2229437FFD004F1E90 /* Workplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD2129437FFD004F1E90 /* Workplace.swift */; };
 		ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADF6D829489B8D00522D05 /* ProgressView.swift */; };
-		ACF87D5D2953B38D007AA61A /* icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF87D5C2953B38D007AA61A /* icon.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ACF87D7B2953B38D007AA61A /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AC2DD35F294A81B400E64523 /* Logged+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logged+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -48,7 +60,8 @@
 		AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker_saver.swift; sourceTree = "<group>"; };
 		AC33CD2129437FFD004F1E90 /* Workplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workplace.swift; sourceTree = "<group>"; };
 		ACADF6D829489B8D00522D05 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
-		ACF87D5C2953B38D007AA61A /* icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = icon.swift; sourceTree = "<group>"; };
+		ACF87D642953B38D007AA61A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		ACF87D662953B38D007AA61A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				AC33CCC6293F55C6004F1E90 /* MyHabitPal */,
+				ACF87D632953B38D007AA61A /* Frameworks */,
 				AC33CCC5293F55C6004F1E90 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,6 +97,7 @@
 		AC33CCC6293F55C6004F1E90 /* MyHabitPal */ = {
 			isa = PBXGroup;
 			children = (
+				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
 				AC2DD35F294A81B400E64523 /* Logged+CoreDataClass.swift */,
 				AC2DD360294A81B400E64523 /* Logged+CoreDataProperties.swift */,
 				AC2DD361294A81B400E64523 /* Habit+CoreDataClass.swift */,
@@ -90,10 +105,8 @@
 				AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
 				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
-				ACF87D5C2953B38D007AA61A /* icon.swift */,
 				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
 				AC33CD1B29429426004F1E90 /* Utility */,
-				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
 				AC33CD1429424326004F1E90 /* Settings-View.swift */,
 				AC33CCDA293F5B3B004F1E90 /* DataController.swift */,
 				AC33CD2129437FFD004F1E90 /* Workplace.swift */,
@@ -121,6 +134,15 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		ACF87D632953B38D007AA61A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ACF87D642953B38D007AA61A /* WidgetKit.framework */,
+				ACF87D662953B38D007AA61A /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -131,6 +153,7 @@
 				AC33CCC0293F55C6004F1E90 /* Sources */,
 				AC33CCC1293F55C6004F1E90 /* Frameworks */,
 				AC33CCC2293F55C6004F1E90 /* Resources */,
+				ACF87D7B2953B38D007AA61A /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -213,7 +236,6 @@
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
 				AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */,
 				ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */,
-				ACF87D5D2953B38D007AA61A /* icon.swift in Sources */,
 				AC2DD363294A81B400E64523 /* Logged+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,7 +293,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -325,7 +347,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -338,8 +360,10 @@
 		AC33CCD3293F55C8004F1E90 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyHabitPal/MyHabitPal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyHabitPal/Preview Content\"";
@@ -366,8 +390,10 @@
 		AC33CCD4293F55C8004F1E90 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MyHabitPal/MyHabitPal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyHabitPal/Preview Content\"";

@@ -32,7 +32,7 @@ struct ProgressView: View {
                          Circle()
                              .trim(from: 0, to: habit.completionProgress)
                              .stroke(
-                                (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
+                                (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue))),
                                  style: StrokeStyle(
                                      lineWidth: 7,
                                      lineCap: .round
