@@ -8,6 +8,7 @@
 import SwiftUI
 import SFSymbolsPicker
 import CoreData
+import Combine
 
 
 
@@ -31,6 +32,7 @@ struct AddHabitView: View {
    @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
+    let textLimit = 12
 
     @State private var name = ""
     @State private var about = ""
@@ -131,6 +133,7 @@ struct AddHabitView: View {
                             .opacity(0.7)
                         VStack{
                             TextField("Enter your habit's name", text: $name)
+                                .onReceive(Just(name)) { _ in limitText(textLimit) }
                                 .padding()
                                 .padding(.leading)
                                 .foregroundColor(.black)
@@ -211,6 +214,11 @@ struct AddHabitView: View {
                     SFSymbolsPicker(isPresented: $iconPicker, icon: $habitIcon, category: .habit, axis: .vertical, haptic: true)
                         .presentationDetents([.medium, .fraction(0.6)])
                         .padding()
+                        .onChange(of: habitIcon) { newValue in
+                            iconPicker = false
+                        }
+                        
+                    
                 }
                 .sheet(isPresented: $showColorPicker) {
                     VStack (spacing: 0){
@@ -221,7 +229,7 @@ struct AddHabitView: View {
                                   .clipShape(Circle())
                                   .onTapGesture {
                                       myColor = Color(.sRGB, red:1, green: 0, blue: 0)
-                                      dismiss()
+                                      showColorPicker = false
                                   }
                                       
                             Rectangle()
@@ -231,7 +239,7 @@ struct AddHabitView: View {
                                   .clipShape(Circle())
                                   .onTapGesture {
                                       myColor = Color(.sRGB, red:0, green: 0, blue: 1)
-                                      dismiss()
+                                      showColorPicker = false
                                   }
                             Rectangle()
                                    .fill(Color(.sRGB, red:0, green: 1, blue: 0))
@@ -239,7 +247,7 @@ struct AddHabitView: View {
                                    .clipShape(Circle())
                                    .onTapGesture {
                                        myColor = Color(.sRGB, red:0, green: 1, blue: 0)
-                                       dismiss()
+                                       showColorPicker = false
                                    }
                             
                          
@@ -249,7 +257,7 @@ struct AddHabitView: View {
                                   .clipShape(Circle())
                                   .onTapGesture {
                                       myColor = Color(.sRGB, red:0, green: 1, blue: 0)
-                                      dismiss()
+                                      showColorPicker = false
                                   }
                             Rectangle()
                                  .fill(Color(.sRGB, red:0, green: 1, blue: 1))
@@ -257,7 +265,7 @@ struct AddHabitView: View {
                                   .clipShape(Circle())
                                   .onTapGesture {
                                       myColor = Color(.sRGB, red:0, green: 1, blue: 1)
-                                      dismiss()
+                                      showColorPicker = false
                                   }
                         }
                         .padding()
@@ -268,7 +276,7 @@ struct AddHabitView: View {
                                   .clipShape(Circle())
                                   .onTapGesture {
                                       myColor = Color(.sRGB, red:255, green: 0, blue: 128)
-                                      dismiss()
+                                      showColorPicker = false
                                   }
                                       
                             Rectangle()
@@ -277,7 +285,7 @@ struct AddHabitView: View {
                                   .clipShape(Circle())
                                   .onTapGesture {
                                       myColor = Color(.sRGB, red:255, green: 128, blue: 0)
-                                      dismiss()
+                                      showColorPicker = false
                                   }
                             Rectangle()
                                    .fill(Color(.sRGB, red:0, green: 1, blue: 0))
@@ -285,7 +293,7 @@ struct AddHabitView: View {
                                    .clipShape(Circle())
                                    .onTapGesture {
                                        myColor = Color(.sRGB, red:0, green: 1, blue: 0)
-                                       dismiss()
+                                       showColorPicker = false
                                    }
                             
                          
@@ -295,7 +303,7 @@ struct AddHabitView: View {
                                   .clipShape(Circle())
                                   .onTapGesture {
                                       myColor = Color(.sRGB, red:0, green: 1, blue: 0)
-                                      dismiss()
+                                      showColorPicker = false
                                   }
                             Rectangle()
                                  .fill(Color(.sRGB, red:0, green: 1, blue: 1))
@@ -303,7 +311,7 @@ struct AddHabitView: View {
                                   .clipShape(Circle())
                                   .onTapGesture {
                                       myColor = Color(.sRGB, red:0, green: 1, blue: 1)
-                                      dismiss()
+                                      showColorPicker = false
                                   }
                         }
                         .padding()
@@ -376,6 +384,12 @@ struct AddHabitView: View {
         try? moc.save()
         dismiss()
     }
+    
+    func limitText(_ upper: Int) {
+           if name.count > upper {
+               name = String(name.prefix(upper))
+           }
+       }
 }
 
 struct AddHabit_Previews: PreviewProvider {

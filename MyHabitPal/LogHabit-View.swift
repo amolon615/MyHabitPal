@@ -11,7 +11,11 @@ import ConfettiSwiftUI
 import Charts
 
 
+
+
+
 struct HabitDetailedView_View: View {
+    
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
@@ -110,10 +114,9 @@ struct HabitDetailedView_View: View {
                                                 Text("Seconds: ")
                                                 Text("\(seconds)")
                                             }
-                                          
                                         }
                                     }
-                                    VStack{
+                                    VStack {
                                         ZStack{
                                             ZStack {
                                                 // 2
@@ -126,7 +129,7 @@ struct HabitDetailedView_View: View {
                                                     Circle()
                                                         .trim(from: 0, to: completionProgress)
                                                         .stroke(
-                                                            (Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed))),
+                                                            Color.red,
                                                             style: StrokeStyle(
                                                                 lineWidth: 15,
                                                                 lineCap: .round
@@ -229,7 +232,6 @@ struct HabitDetailedView_View: View {
                                             loggedDays = Int(habit.loggedDays)
                                             loggedDays += 1
                                             habit.loggedDays = Int32(loggedDays)
-                                            
                                             completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
                                             
                                             habit.completionProgress = completionProgress
@@ -248,6 +250,8 @@ struct HabitDetailedView_View: View {
                                             print("Log button was disabled")
                                             print("Today's date is \(logDate)")
                                             print("Yesterday's date was \(habit.actualDate!)")
+                                            
+                                          
                                             
                                         }
                                         
@@ -319,16 +323,18 @@ struct HabitDetailedView_View: View {
                 
                 if habit.loggedArray.count > 0 {
                     VStack { //drawing charts
-                                    Chart(habit.loggedArray.sorted {$0.date! < $1.date!} ){
-                                        AreaMark(
-                                            x: .value("Date", $0.date!),
-                                            y: .value("Minutes", $0.minutes)
-                                        )
-                                        .foregroundStyle(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed)).gradient)
-                                        .interpolationMethod(.catmullRom)
-                                    }
-                   
-                                    .frame(height: habit.loggedArray.isEmpty ? 0 : 250)
+                        if habit.loggedArray.count > 4 {
+                            Chart(habit.loggedArray.sorted {$0.date! < $1.date!} ){
+                                AreaMark(
+                                    x: .value("Date", $0.date!),
+                                    y: .value("Minutes", $0.minutes)
+                                )
+                                .foregroundStyle(Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorRed)).gradient)
+                                .interpolationMethod(.catmullRom)
+                            }
+                            
+                            .frame(height: habit.loggedArray.isEmpty ? 0 : 250)
+                        }
                                  
                                         List{
                                             ForEach(habit.loggedArray.sorted {$0.date! > $1.date! }){logged in
@@ -423,6 +429,9 @@ struct HabitDetailedView_View: View {
     func resumeTimer() {
         startTimer()
     }
+    
+    
+    
 }
 
 
