@@ -34,6 +34,8 @@ struct ContentView: View {
 
     @State private var offset: CGFloat = 0
     
+    @State private var scale: CGFloat = 1
+    
     @State private var isPresentingHabit: Habit? = nil
     
     var body: some View {
@@ -50,7 +52,7 @@ struct ContentView: View {
                                     self.progress = 2.0
                                 }
                             }
-                        if habits.count == 0 {
+                        if habits.isEmpty {
                             VStack{
                                 Image("bot_main")
                                     .resizable()
@@ -69,21 +71,31 @@ struct ContentView: View {
                         
                                     ZStack{
                                         Rectangle()
-                                            .frame(width: 330, height: 50)
+                                            .frame(width: 150, height: 50)
                                             .background(colorScheme == .dark ? .gray : .white)
                                             .foregroundColor(.white)
                                             .cornerRadius(10)
                                             .opacity(0.7)
-                                        Text("To start tracking your habits create one!")
+                                        Text("Create new habit!")
                                             .opacity(0.5)
                                             .foregroundColor(colorScheme == .dark ? .black : .black)
                                             .onTapGesture {
                                                 addHabit.toggle()
                                             }
-                                    }   
+                                    }
+                                    .padding()
                             }
                         } else {
                         VStack{
+                            HStack{
+                                Text(Date.now.formatted(.dateTime.day().month().year()))
+                                    .padding()
+                                    .foregroundColor(.white)
+                                Spacer()
+                               
+                            }
+                            
+                                
                             List{
                                 ForEach(habits, id:\.name){ habit in
                                     VStack{
@@ -103,50 +115,49 @@ struct ContentView: View {
                                                   
                                                         .padding()
                                                 }
-                                                
                                             })
-                                            
                                         }
                                     }
-                                    
-                                    
                                     .listRowSeparator(.hidden)
                                 }
-                                
-                                
-                                
                                 .onDelete(perform: deleteHabits)
-                                
                             }
                             
-                            .scrollContentBackground(.hidden)
-                            
-                            
+                            .scrollContentBackground(.hidden)    
                         }
-                        .opacity(0.7)
+//                        .opacity(0.7)
                     }
                     }
                     .toolbar {
                         ToolbarItem{
-                            Button{
-                                addHabit = true
-                                HapticManager.instance.impact(style: .light)
-                            } label: {
-                                Label("Add new habit", systemImage: "plus")
-                                    .foregroundColor(.white)
+                            if habits.isEmpty {
+                                //
+                            } else {
+                                Button{
+                                    addHabit = true
+                                    HapticManager.instance.impact(style: .light)
+                                } label: {
+                                    Label("Add new habit", systemImage: "plus")
+                                        .foregroundColor(.white)
+                                }
                             }
                         }
                         ToolbarItem(placement: .navigationBarLeading) {
-                            Button{
-                                showSettings = true
-                                HapticManager.instance.impact(style: .light)
-                            } label: {
-                                Label("Add new habit", systemImage: "gear")
-                                    .foregroundColor(.white)
-                            }
+                            if habits.isEmpty {
+                                //
+                            } else {
+                                Button{
+                                    showSettings = true
+                                    HapticManager.instance.impact(style: .light)
+                                } label: {
+                                    Label("Add new habit", systemImage: "gear")
+                                        .foregroundColor(.white)
+                                }
+                        }
                             
                         }
                     }
+                    .navigationTitle(habits.isEmpty ? "" : "Habits")
                 }
 
             .sheet(isPresented: $addHabit) {

@@ -12,6 +12,7 @@ import CoreData
 
 struct ProgressView: View {
 
+    @Environment(\.colorScheme) var colorScheme
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.name)
@@ -26,7 +27,7 @@ struct ProgressView: View {
                      ZStack {
                          Circle()
                              .stroke(
-                                 Color.white.opacity(0.7),
+                                (Color.gray.opacity(0.7)),
                                  lineWidth: 7
                              )
                          Circle()
