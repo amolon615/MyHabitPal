@@ -23,6 +23,8 @@ struct ContentView: View {
     @State private var showSettings = false
     @State private var showLogHabit = false
     
+    @State private var scale: CGFloat = 1
+    
     
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
         self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
@@ -38,24 +40,22 @@ struct ContentView: View {
     
     var body: some View {
         ZStack{
-
-            
-                NavigationView{
+            NavigationView{
                     ZStack {
-                        Rectangle()
-                            .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                            .ignoresSafeArea()
-                            .onAppear {
-                                withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                                    self.progress = 2.0
-                                }
-                            }
+//                        Rectangle()
+//                            .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
+//                            .ignoresSafeArea()
+//                            .onAppear {
+//                                withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
+//                                    self.progress = 2.0
+//                                }
+//                            }
                         if habits.count == 0 {
                             VStack{
                                 Image("bot_main")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 130)
+                                    .frame(width: 110)
                                     .padding()
                                     .shadow(color: .gray, radius: 10, x: 0, y: 5)
                                     .offset(x: 0, y: offset)
@@ -69,18 +69,23 @@ struct ContentView: View {
                         
                                     ZStack{
                                         Rectangle()
-                                            .frame(width: 330, height: 50)
+                                            .frame(width: 180, height: 50)
                                             .background(colorScheme == .dark ? .gray : .white)
                                             .foregroundColor(.white)
                                             .cornerRadius(10)
                                             .opacity(0.7)
-                                        Text("To start tracking your habits create one!")
+                                            .shadow(radius: 10)
+                                        HStack{
+                                            Text("Create new habit!")
+                                            Image(systemName: "hand.tap.fill")
+                                        }
                                             .opacity(0.5)
                                             .foregroundColor(colorScheme == .dark ? .black : .black)
                                             .onTapGesture {
                                                 addHabit.toggle()
                                             }
-                                    }   
+                                    }
+                                    .padding()
                             }
                         } else {
                         VStack{
@@ -108,16 +113,13 @@ struct ContentView: View {
                                             
                                         }
                                     }
-                                    
-                                    
                                     .listRowSeparator(.hidden)
                                 }
-                                
-                                
                                 
                                 .onDelete(perform: deleteHabits)
                                 
                             }
+                            .shadow(radius: 10)
                             
                             .scrollContentBackground(.hidden)
                             
@@ -133,7 +135,7 @@ struct ContentView: View {
                                 HapticManager.instance.impact(style: .light)
                             } label: {
                                 Label("Add new habit", systemImage: "plus")
-                                    .foregroundColor(.white)
+                                    .foregroundColor(habits.isEmpty ? (colorScheme == .dark ? .black : .white) : (colorScheme == .dark ? .white : .black))
                             }
                         }
                         ToolbarItem(placement: .navigationBarLeading) {
@@ -142,11 +144,12 @@ struct ContentView: View {
                                 HapticManager.instance.impact(style: .light)
                             } label: {
                                 Label("Add new habit", systemImage: "gear")
-                                    .foregroundColor(.white)
+                                    .foregroundColor(habits.isEmpty ? (colorScheme == .dark ? .black : .white) : (colorScheme == .dark ? .white : .black))
                             }
                             
                         }
                     }
+                    .navigationTitle(habits.isEmpty ? "" : "Habits")
                 }
 
             .sheet(isPresented: $addHabit) {

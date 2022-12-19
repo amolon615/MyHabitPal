@@ -79,16 +79,16 @@ struct HabitDetailedView_View: View {
     
     var body: some View {
         ZStack {
-            
-            Rectangle()
-                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                .ignoresSafeArea()
-                .onAppear {
-                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                        self.progress = 2.0
-                        completionProgress = habit.completionProgress
-                    }
-                }
+//            
+//            Rectangle()
+//                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
+//                .ignoresSafeArea()
+//                .onAppear {
+//                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
+//                        self.progress = 2.0
+//                        completionProgress = habit.completionProgress
+//                    }
+//                }
             ScrollView {
                             VStack{
                                 HStack{
@@ -116,6 +116,7 @@ struct HabitDetailedView_View: View {
                                             }
                                         }
                                     }
+                                    .frame(width: 130)
                                     VStack {
                                         ZStack{
                                             ZStack {
@@ -129,7 +130,7 @@ struct HabitDetailedView_View: View {
                                                     Circle()
                                                         .trim(from: 0, to: completionProgress)
                                                         .stroke(
-                                                            Color.red,
+                                                            (Color.red),
                                                             style: StrokeStyle(
                                                                 lineWidth: 15,
                                                                 lineCap: .round
@@ -235,6 +236,10 @@ struct HabitDetailedView_View: View {
                                             completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
                                             
                                             habit.completionProgress = completionProgress
+                                            habit.completionHoursProgress = completionHoursProgress
+                                            habit.completionMinutesProgress = completionMinutesProgress
+                                            habit.completionSecondsProgress = completionSecondsProgress
+                                            
                                             try? moc.save()
                                             print("\(habit.loggedDays) logged days saved")
                                             print("\(habit.completionProgress) progress value set")
@@ -265,7 +270,7 @@ struct HabitDetailedView_View: View {
                                             Text(habit.disabledButton ? "Logged" : "Log day")
                                         }
                                     }
-                                    .frame(width: 120, height: 50)
+                                    .frame(width: 130, height: 50)
                                     .foregroundColor(.white)
                                     .disabled(habit.disabledButton)
                                     .background(habit.disabledButton ? .gray.opacity(0.7): .blue)
@@ -299,7 +304,7 @@ struct HabitDetailedView_View: View {
                                         }
                                     }
                                     .disabled(startDisabled)
-                                    .frame(width: 120, height: 50)
+                                    .frame(width: 130, height: 50)
                                     .foregroundColor(.white)
                                     .background(.blue.opacity(0.7))
                                     .cornerRadius(10)
@@ -318,6 +323,8 @@ struct HabitDetailedView_View: View {
                             completionHoursProgress = habit.completionHoursProgress
                             completionMinutesProgress = habit.completionMinutesProgress
                             completionSecondsProgress = habit.completionSecondsProgress
+                            completionProgress = habit.completionProgress
+                            
                             
                         }
                 

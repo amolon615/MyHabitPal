@@ -34,25 +34,15 @@ struct Settings_View: View {
     
     var body: some View {
         ZStack{
-            Rectangle()
-                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                .ignoresSafeArea()
-                .onAppear {
-                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                        self.progress = 1.0
-                    }
-                }
-                .sheet(isPresented: $showPrivacy){
-                SFSafariViewWrapper(url: URL(string:"https://apple.com")!)
-                }
-                
-                .sheet(isPresented: $showTOS){
-                SFSafariViewWrapper(url: URL(string:"https://apple.com")!)
-                }
+//            Rectangle()
+//                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
+//                .ignoresSafeArea()
+//                .onAppear {
+//                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
+//                        self.progress = 1.0
+//                    }
+//                }
             
-                .sheet(isPresented: $showGradientSettings) {
-                    //
-                }
             
             
             VStack(spacing: 20){
@@ -224,6 +214,17 @@ struct Settings_View: View {
                         .foregroundColor(.white)
                 }
                     .font(.caption)
+                    .sheet(isPresented: $showPrivacy){
+                    SFSafariViewWrapper(url: URL(string:"https://apple.com")!)
+                    }
+                    
+                    .sheet(isPresented: $showTOS){
+                    SFSafariViewWrapper(url: URL(string:"https://apple.com")!)
+                    }
+                
+                    .sheet(isPresented: $showGradientSettings) {
+                        //
+                    }
             }
         }
     }
