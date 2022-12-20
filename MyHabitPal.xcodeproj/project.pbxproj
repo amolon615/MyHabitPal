@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC1BD3012952596600368AB4 /* FIleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3002952596600368AB4 /* FIleManager.swift */; };
+		AC1BD3042952596600368AB4 /* Step1_Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3032952596600368AB4 /* Step1_Username.swift */; };
+		AC1BD3062952596600368AB4 /* Step2_UserPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3052952596600368AB4 /* Step2_UserPhoto.swift */; };
+		AC1BD3082952596600368AB4 /* Step3_end.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3072952596600368AB4 /* Step3_end.swift */; };
 		AC2DD33C294A798300E64523 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AC2DD33B294A798300E64523 /* ConfettiSwiftUI */; };
 		AC2DD363294A81B400E64523 /* Logged+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2DD35F294A81B400E64523 /* Logged+CoreDataClass.swift */; };
 		AC2DD364294A81B400E64523 /* Logged+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2DD360294A81B400E64523 /* Logged+CoreDataProperties.swift */; };
@@ -24,7 +28,6 @@
 		AC33CCF72940EDEF004F1E90 /* CompletionView-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */; };
 		AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1429424326004F1E90 /* Settings-View.swift */; };
 		AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */; };
-		AC33CD2229437FFD004F1E90 /* Workplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD2129437FFD004F1E90 /* Workplace.swift */; };
 		ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADF6D829489B8D00522D05 /* ProgressView.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,10 +45,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AC2DD35F294A81B400E64523 /* Logged+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logged+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		AC2DD360294A81B400E64523 /* Logged+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logged+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		AC2DD361294A81B400E64523 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		AC2DD362294A81B400E64523 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		AC1BD3002952596600368AB4 /* FIleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIleManager.swift; sourceTree = "<group>"; };
+		AC1BD3032952596600368AB4 /* Step1_Username.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step1_Username.swift; sourceTree = "<group>"; };
+		AC1BD3052952596600368AB4 /* Step2_UserPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step2_UserPhoto.swift; sourceTree = "<group>"; };
+		AC1BD3072952596600368AB4 /* Step3_end.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step3_end.swift; sourceTree = "<group>"; };
+		AC2DD35F294A81B400E64523 /* Logged+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Logged+CoreDataClass.swift"; path = "MyHabitPal/New Group/Logged+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		AC2DD360294A81B400E64523 /* Logged+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Logged+CoreDataProperties.swift"; path = "MyHabitPal/New Group/Logged+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		AC2DD361294A81B400E64523 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Habit+CoreDataClass.swift"; path = "MyHabitPal/New Group/Habit+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		AC2DD362294A81B400E64523 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Habit+CoreDataProperties.swift"; path = "MyHabitPal/New Group/Habit+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		AC33CCC4293F55C6004F1E90 /* MyHabitPal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabitPal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHabitPalApp.swift; sourceTree = "<group>"; };
 		AC33CCC9293F55C6004F1E90 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,10 +65,7 @@
 		AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletionView-View.swift"; sourceTree = "<group>"; };
 		AC33CD1429424326004F1E90 /* Settings-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings-View.swift"; sourceTree = "<group>"; };
 		AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker_saver.swift; sourceTree = "<group>"; };
-		AC33CD2129437FFD004F1E90 /* Workplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workplace.swift; sourceTree = "<group>"; };
 		ACADF6D829489B8D00522D05 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
-		ACF87D642953B38D007AA61A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		ACF87D662953B38D007AA61A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +81,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AC1BD3022952596600368AB4 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				AC1BD3032952596600368AB4 /* Step1_Username.swift */,
+				AC1BD3052952596600368AB4 /* Step2_UserPhoto.swift */,
+				AC1BD3072952596600368AB4 /* Step3_end.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		AC1BD3092952596600368AB4 /* DCore Data files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "DCore Data files";
+			sourceTree = "<group>";
+		};
 		AC33CCBB293F55C6004F1E90 = {
 			isa = PBXGroup;
 			children = (
 				AC33CCC6293F55C6004F1E90 /* MyHabitPal */,
-				ACF87D632953B38D007AA61A /* Frameworks */,
 				AC33CCC5293F55C6004F1E90 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,14 +122,14 @@
 				AC2DD360294A81B400E64523 /* Logged+CoreDataProperties.swift */,
 				AC2DD361294A81B400E64523 /* Habit+CoreDataClass.swift */,
 				AC2DD362294A81B400E64523 /* Habit+CoreDataProperties.swift */,
+				AC1BD3092952596600368AB4 /* DCore Data files */,
 				AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
 				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
+				AC1BD3022952596600368AB4 /* Onboarding */,
 				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
 				AC33CD1B29429426004F1E90 /* Utility */,
 				AC33CD1429424326004F1E90 /* Settings-View.swift */,
-				AC33CCDA293F5B3B004F1E90 /* DataController.swift */,
-				AC33CD2129437FFD004F1E90 /* Workplace.swift */,
 				AC33CCCB293F55C8004F1E90 /* Assets.xcassets */,
 				AC33CCCD293F55C8004F1E90 /* Preview Content */,
 			);
@@ -130,17 +150,10 @@
 				ACADF6D829489B8D00522D05 /* ProgressView.swift */,
 				AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */,
 				AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */,
+				AC33CCDA293F5B3B004F1E90 /* DataController.swift */,
+				AC1BD3002952596600368AB4 /* FIleManager.swift */,
 			);
 			path = Utility;
-			sourceTree = "<group>";
-		};
-		ACF87D632953B38D007AA61A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				ACF87D642953B38D007AA61A /* WidgetKit.framework */,
-				ACF87D662953B38D007AA61A /* SwiftUI.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,12 +241,15 @@
 				AC2DD364294A81B400E64523 /* Logged+CoreDataProperties.swift in Sources */,
 				AC33CCDB293F5B3B004F1E90 /* DataController.swift in Sources */,
 				AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */,
+				AC1BD3062952596600368AB4 /* Step2_UserPhoto.swift in Sources */,
 				AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */,
+				AC1BD3012952596600368AB4 /* FIleManager.swift in Sources */,
 				AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */,
-				AC33CD2229437FFD004F1E90 /* Workplace.swift in Sources */,
+				AC1BD3042952596600368AB4 /* Step1_Username.swift in Sources */,
 				AC2DD365294A81B400E64523 /* Habit+CoreDataClass.swift in Sources */,
 				AC33CCCA293F55C6004F1E90 /* ContentView.swift in Sources */,
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
+				AC1BD3082952596600368AB4 /* Step3_end.swift in Sources */,
 				AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */,
 				ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */,
 				AC2DD363294A81B400E64523 /* Logged+CoreDataClass.swift in Sources */,
@@ -370,6 +386,7 @@
 				DEVELOPMENT_TEAM = NUUAUT9ZDU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need your permission to set your avatar photo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -400,6 +417,7 @@
 				DEVELOPMENT_TEAM = NUUAUT9ZDU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need your permission to set your avatar photo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

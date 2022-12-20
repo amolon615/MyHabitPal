@@ -32,7 +32,7 @@ struct AddHabitView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
-    let textLimit = 12
+    let textLimit = 15
 
     @State private var name = ""
     @State private var about = ""
@@ -50,7 +50,8 @@ struct AddHabitView: View {
     
     @State private var showColorPicker = false
     
-
+    @State private var showOnboarding = 0
+    @State private var isShowingOnboardingFinish = false
     
     @State private var myColor = Color(.sRGB, red:0.4, green: 0.3, blue: 0.4)
     
@@ -326,6 +327,19 @@ struct AddHabitView: View {
                         Button {
                             add()
                             HapticManager.instance.notification(type: .success)
+                            
+                            if let loadedShowOnboarding = loadString(key: "showOnboarding") {
+                                showOnboarding = Int(loadedShowOnboarding) ?? 0
+                            }
+                            
+                            if showOnboarding == 0 {
+                                isShowingOnboardingFinish = true
+                            }
+                            
+                            showOnboarding = 1
+                            saveData(key: "showOnboarding", value: String(showOnboarding))
+                            
+                            
                     } label: {
                         HStack{
                             Text("Save habit & start tracking")
@@ -390,6 +404,14 @@ struct AddHabitView: View {
                name = String(name.prefix(upper))
            }
        }
+    func saveData(key: String, value: String) {
+        UserDefaults.standard.set(value, forKey: key)
+    }
+
+//load name from userDefaults
+func loadString(key: String) -> String? {
+    return UserDefaults.standard.string(forKey: key)
+}
 }
 
 struct AddHabit_Previews: PreviewProvider {
