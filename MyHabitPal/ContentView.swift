@@ -12,16 +12,6 @@ import Combine
 import PhotosUI
 import UIKit
 
-struct ImageView: View {
-    var image: UIImage
-
-    var body: some View {
-        
-        Image(uiImage: image)
-            .resizable()
-//          .aspectRatio(contentMode: .fit)
-    }
-}
 
 
 struct ContentView: View {
@@ -140,21 +130,29 @@ struct ContentView: View {
                                 VStack(alignment: .leading){
                                         Text("Today's \(Date.now.formatted(.dateTime.day().month().year()))")
                                         .padding(.leading)
+                                        .foregroundColor(.black.opacity(0.7))
                                     HStack{
+                                        VStack(alignment: .leading){
+                                                Image("avatar")
+                                                    .resizable()
+                                                    .frame(width: 70, height: 70)
+                                                    .clipShape(Circle())
+                                        }
                                         VStack(alignment: .leading){
                                             VStack(alignment: .leading){
                                                 Text("Hello, \(userName)")
-                                                Text("You've got \(habits.count) habits")
+                                                if habits.count > 1{
+                                                    Text("You've got \(habits.count) habits")
+                                                } else {
+                                                    Text("You've got \(habits.count) habit")
+                                                }
                                             }
+                                            .foregroundColor(.black.opacity(0.7))
                                            
                                         }
                                         .frame(width: 200, height: 50)
                                         .padding()
-                                        VStack{
-                                            ImageView(image: loadImageFromDisk(fileName: userName) ?? UIImage(named: "avatar")!)
-                                                    .frame(width: 70, height: 70)
-                                                    .clipShape(Circle())
-                                        }
+                                      
                                        
                                     }
                                 }
