@@ -11,11 +11,12 @@
 		AC1BD3042952596600368AB4 /* Step1_Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3032952596600368AB4 /* Step1_Username.swift */; };
 		AC1BD3062952596600368AB4 /* Step2_UserPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3052952596600368AB4 /* Step2_UserPhoto.swift */; };
 		AC1BD3082952596600368AB4 /* Step3_end.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3072952596600368AB4 /* Step3_end.swift */; };
+		AC1BD30B2952596600368AB4 /* Workplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD30A2952596600368AB4 /* Workplace.swift */; };
+		AC1BD30D2952596600368AB4 /* Habit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD30C2952596600368AB4 /* Habit+CoreDataClass.swift */; };
+		AC1BD30F2952596600368AB4 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD30E2952596600368AB4 /* Habit+CoreDataProperties.swift */; };
+		AC1BD3112952596600368AB4 /* Logged+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3102952596600368AB4 /* Logged+CoreDataClass.swift */; };
+		AC1BD3132952596600368AB4 /* Logged+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3122952596600368AB4 /* Logged+CoreDataProperties.swift */; };
 		AC2DD33C294A798300E64523 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AC2DD33B294A798300E64523 /* ConfettiSwiftUI */; };
-		AC2DD363294A81B400E64523 /* Logged+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2DD35F294A81B400E64523 /* Logged+CoreDataClass.swift */; };
-		AC2DD364294A81B400E64523 /* Logged+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2DD360294A81B400E64523 /* Logged+CoreDataProperties.swift */; };
-		AC2DD365294A81B400E64523 /* Habit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2DD361294A81B400E64523 /* Habit+CoreDataClass.swift */; };
-		AC2DD366294A81B400E64523 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2DD362294A81B400E64523 /* Habit+CoreDataProperties.swift */; };
 		AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */; };
 		AC33CCCA293F55C6004F1E90 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCC9293F55C6004F1E90 /* ContentView.swift */; };
 		AC33CCCC293F55C8004F1E90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC33CCCB293F55C8004F1E90 /* Assets.xcassets */; };
@@ -49,10 +50,11 @@
 		AC1BD3032952596600368AB4 /* Step1_Username.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step1_Username.swift; sourceTree = "<group>"; };
 		AC1BD3052952596600368AB4 /* Step2_UserPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step2_UserPhoto.swift; sourceTree = "<group>"; };
 		AC1BD3072952596600368AB4 /* Step3_end.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step3_end.swift; sourceTree = "<group>"; };
-		AC2DD35F294A81B400E64523 /* Logged+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Logged+CoreDataClass.swift"; path = "MyHabitPal/New Group/Logged+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		AC2DD360294A81B400E64523 /* Logged+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Logged+CoreDataProperties.swift"; path = "MyHabitPal/New Group/Logged+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		AC2DD361294A81B400E64523 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Habit+CoreDataClass.swift"; path = "MyHabitPal/New Group/Habit+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		AC2DD362294A81B400E64523 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Habit+CoreDataProperties.swift"; path = "MyHabitPal/New Group/Habit+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		AC1BD30A2952596600368AB4 /* Workplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workplace.swift; sourceTree = "<group>"; };
+		AC1BD30C2952596600368AB4 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AC1BD30E2952596600368AB4 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AC1BD3102952596600368AB4 /* Logged+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logged+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AC1BD3122952596600368AB4 /* Logged+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logged+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AC33CCC4293F55C6004F1E90 /* MyHabitPal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabitPal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHabitPalApp.swift; sourceTree = "<group>"; };
 		AC33CCC9293F55C6004F1E90 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -91,13 +93,6 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
-		AC1BD3092952596600368AB4 /* DCore Data files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "DCore Data files";
-			sourceTree = "<group>";
-		};
 		AC33CCBB293F55C6004F1E90 = {
 			isa = PBXGroup;
 			children = (
@@ -117,19 +112,19 @@
 		AC33CCC6293F55C6004F1E90 /* MyHabitPal */ = {
 			isa = PBXGroup;
 			children = (
-				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
-				AC2DD35F294A81B400E64523 /* Logged+CoreDataClass.swift */,
-				AC2DD360294A81B400E64523 /* Logged+CoreDataProperties.swift */,
-				AC2DD361294A81B400E64523 /* Habit+CoreDataClass.swift */,
-				AC2DD362294A81B400E64523 /* Habit+CoreDataProperties.swift */,
-				AC1BD3092952596600368AB4 /* DCore Data files */,
+				AC1BD30C2952596600368AB4 /* Habit+CoreDataClass.swift */,
 				AC33CCC7293F55C6004F1E90 /* MyHabitPalApp.swift */,
+				AC1BD3122952596600368AB4 /* Logged+CoreDataProperties.swift */,
+				AC1BD3102952596600368AB4 /* Logged+CoreDataClass.swift */,
+				AC1BD30E2952596600368AB4 /* Habit+CoreDataProperties.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
 				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
 				AC1BD3022952596600368AB4 /* Onboarding */,
 				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
+				AC1BD30A2952596600368AB4 /* Workplace.swift */,
 				AC33CD1B29429426004F1E90 /* Utility */,
 				AC33CD1429424326004F1E90 /* Settings-View.swift */,
+				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
 				AC33CCCB293F55C8004F1E90 /* Assets.xcassets */,
 				AC33CCCD293F55C8004F1E90 /* Preview Content */,
 			);
@@ -236,23 +231,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC33CCDF293F776A004F1E90 /* LogHabit-View.swift in Sources */,
-				AC2DD366294A81B400E64523 /* Habit+CoreDataProperties.swift in Sources */,
 				AC33CCF72940EDEF004F1E90 /* CompletionView-View.swift in Sources */,
-				AC2DD364294A81B400E64523 /* Logged+CoreDataProperties.swift in Sources */,
+				AC1BD30D2952596600368AB4 /* Habit+CoreDataClass.swift in Sources */,
 				AC33CCDB293F5B3B004F1E90 /* DataController.swift in Sources */,
 				AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */,
 				AC1BD3062952596600368AB4 /* Step2_UserPhoto.swift in Sources */,
 				AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */,
+				AC1BD30B2952596600368AB4 /* Workplace.swift in Sources */,
+				AC1BD3112952596600368AB4 /* Logged+CoreDataClass.swift in Sources */,
 				AC1BD3012952596600368AB4 /* FIleManager.swift in Sources */,
 				AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */,
+				AC1BD30F2952596600368AB4 /* Habit+CoreDataProperties.swift in Sources */,
 				AC1BD3042952596600368AB4 /* Step1_Username.swift in Sources */,
-				AC2DD365294A81B400E64523 /* Habit+CoreDataClass.swift in Sources */,
 				AC33CCCA293F55C6004F1E90 /* ContentView.swift in Sources */,
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
 				AC1BD3082952596600368AB4 /* Step3_end.swift in Sources */,
+				AC1BD3132952596600368AB4 /* Logged+CoreDataProperties.swift in Sources */,
 				AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */,
 				ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */,
-				AC2DD363294A81B400E64523 /* Logged+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
