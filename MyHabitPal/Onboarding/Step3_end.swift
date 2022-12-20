@@ -16,6 +16,7 @@ struct Step4_end: View {
         self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
     }
     
+    
     @State private var progress: CGFloat = 0
        let gradient1 = Gradient(colors: [.purple, .yellow])
        let gradient2 = Gradient(colors: [.blue, .purple])
@@ -60,6 +61,9 @@ struct Step4_end: View {
                 
                 Button {
                     dismiss()
+                    
+                  
+                    
                 } label: {
                     Label("Finish", systemImage: "checkmark.circle")
                 }

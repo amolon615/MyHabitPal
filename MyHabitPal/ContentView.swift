@@ -44,6 +44,7 @@ struct ContentView: View {
     
 
     
+    
     @State private var showPhotoPicker = false
     
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
@@ -258,6 +259,10 @@ struct ContentView: View {
               step2 = loadedStep2
                 print("Step 2 \(step2)")
             }
+            
+
+            
+            
         }
     }
     
