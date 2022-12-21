@@ -98,14 +98,8 @@ struct AddHabitView: View {
     
     var body: some View {
         ZStack{
-            Rectangle()
-                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                .ignoresSafeArea()
-                .onAppear {
-                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                        self.progress = 1.0
-                    }
-                }
+            GradientView()
+//        
             VStack (spacing: 0) {//column
                 Image("bot_add")
                     .resizable()

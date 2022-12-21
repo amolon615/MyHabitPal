@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-struct Step4_end: View {
+struct Step3_end: View {
     
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
+    
+    @EnvironmentObject var appState: AppState
     
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
         self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
@@ -60,13 +62,17 @@ struct Step4_end: View {
                 Text("Now you can add all your habits!")
                 
                 Button {
-                    dismiss()
-                    
-                  
-                    
+                    appState.hasOnboarded3step = true
+//                    dismiss()
                 } label: {
                     Label("Finish", systemImage: "checkmark.circle")
                 }
+                
+                .frame(width: 200, height: 50)
+                .background(.blue.opacity(0.7))
+                .cornerRadius(10)
+                .foregroundColor(.white)
+                .padding()
                 
             }
             
@@ -81,6 +87,6 @@ struct Step4_end: View {
 
 struct Step4_end_Previews: PreviewProvider {
     static var previews: some View {
-        Step4_end()
+        Step3_end()
     }
 }

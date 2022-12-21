@@ -51,29 +51,29 @@ extension View {
     }
 }
 
-struct Workplace: View {
+struct GradientView: View {
     @State private var progress: CGFloat = 0
        let gradient1 = Gradient(colors: [.purple, .yellow])
        let gradient2 = Gradient(colors: [.blue, .purple])
     
        var body: some View {
-    
            ZStack{
                Rectangle()
                    .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
                    .ignoresSafeArea()
                    .onAppear {
                        withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                           self.progress = 1.0
+                           self.progress = 2.0
                        }
                    }
-               
            }
+               
+           
        }
 }
 
 struct Workplace_Previews: PreviewProvider {
     static var previews: some View {
-        Workplace()
+        GradientView()
     }
 }

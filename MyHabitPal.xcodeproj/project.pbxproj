@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AC1BD3012952596600368AB4 /* FIleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3002952596600368AB4 /* FIleManager.swift */; };
-		AC1BD3042952596600368AB4 /* Step1_Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3032952596600368AB4 /* Step1_Username.swift */; };
-		AC1BD3062952596600368AB4 /* Step2_UserPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3052952596600368AB4 /* Step2_UserPhoto.swift */; };
-		AC1BD3082952596600368AB4 /* Step3_end.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3072952596600368AB4 /* Step3_end.swift */; };
-		AC1BD30B2952596600368AB4 /* Workplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD30A2952596600368AB4 /* Workplace.swift */; };
+		AC1BD3082952596600368AB4 /* Onboarding_3dstep_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3072952596600368AB4 /* Onboarding_3dstep_View.swift */; };
+		AC1BD30B2952596600368AB4 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD30A2952596600368AB4 /* GradientView.swift */; };
 		AC1BD30D2952596600368AB4 /* Habit+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD30C2952596600368AB4 /* Habit+CoreDataClass.swift */; };
 		AC1BD30F2952596600368AB4 /* Habit+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD30E2952596600368AB4 /* Habit+CoreDataProperties.swift */; };
 		AC1BD3112952596600368AB4 /* Logged+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1BD3102952596600368AB4 /* Logged+CoreDataClass.swift */; };
@@ -26,9 +24,10 @@
 		AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */; };
 		AC33CCDF293F776A004F1E90 /* LogHabit-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */; };
 		AC33CCF12940015D004F1E90 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = AC33CCF02940015D004F1E90 /* SFSymbolsPicker */; };
-		AC33CCF72940EDEF004F1E90 /* CompletionView-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */; };
 		AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1429424326004F1E90 /* Settings-View.swift */; };
-		AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */; };
+		AC33CD1D2942943A004F1E90 /* ColorPicker_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1C2942943A004F1E90 /* ColorPicker_extension.swift */; };
+		AC4089CB29536D1600BDC10E /* Onboarding_2ndstep_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4089CA29536D1600BDC10E /* Onboarding_2ndstep_View.swift */; };
+		AC4089CD29536DBF00BDC10E /* Onboarding_1step_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4089CC29536DBF00BDC10E /* Onboarding_1step_View.swift */; };
 		ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADF6D829489B8D00522D05 /* ProgressView.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,10 +46,8 @@
 
 /* Begin PBXFileReference section */
 		AC1BD3002952596600368AB4 /* FIleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIleManager.swift; sourceTree = "<group>"; };
-		AC1BD3032952596600368AB4 /* Step1_Username.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step1_Username.swift; sourceTree = "<group>"; };
-		AC1BD3052952596600368AB4 /* Step2_UserPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step2_UserPhoto.swift; sourceTree = "<group>"; };
-		AC1BD3072952596600368AB4 /* Step3_end.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step3_end.swift; sourceTree = "<group>"; };
-		AC1BD30A2952596600368AB4 /* Workplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workplace.swift; sourceTree = "<group>"; };
+		AC1BD3072952596600368AB4 /* Onboarding_3dstep_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_3dstep_View.swift; sourceTree = "<group>"; };
+		AC1BD30A2952596600368AB4 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		AC1BD30C2952596600368AB4 /* Habit+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AC1BD30E2952596600368AB4 /* Habit+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Habit+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AC1BD3102952596600368AB4 /* Logged+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logged+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -64,9 +61,10 @@
 		AC33CCDA293F5B3B004F1E90 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddHabit-View.swift"; sourceTree = "<group>"; };
 		AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LogHabit-View.swift"; sourceTree = "<group>"; };
-		AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletionView-View.swift"; sourceTree = "<group>"; };
 		AC33CD1429424326004F1E90 /* Settings-View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings-View.swift"; sourceTree = "<group>"; };
-		AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker_saver.swift; sourceTree = "<group>"; };
+		AC33CD1C2942943A004F1E90 /* ColorPicker_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker_extension.swift; sourceTree = "<group>"; };
+		AC4089CA29536D1600BDC10E /* Onboarding_2ndstep_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_2ndstep_View.swift; sourceTree = "<group>"; };
+		AC4089CC29536DBF00BDC10E /* Onboarding_1step_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_1step_View.swift; sourceTree = "<group>"; };
 		ACADF6D829489B8D00522D05 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,16 +81,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AC1BD3022952596600368AB4 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				AC1BD3032952596600368AB4 /* Step1_Username.swift */,
-				AC1BD3052952596600368AB4 /* Step2_UserPhoto.swift */,
-				AC1BD3072952596600368AB4 /* Step3_end.swift */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
 		AC33CCBB293F55C6004F1E90 = {
 			isa = PBXGroup;
 			children = (
@@ -119,9 +107,9 @@
 				AC1BD30E2952596600368AB4 /* Habit+CoreDataProperties.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
 				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
-				AC1BD3022952596600368AB4 /* Onboarding */,
 				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
-				AC1BD30A2952596600368AB4 /* Workplace.swift */,
+				AC4089C829536C0D00BDC10E /* Onboarding_VIew */,
+				AC4089C929536CF000BDC10E /* Design views */,
 				AC33CD1B29429426004F1E90 /* Utility */,
 				AC33CD1429424326004F1E90 /* Settings-View.swift */,
 				AC33CCD7293F5B30004F1E90 /* Habit.xcdatamodeld */,
@@ -142,13 +130,30 @@
 		AC33CD1B29429426004F1E90 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				ACADF6D829489B8D00522D05 /* ProgressView.swift */,
-				AC33CCF62940EDEF004F1E90 /* CompletionView-View.swift */,
-				AC33CD1C2942943A004F1E90 /* ColorPicker_saver.swift */,
+				AC33CD1C2942943A004F1E90 /* ColorPicker_extension.swift */,
 				AC33CCDA293F5B3B004F1E90 /* DataController.swift */,
 				AC1BD3002952596600368AB4 /* FIleManager.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		AC4089C829536C0D00BDC10E /* Onboarding_VIew */ = {
+			isa = PBXGroup;
+			children = (
+				AC1BD3072952596600368AB4 /* Onboarding_3dstep_View.swift */,
+				AC4089CA29536D1600BDC10E /* Onboarding_2ndstep_View.swift */,
+				AC4089CC29536DBF00BDC10E /* Onboarding_1step_View.swift */,
+			);
+			path = Onboarding_VIew;
+			sourceTree = "<group>";
+		};
+		AC4089C929536CF000BDC10E /* Design views */ = {
+			isa = PBXGroup;
+			children = (
+				AC1BD30A2952596600368AB4 /* GradientView.swift */,
+				ACADF6D829489B8D00522D05 /* ProgressView.swift */,
+			);
+			path = "Design views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,23 +236,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC33CCDF293F776A004F1E90 /* LogHabit-View.swift in Sources */,
-				AC33CCF72940EDEF004F1E90 /* CompletionView-View.swift in Sources */,
 				AC1BD30D2952596600368AB4 /* Habit+CoreDataClass.swift in Sources */,
 				AC33CCDB293F5B3B004F1E90 /* DataController.swift in Sources */,
 				AC33CD1529424326004F1E90 /* Settings-View.swift in Sources */,
-				AC1BD3062952596600368AB4 /* Step2_UserPhoto.swift in Sources */,
 				AC33CCDD293F5C15004F1E90 /* AddHabit-View.swift in Sources */,
-				AC1BD30B2952596600368AB4 /* Workplace.swift in Sources */,
+				AC1BD30B2952596600368AB4 /* GradientView.swift in Sources */,
+				AC4089CB29536D1600BDC10E /* Onboarding_2ndstep_View.swift in Sources */,
 				AC1BD3112952596600368AB4 /* Logged+CoreDataClass.swift in Sources */,
 				AC1BD3012952596600368AB4 /* FIleManager.swift in Sources */,
 				AC33CCD9293F5B30004F1E90 /* Habit.xcdatamodeld in Sources */,
 				AC1BD30F2952596600368AB4 /* Habit+CoreDataProperties.swift in Sources */,
-				AC1BD3042952596600368AB4 /* Step1_Username.swift in Sources */,
 				AC33CCCA293F55C6004F1E90 /* ContentView.swift in Sources */,
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
-				AC1BD3082952596600368AB4 /* Step3_end.swift in Sources */,
+				AC4089CD29536DBF00BDC10E /* Onboarding_1step_View.swift in Sources */,
+				AC1BD3082952596600368AB4 /* Onboarding_3dstep_View.swift in Sources */,
 				AC1BD3132952596600368AB4 /* Logged+CoreDataProperties.swift in Sources */,
-				AC33CD1D2942943A004F1E90 /* ColorPicker_saver.swift in Sources */,
+				AC33CD1D2942943A004F1E90 /* ColorPicker_extension.swift in Sources */,
 				ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

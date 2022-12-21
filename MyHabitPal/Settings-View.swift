@@ -34,14 +34,8 @@ struct Settings_View: View {
     
     var body: some View {
         ZStack{
-            Rectangle()
-                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                .ignoresSafeArea()
-                .onAppear {
-                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                        self.progress = 1.0
-                    }
-                }
+            GradientView()
+            
                 .sheet(isPresented: $showPrivacy){
                 SFSafariViewWrapper(url: URL(string:"https://apple.com")!)
                 }
@@ -74,51 +68,7 @@ struct Settings_View: View {
                 }
             }
                 VStack(spacing: 30){//main vstack
-                    //section 1
-//                    VStack(spacing: 10) {
-//
-//                        ZStack(alignment: .leading) {
-//                            withAnimation(.easeInOut(duration: 2)) {
-//                                Button{
-//                                //
-//                                }label:{
-//                                    HStack{
-//                                        Image(systemName: "paintpalette")
-//                                            .padding(.leading)
-//                                            .foregroundColor(.black)
-//                                        Text("Choose theme")
-//                                            .foregroundColor(.black)
-//                                        Spacer()
-//                                    }
-//                                }
-//
-//                            }   .padding()
-//                                .frame(width: 350,height: 40)
-//                                .background(.white)
-//                                .cornerRadius(10)
-//                                .shadow(radius: 5)
-//
-//                        }
-//                        ZStack(alignment: .leading) {
-//                            withAnimation(.easeInOut(duration: 2)) {
-//                                Button{
-//                                //
-//                                }label:{
-//                                    HStack{
-//                                        Image(systemName: "arrow.clockwise")
-//                                            .padding(.leading)
-//                                        Text("Set-up gradients")
-//                                        Spacer()
-//                                    }.foregroundColor(.black)
-//                                }
-//
-//                            }   .padding()
-//                                .frame(width: 350,height: 40)
-//                                .background(.white)
-//                                .cornerRadius(10)
-//                                .shadow(radius: 5)
-//                        }
-//                    }
+                   
                     VStack{
                         ZStack(alignment: .leading) {
                             withAnimation(.easeInOut(duration: 2)) {

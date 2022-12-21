@@ -31,7 +31,7 @@ struct ContentView: View {
     @State private var step3 = "false"
     
     @State var userName = ""
-    let userNameLimit = 15
+   
     
     @State private var buttonDisable = false
     
@@ -63,65 +63,14 @@ struct ContentView: View {
     
     var body: some View {
         ZStack{
+           
 
             
                 NavigationView{
                     ZStack {
-                        Rectangle()
-                            .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                            .ignoresSafeArea()
-                            .onAppear {
-                                withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                                    self.progress = 2.0
-                                }
-                            }
+                        GradientView()
                         if step1 == "false" {
-                            VStack{
-                                Image("bot_main")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100)
-                                    .padding()
-                                    .shadow(color: .gray, radius: 10, x: 0, y: 5)
-                                    .offset(x: 0, y: offset)
-                                    .onAppear() {
-                                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-                                    withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
-                                        self.offset = self.offset == 0 ? 5 : 0
-                                    }
-                                }
-                            }
-                        
-                                    ZStack{
-                                        Rectangle()
-                                            .frame(width: 170, height: 50)
-                                            .background(colorScheme == .dark ? .gray : .white)
-                                            .foregroundColor(.white)
-                                            .cornerRadius(10)
-                                            .opacity(0.7)
-                                        TextField("Enter your name", text: $userName)
-                                            .autocorrectionDisabled()
-                                            .onReceive(Just(userName)) { _ in limitText(userNameLimit) }
-                                            .frame(width: 130, height: 50)
-                                            .padding()
-                                            .foregroundColor(colorScheme == .dark ? .black : .black)
-
-                                    }
-                                   
-                                Button {
-                                    HapticManager.instance.impact(style: .light)
-                                    saveData(key: "userName", value: userName)
-                                    step1 = "true"
-                                    saveData(key: "step1", value: step1)
-                                } label: {
-                                    Label("Save", systemImage: "square.and.arrow.down")
-                                        
-                                }
-                                .disabled(userName == "" ? true : false)
-                                .frame(width: 170, height: 50)
-                                .background(.white)
-                                .cornerRadius(10)
-                            }
+                         
                        
                         } else if habits.isEmpty {
                             AddHabitView()
@@ -174,7 +123,7 @@ struct ContentView: View {
                                     VStack{
                                         HStack{
                                             NavigationLink(destination: {
-                                                HabitDetailedView_View(habit: habit)
+                                                HabitDetailedView_View(habit: habit, loggedDays: Int(habit.loggedDays))
                                             }, label: {
                                                 HStack{
                                                     Image(systemName: habit.habitIcon ?? "star")
@@ -183,9 +132,7 @@ struct ContentView: View {
                                                         .padding(.leading)
                                                     Text(habit.name ?? "Unknown")
                                                     Spacer()
-                                                    ProgressView(habit: habit)
-                                                        .frame(width: 40, height: 30)
-                                                  
+                                                    ProgressView(width: 7, circleProgress: habit.completionProgress, color: Color(red: CGFloat(habit.colorRed), green: CGFloat(habit.colorGreen), blue: CGFloat(habit.colorBlue)), frameWidth: 40.0, frameHeight: 30.0)
                                                         .padding()
                                                 }
                                             })
@@ -285,12 +232,7 @@ struct ContentView: View {
     func loadString(key: String) -> String? {
         return UserDefaults.standard.string(forKey: key)
     }
-    //limit name field by symbols
-    func limitText(_ upper: Int) {
-           if userName.count > upper {
-               userName = String(userName.prefix(upper))
-           }
-       }
+   
     
     //save user's photo to disk
     func saveImageToDisk(image: UIImage, fileName: String) {

@@ -26,24 +26,16 @@ struct HabitDetailedView_View: View {
         SortDescriptor(\.name)
     ]) var habits: FetchedResults<Habit>
     
+    //passing selected habit to navigation view
+    @State var habit: Habit
+    
     //timer variables
     @State private var hours = 0
     @State private var minutes = 0
     @State private var seconds = 0
     @State private var timer: Timer?
-    
-    
     @State private var pauseState = true
     
-    
-    @State private var startDisabled = false
-    @State private var pauseDisabled = true
-    @State private var resumeDisabled = true
-    
-    @State private var gradIn = false
-    @State private var gradOut = false
-    
-
     
     @State  var completionProgress = 0.0
     @State  var completionMinutesProgress = 0.0
@@ -53,11 +45,10 @@ struct HabitDetailedView_View: View {
     
     
     @State private var disableButton = false
-    @State private var loggedDays = 0
+    @State var loggedDays: Int
 
     
-    //passing selected habit to navigation view
-    @State var habit: Habit
+  
 
     
     @State var  confetti = 0
@@ -65,30 +56,13 @@ struct HabitDetailedView_View: View {
     @State private var showingSuccess = false
     
     var logDate =  Date.now.formatted(date: .numeric, time: .omitted)
-     
-    
-    func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
-        self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
-    }
-    
-    @State private var progress: CGFloat = 0
-       let gradient1 = Gradient(colors: [.purple, .yellow])
-       let gradient2 = Gradient(colors: [.blue, .purple])
     
     @State private var offset: CGFloat = 0
     
     var body: some View {
         ZStack {
-            
-            Rectangle()
-                .animatableGradient(fromGradient: gradient1, toGradient: gradient2, progress: progress)
-                .ignoresSafeArea()
-                .onAppear {
-                    withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: true)) {
-                        self.progress = 2.0
-                        completionProgress = habit.completionProgress
-                    }
-                }
+            GradientView()
+
             ScrollView {
                             VStack{
                                 HStack{
@@ -102,11 +76,15 @@ struct HabitDetailedView_View: View {
                                             HStack{
                                                 Text("Hours: ")
                                                 Text("\(hours)")
+                                            }.onTapGesture {
+                                                hours += 1
                                             }
                                            
                                             HStack{
                                                 Text("Minutes: ")
                                                 Text("\(minutes)")
+                                            }.onTapGesture {
+                                                minutes += 10
                                             }
                                           
                                            
@@ -117,112 +95,19 @@ struct HabitDetailedView_View: View {
                                         }
                                     }
                                     VStack {
-                                        ZStack{
-                                            ZStack {
-                                                // 2
-                                                ZStack {
-                                                    Circle()
-                                                        .stroke(
-                                                            Color.red.opacity(0.5),
-                                                            lineWidth: 15
-                                                        )
-                                                    Circle()
-                                                        .trim(from: 0, to: completionProgress)
-                                                        .stroke(
-                                                            Color.red,
-                                                            style: StrokeStyle(
-                                                                lineWidth: 15,
-                                                                lineCap: .round
-                                                            )
-                                                        )
-                                                        .rotationEffect(.degrees(-90))
-                                                        .animation(.easeOut, value: completionProgress)
-                                                    // 1
-                                                    
-                                                }
-                                                // 3
-                                                .frame(width: 150, height: 150)
-                                            }
-                                            .padding()//days circle
-                                            ZStack {
-                                                // 2
-                                                ZStack {
-                                                    Circle()
-                                                        .stroke(
-                                                            Color.blue.opacity(0.5),
-                                                            lineWidth: 15
-                                                        )
-                                                    Circle()
-                                                        .trim(from: 0, to: completionSecondsProgress)
-                                                        .stroke(
-                                                            (Color.blue),
-                                                            style: StrokeStyle(
-                                                                lineWidth: 15,
-                                                                lineCap: .round
-                                                            )
-                                                        )
-                                                        .rotationEffect(.degrees(-90))
-                                                        .animation(.easeOut, value: completionSecondsProgress)
-                                                    // 1
-                                                    
-                                                }
-                                                // 3
-                                                .frame(width: 115, height: 115)
-                                            }
-                                            .padding()//seconds circle
-                                            ZStack {
-                                                // 2
-                                                ZStack {
-                                                    Circle()
-                                                        .stroke(
-                                                            Color.green.opacity(0.5),
-                                                            lineWidth: 15
-                                                        )
-                                                    Circle()
-                                                        .trim(from: 0, to: completionMinutesProgress)
-                                                        .stroke(
-                                                            (Color.green),
-                                                            style: StrokeStyle(
-                                                                lineWidth: 15,
-                                                                lineCap: .round
-                                                            )
-                                                        )
-                                                        .rotationEffect(.degrees(-90))
-                                                        .animation(.easeOut, value: completionMinutesProgress)
-                                                    // 1
-                                                    
-                                                }
-                                                // 3
-                                                .frame(width: 80, height: 80)
-                                            }
-                                            .padding()//minutes circle
-                                            
-                                            ZStack {
-                                                // 2
-                                                ZStack {
-                                                    Circle()
-                                                        .stroke(
-                                                            Color.yellow.opacity(0.5),
-                                                            lineWidth: 15
-                                                        )
-                                                    Circle()
-                                                        .trim(from: 0, to: completionHoursProgress)
-                                                        .stroke(
-                                                            (Color.yellow),
-                                                            style: StrokeStyle(
-                                                                lineWidth: 15,
-                                                                lineCap: .round
-                                                            )
-                                                        )
-                                                        .rotationEffect(.degrees(-90))
-                                                        .animation(.easeOut, value: completionHoursProgress)
-                                                    // 1
-                                                    
-                                                }
-                                                // 3
-                                                .frame(width: 45, height: 45)
-                                            }
-                                            .padding()//hours circle
+                                        ZStack{ //progress circles
+                                            ProgressView(width: 15, circleProgress: habit.completionProgress, color: .red, frameWidth: 150.0, frameHeight: 150.0)
+                                                .padding()
+                                          
+                                            ProgressView(width: 15, circleProgress: completionSecondsProgress, color: .blue, frameWidth: 115.0, frameHeight: 115.0)
+                                                .padding()
+//
+                                            ProgressView(width: 15, circleProgress: habit.completionMinutesProgress, color: .green, frameWidth: 80.0, frameHeight: 80.0)
+                                                .padding()
+//
+                                            ProgressView(width: 15, circleProgress: completionHoursProgress, color: .yellow, frameWidth: 45.0, frameHeight: 45.0)
+                                                .padding()
+//
                                         }
                                     }
                                 }
@@ -231,13 +116,14 @@ struct HabitDetailedView_View: View {
                                         withAnimation(){
                                             loggedDays = Int(habit.loggedDays)
                                             loggedDays += 1
+                                            completionProgress = CGFloat((1 / (Double(habit.targetDays)) * Double(loggedDays)))
                                             habit.loggedDays = Int32(loggedDays)
-                                            completionProgress = (1 / (Double(habit.targetDays)) * Double(habit.loggedDays))
-                                            
                                             habit.completionProgress = completionProgress
+                                            
                                             try? moc.save()
                                             print("\(habit.loggedDays) logged days saved")
                                             print("\(habit.completionProgress) progress value set")
+                                            
                                             confetti += 1
                                             HapticManager.instance.notification(type: .success)
                                         }
@@ -298,7 +184,6 @@ struct HabitDetailedView_View: View {
                                             Text(pauseState ? "Start timer" : "Pause timer")
                                         }
                                     }
-                                    .disabled(startDisabled)
                                     .frame(width: 130, height: 50)
                                     .foregroundColor(.white)
                                     .background(.blue.opacity(0.7))
