@@ -32,6 +32,7 @@ struct AddHabitView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
+    
     let textLimit = 15
 
     @State private var name = ""
@@ -320,20 +321,8 @@ struct AddHabitView: View {
                     withAnimation(.easeInOut(duration: 2)) {
                         Button {
                             add()
+                            
                             HapticManager.instance.notification(type: .success)
-                            
-                            if let loadedShowOnboarding = loadString(key: "showOnboarding") {
-                                showOnboarding = Int(loadedShowOnboarding) ?? 0
-                            }
-                            
-                            if showOnboarding == 0 {
-                                isShowingOnboardingFinish = true
-                            }
-                            
-                            showOnboarding = 1
-                            saveData(key: "showOnboarding", value: String(showOnboarding))
-                            
-                            
                     } label: {
                         HStack{
                             Text("Save habit & start tracking")
@@ -355,6 +344,7 @@ struct AddHabitView: View {
             }
            
         }
+        
         
     }
     
@@ -388,8 +378,8 @@ struct AddHabitView: View {
         newHabit.totalLoggedTime = 0
         
 
-        
         try? moc.save()
+        
         dismiss()
     }
     
@@ -401,11 +391,21 @@ struct AddHabitView: View {
     func saveData(key: String, value: String) {
         UserDefaults.standard.set(value, forKey: key)
     }
+    
+    func saveOnboardingStatus(key: String, value: Bool) {
+        UserDefaults.standard.set(value, forKey: key)
+    }
+    
+    func loadBool(key: String) -> Bool? {
+        return UserDefaults.standard.bool(forKey: key)
+    }
+    
+   
 
 //load name from userDefaults
 func loadString(key: String) -> String? {
     return UserDefaults.standard.string(forKey: key)
-}
+  }  
 }
 
 struct AddHabit_Previews: PreviewProvider {

@@ -12,7 +12,6 @@ struct Step3_end: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     
-    @EnvironmentObject var appState: AppState
     
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
         self.modifier(AnimatableGradientModifier(fromGradient: fromGradient, toGradient: toGradient, progress: progress))
@@ -51,19 +50,19 @@ struct Step3_end: View {
                     .padding()
                     .offset(x: 0, y: offset)
                     .onAppear() {
-                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-                    withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
-                        self.offset = self.offset == 0 ? 5 : 0
+                        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+                            withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
+                                self.offset = self.offset == 0 ? 5 : 0
+                            }
+                        }
                     }
-                }
-            }
                 Text("Congratulations!")
                     .font(.title)
                 Text("Now you can add all your habits!")
                 
                 Button {
-                    appState.hasOnboarded3step = true
-//                    dismiss()
+                  //
+                    
                 } label: {
                     Label("Finish", systemImage: "checkmark.circle")
                 }
@@ -78,10 +77,19 @@ struct Step3_end: View {
             
             
         }
+ 
     }
     
     func loadString(key: String) -> String? {
         return UserDefaults.standard.string(forKey: key)
+    }
+    
+    func saveOnboardingStatus(key: String, value: Bool) {
+        UserDefaults.standard.set(value, forKey: key)
+    }
+    
+    func loadBool(key: String) -> Bool? {
+        return UserDefaults.standard.bool(forKey: key)
     }
 }
 

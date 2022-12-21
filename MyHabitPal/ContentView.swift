@@ -62,19 +62,9 @@ struct ContentView: View {
     @State private var isPresentingHabit: Habit? = nil
     
     var body: some View {
-        ZStack{
-           
-
-            
                 NavigationView{
-                    ZStack {
+                    ZStack{
                         GradientView()
-                        if step1 == "false" {
-                         
-                       
-                        } else if habits.isEmpty {
-                            AddHabitView()
-                        } else {
                         VStack{
                             ZStack{
                                 VStack(alignment: .leading){
@@ -102,6 +92,9 @@ struct ContentView: View {
                                         }
                                         .frame(width: 200, height: 50)
                                         .padding()
+                                        .onTapGesture {
+                                            addHabit = true
+                                        }
                                       
                                        
                                     }
@@ -145,40 +138,48 @@ struct ContentView: View {
                             
                             .scrollContentBackground(.hidden)    
                         }
-//                        .opacity(0.7)
-                        .toolbar {
-                            ToolbarItem{
-                                if habits.isEmpty {
-                                    //
-                                } else {
-                                    Button{
-                                        addHabit = true
-                                        HapticManager.instance.impact(style: .light)
-                                    } label: {
-                                        Label("Add new habit", systemImage: "plus")
-                                            .foregroundColor(.white)
-                                    }
+                       
+                        }
+                    .toolbar {
+                        ToolbarItem{
+                            if habits.isEmpty {
+                                Button{
+                                    addHabit = true
+                                    HapticManager.instance.impact(style: .light)
+                                } label: {
+                                    Label("Add new habit", systemImage: "plus")
+                                        .foregroundColor(.white)
+                                }
+                            } else {
+                                Button{
+                                    addHabit = true
+                                    HapticManager.instance.impact(style: .light)
+                                } label: {
+                                    Label("Add new habit", systemImage: "plus")
+                                        .foregroundColor(.white)
                                 }
                             }
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                if habits.isEmpty {
-                                    //
-                                } else {
-                                    Button{
-                                        showSettings = true
-                                        HapticManager.instance.impact(style: .light)
-                                    } label: {
-                                        Label("Add new habit", systemImage: "gear")
-                                            .foregroundColor(.white)
-                                    }
-                            }
-                                
-                            }
+                        }
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            if habits.isEmpty {
+                                //
+                            } else {
+                                Button{
+                                    showSettings = true
+                                    HapticManager.instance.impact(style: .light)
+                                } label: {
+                                    Label("Add new habit", systemImage: "gear")
+                                        .foregroundColor(.white)
+                                }
+                        }
+                            
                         }
                     }
-                    }
+                    .navigationTitle("myHabitPal")
                    
-//                    .navigationTitle(habits.isEmpty ? "" : "Habits")
+                   
+                   
+                   
                 }
 
             .sheet(isPresented: $addHabit) {
@@ -189,28 +190,7 @@ struct ContentView: View {
                 }
              
             
-        }
        
-        .onAppear{
-            if let loadedString = loadString(key: "userName") {
-              userName = loadedString
-                print(userName)
-            }
-            
-            if let loadedStep1 = loadString(key: "step1") {
-              step1 = loadedStep1
-                print("Step 1 \(step1)")
-            }
-            
-            if let loadedStep2 = loadString(key: "step2") {
-              step2 = loadedStep2
-                print("Step 2 \(step2)")
-            }
-            
-
-            
-            
-        }
     }
     
     func deleteHabits(at offsets: IndexSet) {

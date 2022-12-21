@@ -17,9 +17,6 @@ struct ProgressView: View {
      var frameWidth: CGFloat
      var frameHeight: CGFloat
     
-    
-
-    
     var body: some View {
         VStack {
                  ZStack {
@@ -48,7 +45,7 @@ struct ProgressView: View {
              }
         .frame(width: frameWidth, height: frameHeight)
         .padding()
-        }
+   }
        
          
 }

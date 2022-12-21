@@ -19,6 +19,8 @@ struct HabitDetailedView_View: View {
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
+    
+    
    
 
     
@@ -76,8 +78,6 @@ struct HabitDetailedView_View: View {
                                             HStack{
                                                 Text("Hours: ")
                                                 Text("\(hours)")
-                                            }.onTapGesture {
-                                                hours += 1
                                             }
                                            
                                             HStack{
