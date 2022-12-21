@@ -112,8 +112,8 @@ struct HabitDetailedView_View: View {
                                     }
                                 }
                                 HStack{
-                                    Button{ //days logging
-                                        withAnimation(){
+                                    withAnimation { Button{ //days logging
+                                        
                                             loggedDays = Int(habit.loggedDays)
                                             loggedDays += 1
                                             completionProgress = CGFloat((1 / (Double(habit.targetDays)) * Double(loggedDays)))
@@ -126,7 +126,7 @@ struct HabitDetailedView_View: View {
                                             
                                             confetti += 1
                                             HapticManager.instance.notification(type: .success)
-                                        }
+                                        
                                         if habit.actualDate! == Date.now.formatted(date: .numeric, time: .omitted) {
                                             
                                             habit.disabledButton = true
@@ -137,7 +137,7 @@ struct HabitDetailedView_View: View {
                                             print("Today's date is \(logDate)")
                                             print("Yesterday's date was \(habit.actualDate!)")
                                             
-                                          
+                                            
                                             
                                         }
                                         
@@ -150,6 +150,7 @@ struct HabitDetailedView_View: View {
                                             Image(systemName: habit.disabledButton ? "checkmark.circle" : "xmark.circle")
                                             Text(habit.disabledButton ? "Logged" : "Log day")
                                         }
+                                    }
                                     }
                                     .frame(width: 130, height: 50)
                                     .foregroundColor(.white)
