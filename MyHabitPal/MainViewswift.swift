@@ -9,32 +9,36 @@ import SwiftUI
 
 class AppState: ObservableObject {
     @Published var hasOnboarded: Bool
+    
 
     init(hasOnboarded: Bool) {
         self.hasOnboarded = hasOnboarded
+      
     }
 }
 
 
 struct MainView: View {
     @StateObject var appState = AppState(hasOnboarded: false)
-    
-    
+
+    @State var step = false
+ 
+
+
     var body: some View {
         
-        if let loadedOnBoardingStatus = loadBool(key: "onboarded") {
-            
-            if loadedOnBoardingStatus {
-            ContentView()
-                .environmentObject(appState)
-        } else {
-            Onboarding_1step_View()
-                .environmentObject(appState)
+        if let finishedOnboarding = loadBool(key: "finishedOnboarding"){
+            if finishedOnboarding{
+                ContentView()
+                    .environmentObject(appState)
+            } else {
+                OnboardingView()
+                    .environmentObject(appState)
+            }
         }
-        }
-           
-       
     }
+
+
     func loadBool(key: String) -> Bool? {
         return UserDefaults.standard.bool(forKey: key)
     }
@@ -45,3 +49,5 @@ struct MainViewswift_Previews: PreviewProvider {
         MainView()
     }
 }
+
+
