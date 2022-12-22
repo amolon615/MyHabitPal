@@ -38,7 +38,7 @@ struct HabitDetailedView_View: View {
     @State private var timer: Timer?
     @State private var pauseState = true
     
-    let minutesSegments = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
+    let minutesSegments = [15, 30, 45, 60]
     
     @State var selectedMinutes = 0
     
@@ -53,7 +53,7 @@ struct HabitDetailedView_View: View {
     @State private var disableButton = false
     @State var loggedDays: Int
 
-    
+    @State var animated = false
   
 
     
@@ -109,7 +109,7 @@ struct HabitDetailedView_View: View {
                                 }
                                 HStack{
                                     withAnimation { Button{ //days logging
-                                        
+                                        animated = true
                                             loggedDays = Int(habit.loggedDays)
                                             loggedDays += 1
                                             completionProgress = CGFloat((1 / (Double(habit.targetDays)) * Double(loggedDays)))
@@ -144,22 +144,29 @@ struct HabitDetailedView_View: View {
                                             Text(habit.disabledButton ? "Logged" : "Log day")
                                         }
                                     }
+                                    .scaleEffect(animated ? 0.6 : 1)
+                                    .onChange(of: animated) { newValue in
+                                        withAnimation(.easeInOut(duration: 0.7)) {
+                                            animated = false
+                                        }
                                     }
-                                    .frame(width: 130, height: 50)
+                                    }
+                                    .frame(width: 150, height: 50)
                                     .foregroundColor(.white)
                                     .disabled(habit.disabledButton)
                                     .background(habit.disabledButton ? .gray.opacity(0.7): .blue)
                                     .cornerRadius(10)
+                                    
                                 }
                                
                         }
-                        .frame(width: 350, height: 350)
+                        .frame(width: 350, height: 330)
                         .background(.thinMaterial)
                         .cornerRadius(10)
                         .shadow(radius: 5)
                         
                 VStack{
-                    Text("Swipe to select amount of minutes")
+                    Text("Select to select amount of minutes")
                         .padding()
                     HStack{
                         Picker("Select amount of minutes", selection: $selectedMinutes) {
@@ -167,9 +174,11 @@ struct HabitDetailedView_View: View {
                                 Text("\($0)")
                             }
                         }
+                        .padding()
 
                     }
-                    .pickerStyle(.wheel)
+                    .pickerStyle(.segmented)
+                    
                     .onAppear { //getting data from CD to draw changes
                         minutes = Int(habit.loggedMinutes)
                         hours = Int(habit.loggedHours)
@@ -197,6 +206,9 @@ struct HabitDetailedView_View: View {
                             completionHoursProgress = (1 / (Double(12)) * Double(hours))
                             try? moc.save()
                             
+                            animated = true
+                            HapticManager.instance.notification(type: .success)
+                            
                         }label:{
                             Label("Add segment", systemImage: "square.and.arrow.down")
                         }
@@ -205,9 +217,16 @@ struct HabitDetailedView_View: View {
                         .cornerRadius(10)
                         .foregroundColor(.white)
                         .padding()
+                        .scaleEffect(animated ? 0.8 : 1)
+                        .opacity(animated ? 0.7 : 1)
+                        .onChange(of: animated) { newValue in
+                            withAnimation(.easeInOut(duration: 0.5)) {
+                                animated = false
+                            }
+                        }
                     }
                 }
-                .frame(width: 350, height: 190)
+                .frame(width: 350, height: 210)
                 .background(.thinMaterial)
                 .cornerRadius(10)
                 .shadow(radius: 5)

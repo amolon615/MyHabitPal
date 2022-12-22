@@ -28,6 +28,7 @@
 		AC9159FA2957C09900F5022C /* MainViewswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9159F92957C09900F5022C /* MainViewswift.swift */; };
 		AC9159FC2957C09900F5022C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9159FB2957C09900F5022C /* OnboardingView.swift */; };
 		ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADF6D829489B8D00522D05 /* ProgressView.swift */; };
+		ACAE44EA29548588007851DD /* workplace.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE44E929548588007851DD /* workplace.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,6 +65,7 @@
 		AC9159F92957C09900F5022C /* MainViewswift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewswift.swift; sourceTree = "<group>"; };
 		AC9159FB2957C09900F5022C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		ACADF6D829489B8D00522D05 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		ACAE44E929548588007851DD /* workplace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = workplace.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				AC9159FB2957C09900F5022C /* OnboardingView.swift */,
+				ACAE44E929548588007851DD /* workplace.swift */,
 			);
 			path = Onboarding_VIew;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
 				AC9159FC2957C09900F5022C /* OnboardingView.swift in Sources */,
 				AC9159FA2957C09900F5022C /* MainViewswift.swift in Sources */,
+				ACAE44EA29548588007851DD /* workplace.swift in Sources */,
 				AC1BD3132952596600368AB4 /* Logged+CoreDataProperties.swift in Sources */,
 				AC33CD1D2942943A004F1E90 /* ColorPicker_extension.swift in Sources */,
 				ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */,

@@ -17,9 +17,16 @@ struct OnboardingView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
     
+    @FetchRequest(sortDescriptors: [
+        SortDescriptor(\.name)
+    ]) var habits: FetchedResults<Habit>
+    
     
     @State private var currentTab = 0
     
+    @State var isAnimated = false
+    
+    @State var animated = false
     
     @State private var name = ""
     let textLimit = 15
@@ -150,6 +157,7 @@ struct OnboardingView: View {
                             Button {
                                 withAnimation {
                                     currentTab = 1
+                                    isAnimated.toggle()
                                     
                                 }
                                 HapticManager.instance.impact(style: .light)
@@ -164,6 +172,13 @@ struct OnboardingView: View {
                             .background(.white)
                             .cornerRadius(10)
                             .padding()
+                            .scaleEffect(isAnimated ? 0.4 : 1)
+                            .onChange(of: isAnimated) { newValue in
+                                withAnimation{
+                                    isAnimated = false
+                                }
+                            }
+                            
                         }
                     }
                                .tag(0)
@@ -397,6 +412,7 @@ struct OnboardingView: View {
                                     currentTab = 2
 
                                 }
+                                animated = true
                                 
                                 //
                         } label: {
@@ -415,11 +431,18 @@ struct OnboardingView: View {
                         .shadow(radius: 10)
                         .opacity(0.8)
                         .padding()
+                        .scaleEffect(isAnimated ? 0.4 : 1)
+                        .onChange(of: isAnimated) { newValue in
+                            withAnimation{
+                                isAnimated = false
+                            }
+                        }
                         }
                     }
                 }
             }
                                .tag(1)
+            
             
             
             ZStack{
@@ -458,6 +481,7 @@ struct OnboardingView: View {
                     Text("Now you can add all your habits!")
                     Button {
                         appState.hasOnboarded = true
+                        HapticManager.instance.impact(style: .light)
                         saveOnboardingStatus(key: "finishedOnboarding", value: true)
                         confetti += 1
                         
@@ -470,6 +494,12 @@ struct OnboardingView: View {
                     .cornerRadius(10)
                     .foregroundColor(.blue)
                     .padding()
+                    .scaleEffect(isAnimated ? 0.4 : 1)
+                    .onChange(of: isAnimated) { newValue in
+                        withAnimation{
+                            isAnimated = false
+                        }
+                    }
                    
                     
                 }
