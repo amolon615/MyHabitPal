@@ -26,6 +26,7 @@ extension Habit {
     @NSManaged public var completionMinutesProgress: Double
     @NSManaged public var completionSecondsProgress: Double
     @NSManaged public var disabledButton: Bool
+    @NSManaged public var disableSegmentButton: Bool
     @NSManaged public var habitIcon: String?
     @NSManaged public var id: UUID?
     @NSManaged public var loggedDays: Int32

@@ -360,6 +360,7 @@ struct AddHabitView: View {
         newHabit.targetDays = Float(targetDays)
         newHabit.completionProgress = completionProgress
         newHabit.disabledButton = false
+        newHabit.disableSegmentButton = false
         
         newHabit.colorRed = Float(pickedColor.components.red)
         newHabit.colorBlue = Float(pickedColor.components.blue)

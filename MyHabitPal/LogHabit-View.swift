@@ -51,9 +51,12 @@ struct HabitDetailedView_View: View {
     
     
     @State private var disableButton = false
+    @State private var disabledSegmentButton = false
+    
     @State var loggedDays: Int
 
-    @State var animated = false
+    @State var animatedSegment = false
+    @State var animatedLog = false
   
 
     
@@ -109,7 +112,7 @@ struct HabitDetailedView_View: View {
                                 }
                                 HStack{
                                     withAnimation { Button{ //days logging
-                                        animated = true
+                                        animatedLog = true
                                             loggedDays = Int(habit.loggedDays)
                                             loggedDays += 1
                                             completionProgress = CGFloat((1 / (Double(habit.targetDays)) * Double(loggedDays)))
@@ -144,10 +147,10 @@ struct HabitDetailedView_View: View {
                                             Text(habit.disabledButton ? "Logged" : "Log day")
                                         }
                                     }
-                                    .scaleEffect(animated ? 0.6 : 1)
-                                    .onChange(of: animated) { newValue in
+                                    .scaleEffect(animatedLog ? 0.6 : 1)
+                                    .onChange(of: animatedLog) { newValue in
                                         withAnimation(.easeInOut(duration: 0.7)) {
-                                            animated = false
+                                            animatedLog = false
                                         }
                                     }
                                     }
@@ -195,8 +198,16 @@ struct HabitDetailedView_View: View {
                             if minutes >= 60 {
                                 hours += 1
                                 minutes = minutes - 60
-                            } else if hours == 24 {
+                            }
+                            
+                            if hours >= 24 {
                                 //add condition to handle number more than 24 hours
+                                habit.disableSegmentButton = true
+                                hours = 24
+                                minutes = 0
+                                
+                                try? moc.save()
+                                
                             }
                             
                             habit.loggedMinutes = Int32(minutes)
@@ -206,22 +217,23 @@ struct HabitDetailedView_View: View {
                             completionHoursProgress = (1 / (Double(12)) * Double(hours))
                             try? moc.save()
                             
-                            animated = true
+                            animatedSegment = true
                             HapticManager.instance.notification(type: .success)
                             
                         }label:{
                             Label("Add segment", systemImage: "square.and.arrow.down")
                         }
                         .frame(width: 150, height: 50)
-                        .background(.blue)
+                        .disabled(habit.disableSegmentButton)
+                        .background(habit.disableSegmentButton ? Color.gray : Color.blue)
                         .cornerRadius(10)
                         .foregroundColor(.white)
                         .padding()
-                        .scaleEffect(animated ? 0.8 : 1)
-                        .opacity(animated ? 0.7 : 1)
-                        .onChange(of: animated) { newValue in
+                        .scaleEffect(animatedSegment ? 0.8 : 1)
+                        .opacity(animatedSegment ? 0.7 : 1)
+                        .onChange(of: animatedSegment) { newValue in
                             withAnimation(.easeInOut(duration: 0.5)) {
-                                animated = false
+                                animatedSegment = false
                             }
                         }
                     }
@@ -329,6 +341,7 @@ struct HabitDetailedView_View: View {
                 hours = 0
             
                 habit.disabledButton = false
+                habit.disableSegmentButton = false
                 try? moc.save()
                
                 dismiss()
