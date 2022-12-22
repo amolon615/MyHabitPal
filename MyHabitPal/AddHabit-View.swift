@@ -141,7 +141,7 @@ struct AddHabitView: View {
                     ZStack(alignment: .leading){
                         RoundedRectangle(cornerRadius: 10)
                             .fill(colorScheme == .dark ? .gray : .white)
-                            .frame(width: 350, height: remind ? 350 : 190)
+                            .frame(width: 350, height: 130)
                             .shadow(radius: 10)
                             .padding()
                             .opacity(0.7)
@@ -155,9 +155,7 @@ struct AddHabitView: View {
                                 .frame(width: 320)
                                 .padding()
                                 .padding(.leading)
-                            Toggle("Log time?", isOn: $logMinutes)
-                                .padding()
-                                .frame(width: 320)
+    
                         }
                     }
                     
@@ -178,7 +176,7 @@ struct AddHabitView: View {
                                         .padding(.leading)
                                         .foregroundColor(myColor)
                                     }
-                            .frame(width: 310, height: 20)
+                            .frame(width: 300, height: 20)
                             .padding()
                             .padding(.leading)
                             .onTapGesture(perform: {
@@ -197,12 +195,12 @@ struct AddHabitView: View {
                                         showColorPicker.toggle()
                                         
                                     }
-                                    
-                                
-                                    
                             }
+                           
                             .padding()
+                       
                         }
+                        
                     }
                 }
                 

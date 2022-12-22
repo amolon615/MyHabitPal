@@ -140,7 +140,7 @@ struct ContentView: View {
                         }
                        
                         }
-                    .navigationTitle("myHabitPal")
+                    .navigationTitle("Summary")
                     .toolbar {
                         ToolbarItem{
                             if habits.isEmpty {
@@ -163,7 +163,13 @@ struct ContentView: View {
                         }
                         ToolbarItem(placement: .navigationBarLeading) {
                             if habits.isEmpty {
-                                //
+                                Button{
+                                    showSettings = true
+                                    HapticManager.instance.impact(style: .light)
+                                } label: {
+                                    Label("Add new habit", systemImage: "gear")
+                                        .foregroundColor(.white)
+                                }
                             } else {
                                 Button{
                                     showSettings = true

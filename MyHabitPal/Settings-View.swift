@@ -8,6 +8,7 @@
 import SwiftUI
 import SafariServices
 import CoreData
+import StoreKit
 
 struct Settings_View: View {
     @State private var chooseTheme = false
@@ -16,6 +17,9 @@ struct Settings_View: View {
     
     @Environment(\.managedObjectContext) var moc
     @Environment(\.colorScheme) var colorScheme
+    
+    @Environment(\.requestReview) var requestReview
+    
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.name)
     ]) var habits: FetchedResults<Habit>
@@ -143,7 +147,7 @@ struct Settings_View: View {
                         ZStack(alignment: .leading) {
                             withAnimation(.easeInOut(duration: 2)) {
                                 Button{
-                                //
+                                requestReview()
                                 }label:{
                                     HStack{
                                         Image(systemName: "star")

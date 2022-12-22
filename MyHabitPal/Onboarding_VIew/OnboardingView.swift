@@ -10,12 +10,14 @@ import Combine
 import SFSymbolsPicker
 import CoreData
 import ConfettiSwiftUI
+import StoreKit
 
 
 struct OnboardingView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.managedObjectContext) var moc
     @Environment(\.dismiss) var dismiss
+    @Environment(\.requestReview) var requestReview
     
     @FetchRequest(sortDescriptors: [
         SortDescriptor(\.name)
@@ -484,6 +486,7 @@ struct OnboardingView: View {
                         HapticManager.instance.impact(style: .light)
                         saveOnboardingStatus(key: "finishedOnboarding", value: true)
                         confetti += 1
+                        requestReview()
                         
                     } label: {
                         Label("Finish", systemImage: "checkmark.circle")
