@@ -169,7 +169,7 @@ struct HabitDetailedView_View: View {
                         .shadow(radius: 5)
                         
                 VStack{
-                    Text("Select to select amount of minutes")
+                    Text("Select amount of minutes")
                         .padding()
                     HStack{
                         Picker("Select amount of minutes", selection: $selectedMinutes) {

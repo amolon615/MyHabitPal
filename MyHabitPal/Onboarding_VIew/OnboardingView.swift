@@ -229,7 +229,7 @@ struct OnboardingView: View {
                         ZStack(alignment: .leading){
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(colorScheme == .dark ? .gray : .white)
-                                .frame(width: 350, height: remind ? 350 : 190)
+                                .frame(width: 350, height: remind ? 350 : 130)
                                 .shadow(radius: 10)
                                 .padding()
                                 .opacity(0.7)
@@ -243,9 +243,7 @@ struct OnboardingView: View {
                                     .frame(width: 320)
                                     .padding()
                                     .padding(.leading)
-                                Toggle("Log time?", isOn: $logMinutes)
-                                    .padding()
-                                    .frame(width: 320)
+                
                             }
                         }
                         
