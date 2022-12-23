@@ -230,11 +230,9 @@ struct AddHabitView: View {
         let date = Date.now
         
         let pickedColor = UIColor(myColor)
-        print(date)
         
         newHabit.id = UUID()
         newHabit.name = name
-        newHabit.about = about
         newHabit.loggedDays = Int32(loggedDays)
         newHabit.actualDate = actualDate
         newHabit.habitIcon = habitIcon
