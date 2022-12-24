@@ -338,13 +338,9 @@ struct AddHabitView: View {
                     .opacity(0.8)
                     .padding()
                     }
-                    
                 }
             }
-           
         }
-        
-        
     }
     
     func add(){

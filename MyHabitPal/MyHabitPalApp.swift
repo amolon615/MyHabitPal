@@ -9,7 +9,6 @@ import SwiftUI
 
 
 
-
 @main
 struct MyHabitPalApp: App {
     @StateObject private var dataController = DataController()
@@ -18,7 +17,7 @@ struct MyHabitPalApp: App {
 
     var body: some Scene {
         WindowGroup {
-          ContentView()
+            MainView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }

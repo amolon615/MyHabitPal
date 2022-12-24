@@ -28,6 +28,7 @@
 		AC33CD1D2942943A004F1E90 /* ColorPicker_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC33CD1C2942943A004F1E90 /* ColorPicker_extension.swift */; };
 		AC4089CB29536D1600BDC10E /* Onboarding_2ndstep_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4089CA29536D1600BDC10E /* Onboarding_2ndstep_View.swift */; };
 		AC4089CD29536DBF00BDC10E /* Onboarding_1step_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4089CC29536DBF00BDC10E /* Onboarding_1step_View.swift */; };
+		AC9159FA2957C09900F5022C /* MainViewswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9159F92957C09900F5022C /* MainViewswift.swift */; };
 		ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADF6D829489B8D00522D05 /* ProgressView.swift */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		AC33CD1C2942943A004F1E90 /* ColorPicker_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPicker_extension.swift; sourceTree = "<group>"; };
 		AC4089CA29536D1600BDC10E /* Onboarding_2ndstep_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_2ndstep_View.swift; sourceTree = "<group>"; };
 		AC4089CC29536DBF00BDC10E /* Onboarding_1step_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding_1step_View.swift; sourceTree = "<group>"; };
+		AC9159F92957C09900F5022C /* MainViewswift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewswift.swift; sourceTree = "<group>"; };
 		ACADF6D829489B8D00522D05 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +107,7 @@
 				AC1BD3122952596600368AB4 /* Logged+CoreDataProperties.swift */,
 				AC1BD3102952596600368AB4 /* Logged+CoreDataClass.swift */,
 				AC1BD30E2952596600368AB4 /* Habit+CoreDataProperties.swift */,
+				AC9159F92957C09900F5022C /* MainViewswift.swift */,
 				AC33CCC9293F55C6004F1E90 /* ContentView.swift */,
 				AC33CCDC293F5C15004F1E90 /* AddHabit-View.swift */,
 				AC33CCDE293F776A004F1E90 /* LogHabit-View.swift */,
@@ -250,6 +253,7 @@
 				AC33CCC8293F55C6004F1E90 /* MyHabitPalApp.swift in Sources */,
 				AC4089CD29536DBF00BDC10E /* Onboarding_1step_View.swift in Sources */,
 				AC1BD3082952596600368AB4 /* Onboarding_3dstep_View.swift in Sources */,
+				AC9159FA2957C09900F5022C /* MainViewswift.swift in Sources */,
 				AC1BD3132952596600368AB4 /* Logged+CoreDataProperties.swift in Sources */,
 				AC33CD1D2942943A004F1E90 /* ColorPicker_extension.swift in Sources */,
 				ACADF6D929489B8D00522D05 /* ProgressView.swift in Sources */,

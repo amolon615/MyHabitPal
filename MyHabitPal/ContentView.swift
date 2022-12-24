@@ -140,6 +140,7 @@ struct ContentView: View {
                         }
                        
                         }
+                    .navigationTitle("myHabitPal")
                     .toolbar {
                         ToolbarItem{
                             if habits.isEmpty {
@@ -175,11 +176,15 @@ struct ContentView: View {
                             
                         }
                     }
-                    .navigationTitle("myHabitPal")
                    
                    
                    
                    
+                }
+                .onAppear{
+                    if let loadedUsername = loadString(key: "username"){
+                        userName = loadedUsername
+                    }
                 }
 
             .sheet(isPresented: $addHabit) {

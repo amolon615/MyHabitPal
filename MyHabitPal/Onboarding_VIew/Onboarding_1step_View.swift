@@ -11,6 +11,8 @@ import Combine
 struct Onboarding_1step_View: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @EnvironmentObject var appState: AppState
+    
     
     @State var userName = ""
     let userNameLimit = 15
@@ -53,10 +55,11 @@ struct Onboarding_1step_View: View {
             
             Button {
                 HapticManager.instance.impact(style: .light)
-               
                 
+                saveData(key: "username", value: userName)
                 
-                
+                appState.hasOnboarded = true
+                saveOnboardingStatus(key: "onboarded", value: true)
                 
             } label: {
                 Label("Save", systemImage: "square.and.arrow.down")
