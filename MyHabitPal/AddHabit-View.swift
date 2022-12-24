@@ -321,7 +321,6 @@ struct AddHabitView: View {
                     withAnimation(.easeInOut(duration: 2)) {
                         Button {
                             add()
-                            
                             HapticManager.instance.notification(type: .success)
                     } label: {
                         HStack{

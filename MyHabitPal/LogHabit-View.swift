@@ -38,6 +38,10 @@ struct HabitDetailedView_View: View {
     @State private var timer: Timer?
     @State private var pauseState = true
     
+    let minutesSegments = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]
+    
+    @State var selectedMinutes = 0
+    
     
     @State  var completionProgress = 0.0
     @State  var completionMinutesProgress = 0.0
@@ -83,30 +87,22 @@ struct HabitDetailedView_View: View {
                                             HStack{
                                                 Text("Minutes: ")
                                                 Text("\(minutes)")
-                                            }.onTapGesture {
-                                                minutes += 10
                                             }
-                                          
-                                           
-                                            HStack{
-                                                Text("Seconds: ")
-                                                Text("\(seconds)")
-                                            }
+                       
                                         }
                                     }
                                     VStack {
                                         ZStack{ //progress circles
-                                            ProgressView(width: 15, circleProgress: habit.completionProgress, color: .red, frameWidth: 150.0, frameHeight: 150.0)
+                                            ProgressView(width: 20, circleProgress: habit.completionProgress, color: .red, frameWidth: 150.0, frameHeight: 150.0)
                                                 .padding()
                                           
-                                            ProgressView(width: 15, circleProgress: completionSecondsProgress, color: .blue, frameWidth: 115.0, frameHeight: 115.0)
+                                            ProgressView(width: 20, circleProgress: completionHoursProgress, color: .blue, frameWidth: 100.0, frameHeight: 100.0)
                                                 .padding()
 //
-                                            ProgressView(width: 15, circleProgress: habit.completionMinutesProgress, color: .green, frameWidth: 80.0, frameHeight: 80.0)
+                                            ProgressView(width: 20, circleProgress: completionMinutesProgress, color: .green, frameWidth: 50.0, frameHeight: 50.0)
                                                 .padding()
 //
-                                            ProgressView(width: 15, circleProgress: completionHoursProgress, color: .yellow, frameWidth: 45.0, frameHeight: 45.0)
-                                                .padding()
+
 //
                                         }
                                     }
@@ -136,9 +132,6 @@ struct HabitDetailedView_View: View {
                                             print("Log button was disabled")
                                             print("Today's date is \(logDate)")
                                             print("Yesterday's date was \(habit.actualDate!)")
-                                            
-                                            
-                                            
                                         }
                                         
                                         if loggedDays == Int(habit.targetDays) {
@@ -147,7 +140,7 @@ struct HabitDetailedView_View: View {
                                         
                                     } label: {
                                         HStack{
-                                            Image(systemName: habit.disabledButton ? "checkmark.circle" : "xmark.circle")
+                                            Image(systemName: habit.disabledButton ? "xmark.circle" : "checkmark.circle")
                                             Text(habit.disabledButton ? "Logged" : "Log day")
                                         }
                                     }
@@ -157,38 +150,6 @@ struct HabitDetailedView_View: View {
                                     .disabled(habit.disabledButton)
                                     .background(habit.disabledButton ? .gray.opacity(0.7): .blue)
                                     .cornerRadius(10)
-                                    
-                                    Button { //timer controls
-                                        if pauseState == true {
-                                            startTimer()
-                                            pauseState = false
-                                        } else {
-                                            stopTimer()
-                                            pauseState = true
-                                            habit.loggedMinutes = Int32(minutes)
-                                            habit.loggedSeconds = Int32(seconds)
-                                            habit.loggedHours = Int32(hours)
-                                            
-                                            habit.completionSecondsProgress = completionSecondsProgress
-                                            habit.completionMinutesProgress = completionMinutesProgress
-                                            habit.completionHoursProgress = completionHoursProgress
-                                            
-                                            try? moc.save()
-                                            
-                                            print("\(habit.loggedMinutes) was saved")
-                                            print("today's date is \(habit.actualDate!)")
-                                        }
-                                        
-                                    } label: {
-                                        HStack{
-                                            Image(systemName: pauseState ? "play" : "pause.circle")
-                                            Text(pauseState ? "Start timer" : "Pause timer")
-                                        }
-                                    }
-                                    .frame(width: 130, height: 50)
-                                    .foregroundColor(.white)
-                                    .background(.blue.opacity(0.7))
-                                    .cornerRadius(10)
                                 }
                                
                         }
@@ -196,22 +157,97 @@ struct HabitDetailedView_View: View {
                         .background(.thinMaterial)
                         .cornerRadius(10)
                         .shadow(radius: 5)
-                        .onAppear { //getting data from CD to draw changes
-                            minutes = Int(habit.loggedMinutes)
-                            seconds = Int(habit.loggedSeconds)
-                            hours = Int(habit.loggedHours)
-                            
-                            completionHoursProgress = habit.completionHoursProgress
-                            completionMinutesProgress = habit.completionMinutesProgress
-                            completionSecondsProgress = habit.completionSecondsProgress
-                            
+                        
+                VStack{
+                    Text("Swipe to select amount of minutes")
+                        .padding()
+                    HStack{
+                        Picker("Select amount of minutes", selection: $selectedMinutes) {
+                            ForEach(minutesSegments, id:\.self) {
+                                Text("\($0)")
+                            }
                         }
+
+                    }
+                    .pickerStyle(.wheel)
+                    .onAppear { //getting data from CD to draw changes
+                        minutes = Int(habit.loggedMinutes)
+                        hours = Int(habit.loggedHours)
+                        
+                        completionHoursProgress = habit.completionHoursProgress
+                        completionMinutesProgress = habit.completionMinutesProgress
+                        
+                    }
+                    
+                    HStack{
+                        Button {
+                            minutes += selectedMinutes
+                            
+                            if minutes >= 60 {
+                                hours += 1
+                                minutes = minutes - 60
+                            } else if hours == 24 {
+                                //add condition to handle number more than 24 hours
+                            }
+                            
+                            habit.loggedMinutes = Int32(minutes)
+                            print("\(habit.loggedMinutes) minutes was saved")
+                            habit.loggedHours = Int32(hours)
+                            completionMinutesProgress = (1 / (Double(60)) * Double(minutes))
+                            completionHoursProgress = (1 / (Double(12)) * Double(hours))
+                            try? moc.save()
+                            
+                        }label:{
+                            Label("Add segment", systemImage: "square.and.arrow.down")
+                        }
+                        .frame(width: 150, height: 50)
+                        .background(.blue)
+                        .cornerRadius(10)
+                        .foregroundColor(.white)
+                        .padding()
+                    }
+                }
+                .frame(width: 350, height: 190)
+                .background(.thinMaterial)
+                .cornerRadius(10)
+                .shadow(radius: 5)
                 
-                if habit.loggedArray.count > 0 {
+                
+                
                     VStack { //drawing charts
-                        if habit.loggedArray.count > 4 {
+                        
+                        if habit.loggedArray.count < 3 {
+                            ZStack{
+                                Rectangle()
+                                    .fill(.white.opacity(0.5))
+                                    .frame(width: 300, height: 250)
+                                    .cornerRadius(10)
+                                    .shadow(radius: 10)
+                                VStack{
+                                    Image("avatar")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 70)
+                                        .clipShape(Circle())
+                                        .padding()
+                                    ZStack{
+                                        VStack{
+                                            Text("Get back here in a few days.")
+                                                .font(.caption)
+                                            Text("I'll draw nice chart for you!")
+                                                .font(.caption)
+                                        }
+                                    }
+                                    .frame(width: 250, height: 90)
+                                    .background(.white.opacity(0.5))
+                                    .cornerRadius(10)
+                                    .shadow(radius: 10)
+                                }
+                            }
+                        } else {
+                            
                             Chart(habit.loggedArray.sorted {$0.date! < $1.date!} ){
-                                AreaMark(
+                                BarMark(
                                     x: .value("Date", $0.date!),
                                     y: .value("Minutes", $0.minutes)
                                 )
@@ -219,31 +255,29 @@ struct HabitDetailedView_View: View {
                                 .interpolationMethod(.catmullRom)
                             }
                             
-                            .frame(height: habit.loggedArray.isEmpty ? 0 : 250)
+                            .frame(height: 250)
+                            
+                            
+                            List{
+                                ForEach(habit.loggedArray.sorted {$0.date! > $1.date! }){logged in
+                                    HStack{
+                                        Text(logged.date ?? "default date")
+                                        Text("\(logged.minutes) minutes logged")
+                                    }
+                                }
+                            }
+                            
+                            .scrollContentBackground(.hidden)
+                            .frame(width: 350, height: habit.loggedArray.isEmpty ? 0 : 250)
+                            .opacity(0.7)
+                            .cornerRadius(10)
                         }
-                                 
-                                        List{
-                                            ForEach(habit.loggedArray.sorted {$0.date! > $1.date! }){logged in
-                                                HStack{
-                                                    Text(logged.date ?? "default date")
-                                                    Text("\(logged.minutes) minutes logged")
-                                                }
-                                            }
-                                        }
-                                    
-                                    .scrollContentBackground(.hidden)
-                                    .frame(width: 350, height: habit.loggedArray.isEmpty ? 0 : 250)
-                                    .opacity(0.7)
-                                    .cornerRadius(10)
-                              
                         }
                     .padding()
-                    .frame(maxWidth: 350, maxHeight: habit.logMinutes ? .infinity : 0)
+                    .frame(maxWidth: 350)
                     .padding(.vertical, 20)
                     .background(.thinMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .ignoresSafeArea()
-                }
+                    .cornerRadius(10)
                 }
             .sheet(isPresented: $showingSuccess) {
                 VStack{
@@ -261,17 +295,18 @@ struct HabitDetailedView_View: View {
                 print("User saved \(habit.loggedMinutes)")
                 let newLogged = Logged(context: moc)
                 newLogged.date = habit.actualDate
-                newLogged.minutes = habit.loggedMinutes + habit.loggedHours / 60
+                newLogged.minutes = habit.loggedMinutes + habit.loggedHours * 60
                 newLogged.id = UUID()
                 habit.actualDate = Date.now.formatted(date: .numeric, time: .omitted)
 
 
                 habit.addToLogged(newLogged)
-                habit.totalLoggedTime = habit.loggedMinutes
-                print("total logged time \(habit.totalLoggedTime)")
+
+                
+                habit.totalLoggedTime = habit.loggedMinutes + (habit.loggedHours * 60)
+                print("total logged minutes \(habit.totalLoggedTime)")
                 habit.loggedMinutes = 0
                 minutes = 0
-                seconds = 0
                 hours = 0
             
                 habit.disabledButton = false
@@ -286,38 +321,7 @@ struct HabitDetailedView_View: View {
         }
         .confettiCannon(counter: $confetti)
         }
-    
-    func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            self.seconds += 1
-            completionSecondsProgress = (1 / (Double(60)) * Double(seconds))
-            
-            if self.seconds == 60 {
-                self.minutes += 1
-                completionMinutesProgress = (1 / (Double(60)) * Double(minutes))
-                self.seconds = 0
-                
-                if self.minutes == 60 {
-                    self.hours += 1
-                    completionHoursProgress = (1 / (Double(12)) * Double(hours))
-                    self.minutes = 0
-                }
-            }
-            
-        }
-    }
-    
-    func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
-    func resumeTimer() {
-        startTimer()
-    }
-    
-    
-    
+   
 }
 
 
