@@ -47,13 +47,12 @@ struct HabitDetailedView_View: View {
     //passing selected habit to navigation view
     @State var habit: Habit
 
-    @State var disableMessage = ""
     
     @State var  confetti = 0
     
     @State private var showingSuccess = false
     
-    var logDate =  Date.now.formatted(date: .long, time: .omitted)
+    var logDate =  Date.now.formatted(date: .numeric, time: .omitted)
      
     
     func animatableGradient(fromGradient: Gradient, toGradient: Gradient, progress: CGFloat) -> some View {
@@ -80,19 +79,6 @@ struct HabitDetailedView_View: View {
                 }
             ScrollView{
                 VStack{
-                    Image("bot_log")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 40)
-                        .padding()
-                        .offset(x: 0, y: offset)
-                        .onAppear() {
-                            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-                                withAnimation(.interpolatingSpring(stiffness: 100, damping: 10)){
-                                    self.offset = self.offset == 0 ? 5 : 0
-                                }
-                            }
-                        }
                     ZStack {
                         // 2
                         ZStack {
@@ -141,9 +127,7 @@ struct HabitDetailedView_View: View {
                         
                         
                     }
-                    if habit.logMinutes == true {
-                        
-                    }
+
                     
                     
                     VStack {
@@ -171,13 +155,12 @@ struct HabitDetailedView_View: View {
                                 confetti += 1
                                 HapticManager.instance.notification(type: .success)
                             }
-                            if habit.actualDate! == Date.now.formatted(date: .long, time: .omitted) {
+                            if habit.actualDate! == Date.now.formatted(date: .numeric, time: .omitted) {
                                 
                                 habit.disabledButton = true
                                 
                                 try? moc.save()
                                 
-                                disableMessage = "You've already logged your habit today! Come back tomorrow!"
                                 print("Log button was disabled")
                                 print("Today's date is \(logDate)")
                                 print("Yesterday's date was \(habit.actualDate!)")
@@ -191,7 +174,7 @@ struct HabitDetailedView_View: View {
                         } label: {
                             Text(habit.disabledButton ? "Come back tomorrow" : "Log day")
                         }
-                        .frame(width: 200, height: 60)
+                        .frame(width: 180, height: 50)
                         .foregroundColor(.white)
                         .disabled(habit.disabledButton)
                         .background(habit.disabledButton ? .gray: .blue)
@@ -210,10 +193,11 @@ struct HabitDetailedView_View: View {
                                         pauseDisabled = false   //enabling pause button
                                         resumeDisabled = true  //disabling resume button
                                         
-                                    } label: {  Text("Start")
+                                    } label: {
+                                        Image(systemName: "play")
                                     }
                                     .disabled(startDisabled)
-                                    .frame(width: 70, height: 70)
+                                    .frame(width: 50, height: 50)
                                     .foregroundColor(.white)
                                     .background(startDisabled ? .gray: .blue)
                                     .cornerRadius(10)
@@ -231,12 +215,12 @@ struct HabitDetailedView_View: View {
                                         try? moc.save()
                                         
                                         print("\(habit.loggedMinutes) was saved")
-                                        print("today's date is \(habit.actualDate)")
+                                        print("today's date is \(habit.actualDate!)")
                                     } label : {
-                                        Text("Pause")
+                                        Image(systemName: "pause.circle")
                                     }
                                     .disabled(pauseDisabled)
-                                    .frame(width: 70, height: 70)
+                                    .frame(width: 50, height: 50)
                                     .foregroundColor(.white)
                                     .background(pauseDisabled ? .gray: .blue)
                                     .cornerRadius(10)
@@ -248,22 +232,15 @@ struct HabitDetailedView_View: View {
                                         pauseDisabled = false
                                         resumeDisabled = true
                                         
-                                    }label:{   Text("Resume")
+                                    }label:{
+                                        Image(systemName: "playpause")
                                     }
-                                    .frame(width: 70, height: 70)
+                                    .frame(width: 50, height: 50)
                                     .foregroundColor(.white)
                                     .background(resumeDisabled ? .gray: .blue)
                                     .cornerRadius(10)
                                     .disabled(resumeDisabled)
-                                    Button {
-                                        minutes += 1
-                                        
-                                    }label:{   Text("add minutes")
-                                    }
-                                    .frame(width: 70, height: 70)
-                                    .foregroundColor(.white)
-                                    .background(resumeDisabled ? .gray: .blue)
-                                    .cornerRadius(10)
+                                 
                                     
                                     
                                 }
@@ -272,19 +249,23 @@ struct HabitDetailedView_View: View {
                                         x: .value("Date", $0.date!),
                                         y: .value("Minutes", $0.minutes)
                                     )
+                                    .interpolationMethod(.catmullRom)
                                 }
-                                .frame(height: 250)
                                 
+                                .frame(height: 250)
+                             
                                 List{
-                                    ForEach(habit.loggedArray.sorted {$0.date! < $1.date! }){logged in
+                                    ForEach(habit.loggedArray.sorted {$0.date! > $1.date! }){logged in
                                         HStack{
                                             Text(logged.date ?? "default date")
-                                            Text("\(logged.minutes)")
+                                            Text("\(logged.minutes) minutes logged")
                                         }
                                     }
                                 }
-                                .frame(height: 300)
-                                
+                                .scrollContentBackground(.hidden)
+                                .frame(height: 250 )
+                                .cornerRadius(10)
+                            
                                 
                             }
                         }
@@ -315,28 +296,31 @@ struct HabitDetailedView_View: View {
                 .confettiCannon(counter: $confetti)
             }
         }.onAppear{
-            if habit.actualDate != Date.now.formatted(date: .long, time: .omitted) {
+            if habit.actualDate != Date.now.formatted(date: .numeric, time: .omitted) {
 
-                print("Today's \(habit.actualDate)")
+                print("Today's \(habit.actualDate!)")
                 print("User saved \(habit.loggedMinutes)")
                 let newLogged = Logged(context: moc)
                 newLogged.date = habit.actualDate
-                newLogged.minutes = habit.loggedMinutes
+                newLogged.minutes = habit.loggedMinutes + habit.loggedSeconds / 60
                 newLogged.id = UUID()
-                habit.actualDate = Date.now.formatted(date: .long, time: .omitted)
+                habit.actualDate = Date.now.formatted(date: .numeric, time: .omitted)
 
 
                 habit.addToLogged(newLogged)
-
+                habit.totalLoggedTime = habit.loggedMinutes
+                print("total logged time \(habit.totalLoggedTime)")
                 habit.loggedMinutes = 0
                 minutes = 0
-
+                seconds = 0
+                habit.disabledButton = false
                 try? moc.save()
+               
                 dismiss()
                 print("Today's \(habit.actualDate ?? "default")")
                 print("User saved: \(habit.loggedMinutes)")
 
-                print("Yesterday was \(newLogged.date). User saved \(newLogged.minutes)")
+                print("Yesterday was \(newLogged.date!). User saved \(newLogged.minutes)")
             }
         }
         .confettiCannon(counter: $confetti)

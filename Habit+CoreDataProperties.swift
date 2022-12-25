@@ -33,6 +33,7 @@ extension Habit {
     @NSManaged public var name: String?
     @NSManaged public var notificationDay: Int32
     @NSManaged public var notificationHour: Int32
+    @NSManaged public var totalLoggedTime: Int32
     @NSManaged public var notificationMinute: Int32
     @NSManaged public var target: Int32
     @NSManaged public var targetDays: Float

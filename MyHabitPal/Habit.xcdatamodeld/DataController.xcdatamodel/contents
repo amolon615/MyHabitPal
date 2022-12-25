@@ -21,6 +21,7 @@
         <attribute name="notificationMinute" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="target" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="targetDays" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="totalLoggedTime" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="logged" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Logged" inverseName="habit" inverseEntity="Logged"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
