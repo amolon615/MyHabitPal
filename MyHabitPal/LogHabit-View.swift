@@ -251,7 +251,7 @@ struct HabitDetailedView_View: View {
                                     )
                                     .interpolationMethod(.catmullRom)
                                 }
-                                
+               
                                 .frame(height: 250)
                              
                                 List{
@@ -263,6 +263,7 @@ struct HabitDetailedView_View: View {
                                     }
                                 }
                                 .scrollContentBackground(.hidden)
+                
                                 .frame(height: 250 )
                                 .cornerRadius(10)
                             
