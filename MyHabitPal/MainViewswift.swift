@@ -21,10 +21,6 @@ class AppState: ObservableObject {
 struct MainView: View {
     @StateObject var appState = AppState(hasOnboarded: false)
 
-    @State var step = false
- 
-
-
     var body: some View {
         
         if let finishedOnboarding = loadBool(key: "finishedOnboarding"){

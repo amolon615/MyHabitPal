@@ -136,22 +136,7 @@ struct OnboardingView: View {
                                         .foregroundColor(colorScheme == .dark ? .white : .gray)
                                     
                                 }
-                                
-                //                Button {
-                //                    HapticManager.instance.impact(style: .light)
-                //
-                //                    saveData(key: "username", value: userName)
-                //
-                                    
-                //
-                //                } label: {
-                //                    Label("Save", systemImage: "square.and.arrow.down")
-                //
-                //                }
-                //                .disabled(userName == "" ? true : false)
-                //                .frame(width: 170, height: 50)
-                //                .background(.white)
-                //                .cornerRadius(10)
+    
                             }
                         }
                         VStack{
